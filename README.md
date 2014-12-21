@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿# [请注意：33号铺停止更新了！](http://yuguo.us/weblog/33pu-stop-update/) #
 
 我遗憾地决定停止更新[33号铺](https://github.com/yuguo/33pu)，最主要的原因是根据[淘宝新规](http://club.alimama.com/read-htm-tid-4369390.html)，对于API权限有大幅度的削减，对于[API接口开发应用的准入条件](http://open.taobao.com/doc/detail.htm?id=139)修改为以下：
@@ -75,3 +76,9 @@ Clone代码到本地，`git clone git://github.com/yuguo/33pu.git`
 - 腾讯微博：[http://t.qq.com/chandleryu](http://t.qq.com/chandleryu)
 - Twitter：[yuguo](https://twitter.com/yuguo)
 - 个人主页：[http://yuguo.us](http://yuguo.us)
+=======
+GreedyBoxWeb
+============
+
+for greedybox.com
+>>>>>>> a47409faaad6dbf4a7fed20e8cf453356e5c23b6
