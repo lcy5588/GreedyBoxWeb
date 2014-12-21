@@ -1,0 +1,10 @@
+*/config/development
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
+/images
+.idea
+.DS_Store
+*.sublime-project
+*.sublime-workspace
