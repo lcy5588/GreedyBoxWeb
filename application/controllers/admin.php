@@ -130,7 +130,24 @@ class Admin extends CI_Controller {
 
 			$data['query'] = $this->M_item->get_all_item($limit,$offset);
 			$data['cat'] = $this->M_cat->get_all_cat();
-
+			
+			$itemsstatus = array();
+			
+			 for($i = 30; $i >= 0; $i -= 10){
+				
+				$result = $this->M_item->get_item_status($i);
+				if($result != null){
+					$itemst = array();
+					$itemst["overdays"] = $i; 
+					$itemst["count"] = $result->count; 
+					$itemst["sum"] = $result->sum; 
+					
+					$itemsstatus[] = $itemst;
+				 }
+			 }
+			
+			$data["itemsstatus"] = $itemsstatus;
+			
 			$this->load->view('admin/include_header');
 			$this->load->view('admin/status/items_view',$data);
 		}
@@ -297,11 +314,11 @@ class Admin extends CI_Controller {
 			$offset = ($page-1)*$limit;
 			$this->load->library('pagination');
 
-			$config['base_url'] = site_url('/admin/manageitem');
+			$config['base_url'] = site_url('/admin/manageitem/');
 			//site_url可以防止换域名代码错误。
 
 	        $config['use_page_numbers'] = TRUE;
-	        $config['first_url'] = site_url('/admin/manageitem');
+	        //$config['first_url'] = site_url('/admin/manageitem');
 
 			$config['total_rows'] = $this->M_item->count_items();
 			//这是模型里面的方法，获得总数。
@@ -310,7 +327,7 @@ class Admin extends CI_Controller {
 			$config['first_link'] = '首页';
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
-			$config['uri_segment'] = 4;
+			$config['uri_segment'] = 3;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -394,7 +411,7 @@ class Admin extends CI_Controller {
 			$config['first_link'] = '首页';
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
-			$config['uri_segment'] = 4;
+			$config['uri_segment'] = 3;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -558,7 +575,7 @@ class Admin extends CI_Controller {
 			$config['first_link'] = '首页';
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
-			$config['uri_segment'] = 4;
+			$config['uri_segment'] = 3;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -641,7 +658,7 @@ class Admin extends CI_Controller {
 			$config['first_link'] = '首页';
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
-			$config['uri_segment'] = 4;
+			$config['uri_segment'] = 3;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -782,7 +799,7 @@ class Admin extends CI_Controller {
 			$config['first_link'] = '首页';
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
-			$config['uri_segment'] = 4;
+			$config['uri_segment'] = 3;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -798,6 +815,28 @@ class Admin extends CI_Controller {
 			
 			$this->load->view('admin/include_header');
 			$this->load->view('admin/manage_friendlinks_view',$data);
+	}
+	
+	function delete_overdays(){
+		$days = $post->input["days"];
+		if($this->M_item->delete_overdays($days))
+		{
+			echo true;
+		}
+		else{
+			echo false;
+		}
+		
+	}
+	
+	function delete_all_item(){
+		if($this->M_item->delete_all_item())
+		{
+			echo true;
+		}
+		else{
+			echo false;
+		}
 	}
 }
 

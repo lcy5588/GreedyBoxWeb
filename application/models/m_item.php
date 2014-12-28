@@ -197,6 +197,38 @@ class M_item extends CI_Model{
 		return $query;
 	}
 
+	function get_item_status($days){
+		$overday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $days, date("Y"));
+		
+		$this->db->select("count(id) as count,sum(click_count) as sum");
+		$this->db->where("adddatetime <= ",date('y-m-d h:i:s',$overday));
+		
+		$query = $this->db->get($this->item_table);
+		
+		if($query->num_rows()>0){
+			$result = $query->result();
+			return $result[0];        
+		}else 
+			return null;
+	}
+	
+	function delete_overdays($days){
+		$overday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $days, date("Y"));
+		
+		$this->db->where("adddatetime <= ",date('y-m-d h:i:s',$overday));
+		
+		$result = $this->db->delete($this->item_table);
+		
+		return $result;
+	}
+	
+	function delete_all_item(){		
+		
+		$result = $this->db->empty_table($this->item_table);
+		
+		return $result;
+	}
+	
     /**
      * 判断条目是否已经存在
      *

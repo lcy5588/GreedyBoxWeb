@@ -4,10 +4,12 @@
 <meta charset="UTF-8" />
 
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-datetimepicker.min.css" />
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/backend.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/index.css?d=20120705" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/index.css" />
 	<script type='text/javascript' src='<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js'></script>
+	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap-datetimepicker.min.js'></script>
 </head>
 <body style="padding-top:60px;">
 

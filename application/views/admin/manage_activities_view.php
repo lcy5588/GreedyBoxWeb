@@ -48,7 +48,7 @@
 		</div>
 		</form>
 		<div>
-		<div>
+		<div style="float:left;">
 			主横幅：<select class="addbanner-control" id="primaryimg">
 				<option>全部</option>
 			<?php if($bannerpic_primary->num_rows()>0){?>
@@ -58,6 +58,7 @@
 			<?php endforeach;}?>
 			</select>
 		</div>
+		<div style="float:left;">
 			<div>
 				横幅1
 				<select class="addbanner-control" id="pic1img">
@@ -79,6 +80,8 @@
 			<?php endforeach;}?>
 				</select>
 			</div>
+		</div>
+		<div style="float:left;">
 			<div>
 				横幅3
 				<select class="addbanner-control" id="pic3img">
@@ -99,6 +102,7 @@
 			<?php endforeach;}?>
 				</select>
 			</div>
+		</div>
 		</div>
 		  </div>
 				<div class="modal-footer">
@@ -214,50 +218,71 @@
 	
          <!--增加修改modal--> 
           <div class="modal fade" id="addbannerpic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
     	<div class="modal-content">
     		<div class="modal-header">
       			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       			<h4 class="modal-title" id="addbannerpic-modal-title">新增横幅图片</h4>
     		</div>
         <div class="modal-body">
-          <form role="form" id="addbannerpicform" name="addbannerpicform" method="post" action="<?php echo site_url('admin/addbannerpic')?>">
+          <form role="form" id="addbannerpicform" class="form-horizontal" name="addbannerpicform" method="post" action="<?php echo site_url('admin/addbannerpic')?>">
 		  <input type="hidden" id="bannerpicid" name="bannerpicid" value=""/>
               <div class="form-group">
-                <label for="name">标题</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="标题">
-              </div>
+                <label for="name" class="col-sm-2">标题</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="name" name="name" placeholder="标题">
+				</div>
+			  </div>
               <div class="form-group">
-                <label for="click_url">点击地址</label>
-                <input type="text" class="form-control" id="click_url" name="click_url" placeholder="点击地址">
-              </div>
+                <label for="click_url" class="col-sm-2">点击地址</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="click_url" name="click_url" placeholder="点击地址">
+				</div>
+			  </div>
               <div class="form-group">
-                <label for="img_url">图片地址</label>
-                <input type="text" class="form-control" id="img_url" name="img_url" placeholder="图片地址">
-              </div>
+                <label for="img_url" class="col-sm-2">图片地址</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="img_url" name="img_url" placeholder="图片地址">
+				</div>
+			  </div>
               <div class="form-group">
-                <label for="type">类型</label>
-                <input type="text" class="form-control" id="type" name="type" placeholder="类型">
-              </div>
-              <div class="form-group">
-                <label for="isDisable">是否禁用</label>
-				<select id="isDisable" name="isDisable">
-					<option value="0">否</option>
-					<option value="1">是</option>
-				</select>
+                <label for="type" class="col-sm-2">类型</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="type" name="type" placeholder="类型">
+				</div>
+                <label for="isDisable" class="col-sm-2">是否禁用</label>
+				<div class="col-sm-4">
+					<select id="isDisable" name="isDisable">
+						<option value="0">否</option>
+						<option value="1">是</option>
+					</select>
+				</div>
               </div>
 			  <div class="form-group">
-                <label for="startdatetime">开始时间</label>
-                <input type="text" class="form-control" id="startdatetime" name="startdatetime" placeholder="2000-01-01 00:00:00">
-              </div>
-			  <div class="form-group">
-                <label for="enddatetime">结束时间</label>
-                <input type="text" class="form-control" id="enddatetime" name="enddatetime" placeholder="2000-01-01 00:00:00">
-              </div>
-              <button type="button" class="btn btn-default" id="submitaddbannerpic">Submit</button>
+                <label  class="col-sm-2">开始时间</label>
+				<div class="col-sm-4">
+					
+					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="startdatetime" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input class="form-control" size="16" type="text" id="startdatetime" name="startdatetime" value="" readonly>
+						
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+                <label class="col-sm-2">结束时间</label>
+				<div class="col-sm-4">
+					
+					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="enddatetime" data-link-format="yyyy-mm-dd hh:ii:ss">
+						<input class="form-control" size="16" type="text" id="enddatetime" name="enddatetime" value="" readonly>
+						
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+			  </div>
+              
           </form>
         </div>
         <div class="modal-footer">
+		  <button type="button" class="btn btn-default" id="submitaddbannerpic">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         </div>
           </div>
@@ -484,7 +509,7 @@
 			
 		});
 		
-		$('#addbanner').on('hidden.bs.modal',function(e){
+		$('#addbanner').on('hide.bs.modal',function(e){
 			$('#bannerid').val("");
 			$('#addprimaryimgurl').attr('src','');
 			$('#bannerprimaryimgid').val("");
@@ -510,7 +535,7 @@
 			$('#banner-modal-title').text('添加横幅');
 		});
 		
-		$('#addbanner').on('hide.bs.modal',function(e){
+		$('#addbannerpic').on('hide.bs.modal',function(e){
 				$('#bannerpicid').val('');
 				$('#name').val('');
 				$('#type').val('');
@@ -525,6 +550,17 @@
 		});
 	})(jQuery);
 	
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
+		pickerPosition: 'bottom-left'
+    });
 	
 	function savebanner(){
 		

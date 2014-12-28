@@ -8,3 +8,5 @@
 .DS_Store
 *.sublime-project
 *.sublime-workspace
+
+./application/config/database.php
