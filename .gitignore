@@ -9,4 +9,4 @@
 *.sublime-project
 *.sublime-workspace
 
-./application/config/database.php
+*/application/config/database.php
