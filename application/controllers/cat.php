@@ -159,6 +159,17 @@ class Cat extends CI_Controller {
 		echo json_encode($itemsresult);
 	}
 
+	public function clearcat()
+	{
+		$cid = $this->input->post("cid");
+		
+		$result = $this->M_cat->clear_cat_by_cid($cid);
+		
+		if ($result > 0){
+			echo true;
+		}
+		else echo false;
+	}
 
 
 }

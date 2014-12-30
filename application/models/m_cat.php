@@ -98,7 +98,7 @@ class M_cat extends CI_Model{
      */
 	function query_cats(){
         
-		$this->db->select('cat_name,COUNT(id) as count, SUM(click_count) as sum');
+		$this->db->select('cat_id,cat_name,COUNT(id) as count, SUM(click_count) as sum');
 		$where = "cid=cat_id";
 		$this->db->join($this->cat_table,$where);
 		$this->db->order_by('count DESC');
@@ -133,5 +133,13 @@ class M_cat extends CI_Model{
 		}
 	}
 	
+	function clear_cat_by_cid($cid){
+		
+		$this->db->where("cid",$cid);
+		
+		$result = $this->db->delete($this->item_table);
+		
+		return $result;
+	}
 
 }
