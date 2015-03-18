@@ -3,13 +3,13 @@
 class M_bannerpic extends CI_Model{
 
         var $bannerpic_table = '';
-		var $cat_table = '';
+		//var $cat_table = '';
 
 	function __construct()
 	{
 		parent::__construct();
                 $this->bannerpic_table = $this->db->dbprefix('bannerpic');
-				$this->cat_table = $this->db->dbprefix('cat');
+				//$this->cat_table = $this->db->dbprefix('cat');
 	}
 
 

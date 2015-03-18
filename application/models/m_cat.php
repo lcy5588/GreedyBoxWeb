@@ -19,9 +19,9 @@ class M_cat extends CI_Model{
         $data_decode = json_decode($_POST['data']);
         foreach($data_decode as $cat){
             $data = array(
-                           'cat_id' => $cat -> id ,
-                           'cat_name' =>$cat -> name,
-                           'cat_slug' =>$cat -> name
+                           'id' => $cat -> id ,
+                           'name' =>$cat -> name,
+                           'slug' =>$cat -> slug
                         );
             $this->db->insert($this->cat_table, $data);
         }
@@ -30,16 +30,16 @@ class M_cat extends CI_Model{
 	function add_cat_by($cat)
 	{
             $data = array(
-                           'cat_id' => $cat['id'] ,
-                           'cat_name' =>$cat['name'],
-                           'cat_slug' =>$cat['slug']
+                           'id' => $cat['id'] ,
+                           'name' =>$cat['name'],
+                           'slug' =>$cat['slug']
                         );
             return $this->db->insert($this->cat_table, $data);
     }
 
     function get_cat_name($cat_slug = ''){
     	if(!empty($cat_slug)){
-    		$result = $this->db->get_where($this->cat_table, array('cat_slug'=>$cat_slug))->result();
+    		$result = $this->db->get_where($this->cat_table, array('slug'=>$cat_slug))->result();
     		return $result[0]->cat_name;
     	}else {
     		return '';
@@ -48,7 +48,7 @@ class M_cat extends CI_Model{
 	
 	function get_cat_by_slug($cat_slug = ''){
     	if(!empty($cat_slug)){
-    		$result = $this->db->get_where($this->cat_table, array('cat_slug'=>$cat_slug))->result();
+    		$result = $this->db->get_where($this->cat_table, array('slug'=>$cat_slug))->result();
     		return $result[0];
     	}else {
     		return null;
@@ -57,7 +57,7 @@ class M_cat extends CI_Model{
 	
 	function is_exist_by_slug($cat_slug = ''){
     	if(!empty($cat_slug)){
-    		$result = $this->db->get_where($this->cat_table, array('cat_slug'=>$cat_slug))->result();
+    		$result = $this->db->get_where($this->cat_table, array('slug'=>$cat_slug))->result();
 			
 			if(empty($result[0]))
     		return false;
@@ -78,17 +78,18 @@ class M_cat extends CI_Model{
 		 $data_decode = json_decode($_POST['data']);
 		foreach($data_decode as $cat){
 			$data = array(
-               'cat_name' => $cat -> name,
-               'cat_slug' => $cat -> slug
+               'name' => $cat -> name,
+               'slug' => $cat -> slug,
+               'typeid' => $cat -> typeid,
             );
 
-			$this->db->where('cat_id', $cat -> id);
+			$this->db->where('id', $cat -> id);
 			$this->db->update($this->cat_table, $data);
         }
 	}
 
 	function delete_cat($cat_id){
-		$this->db->delete($this->cat_table,array('cat_id'=>$cat_id));
+		$this->db->delete($this->cat_table,array('id'=>$cat_id));
 	}
 
     /**
@@ -98,8 +99,8 @@ class M_cat extends CI_Model{
      */
 	function query_cats(){
         
-		$this->db->select('cat_id,cat_name,COUNT(id) as count, SUM(click_count) as sum');
-		$where = "cid=cat_id";
+		$this->db->select('item.id,name,COUNT(item.id) as count, SUM(click_count) as sum');
+		$where = "cid=cat.id";
 		$this->db->join($this->cat_table,$where);
 		$this->db->order_by('count DESC');
 		$this->db->group_by('cid');

@@ -17,6 +17,7 @@ class Admin extends CI_Controller {
 			$this->load->model('M_banner');
 			$this->load->model('M_label');
 			$this->load->model('M_brand');
+			$this->load->model('M_pagetype');
 			$this->load->view('admin/include_login'); //检查cookie
 		}
 
@@ -177,6 +178,7 @@ class Admin extends CI_Controller {
 	 */
 	public function cat(){
 		$data['cat'] = $this->M_cat->get_all_cat();
+		$data['pagetype'] = $this->M_pagetype->get_all_pagetype();
 		$data['cat_saved'] = false;
 		$this->load->view('admin/include_header');
 		$this->load->view('admin/cat_view',$data);
@@ -197,9 +199,9 @@ class Admin extends CI_Controller {
 	/*手动添加类目*/
 	public function addcat(){
 		$data=array(
-				'id' => $this->input->post('cat_id'),
-				'name' => $this->input->post('cat_name'),
-				'slug' => $this->input->post('cat_slug')
+				'id' => $this->input->post('id'),
+				'name' => $this->input->post('name'),
+				'slug' => $this->input->post('slug')
 		);
 		
 		echo $this->M_cat->add_cat_by($data);
@@ -209,6 +211,7 @@ class Admin extends CI_Controller {
 		$this->M_cat->update_cat();
 		$data['cat_saved'] = true;
         $data['cat'] = $this->M_cat->get_all_cat();
+        $data['pagetype'] = $this->M_pagetype->get_all_pagetype();
         $this->load->view('admin/include_header');
         $this->load->view('admin/cat_view',$data);
 	}
@@ -676,7 +679,7 @@ class Admin extends CI_Controller {
 			
 			if($lxquery->num_rows()>0){
 				foreach($lxquery->result() as $lx){
-					$lx_zd[$lx->cat_id] = $lx->cat_name;
+					$lx_zd[$lx->id] = $lx->name;
 				}
 			}
 			

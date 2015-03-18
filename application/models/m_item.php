@@ -93,7 +93,7 @@ class M_item extends CI_Model{
 
 		//如果是分类页
 		if(!empty($cat)){
-			$where = "cid=cat_id AND cat_slug='".$cat."'";
+			$where = "cid= cat.id AND slug='".$cat."'";
 			$this->db->join($this->cat_table,$where);
 			$this->db->order_by($sort);
 			$query = $this->db->get($this->item_table,$limit,$offset);
@@ -139,10 +139,10 @@ class M_item extends CI_Model{
 			return $this->db->count_all_results($this->item_table);
 		}else{
 
-			$this->db->select('COUNT(id) AS count');
-			$where = "cid=cat_id AND cat_slug='".$cat_slug."'";
+			$this->db->select('COUNT(item.id) AS count');
+			$where = "cid= cat.id AND slug='".$cat_slug."'";
 			$this->db->join($this->cat_table,$where);
-			$this->db->order_by('id DESC');
+			$this->db->order_by('item.id DESC');
 			$query = $this->db->get($this->item_table);
 
 			if ($query->num_rows() > 0)

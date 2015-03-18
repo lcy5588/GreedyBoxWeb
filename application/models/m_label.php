@@ -97,7 +97,7 @@ class M_label extends CI_Model{
 	{
 
 		if(!empty($cat)){
-			$where = "cid=cat_id AND cat_slug='".$cat."'";
+			$where = "cid=cat.id AND cat.slug='".$cat."'";
 			$this->db->join($this->cat_table,$where);
 			$this->db->order_by('click_count DESC');
 			$query = $this->db->get($this->label_table,$limit,$offset);

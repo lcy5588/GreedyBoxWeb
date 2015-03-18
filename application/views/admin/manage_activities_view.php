@@ -174,7 +174,7 @@
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addbanner">添加</button></li>
 		</ul>
 		
-	<? if($banners->num_rows()>0){ ?>
+	<?php if($banners->num_rows()>0){ ?>
 
 	<table class="table table-bordered table-striped" >
     <thead>
@@ -262,20 +262,22 @@
                 <label  class="col-sm-2">开始时间</label>
 				<div class="col-sm-4">
 					
-					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="startdatetime" data-link-format="yyyy-mm-dd hh:ii:ss">
-						<input class="form-control" size="16" type="text" id="startdatetime" name="startdatetime" value="" readonly>
+					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="startdatetime" data-link-format="yyyy-mm-dd">
+						<input class="form-control" size="16" type="text" name="startdatetime" value="" readonly>
 						
 						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+						<input type="hidden" id="startdatetime" value="" />
 					</div>
 				</div>
                 <label class="col-sm-2">结束时间</label>
 				<div class="col-sm-4">
 					
-					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="enddatetime" data-link-format="yyyy-mm-dd hh:ii:ss">
-						<input class="form-control" size="16" type="text" id="enddatetime" name="enddatetime" value="" readonly>
+					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="enddatetime" data-link-format="yyyy-mm-dd">
+						<input class="form-control" size="16" type="text"  name="enddatetime" value="" readonly>
 						
 						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 					</div>
+					<input type="hidden" id="enddatetime" value="" />
 				</div>
 			  </div>
               
@@ -308,7 +310,7 @@
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addbannerpic">添加</button></li>
 		</ul>
 		
-	<? if($bannerpics->num_rows()>0){ ?>
+	<?php if($bannerpics->num_rows()>0){ ?>
 
 	<table class="table table-bordered table-striped" style="table-layout:fixed;word-break:break-all;overflow:hidden;">
     <thead>
@@ -351,9 +353,9 @@
 	</tbody>
   </table>
 	<div class="pagenav">
-		<?=$bannerpicpagination;?>
+		<?php echo $bannerpicpagination;?>
 	</div>
-	<? } ?>
+	<?php } ?>
     </div>
 <script>
 	(function($){
@@ -509,7 +511,7 @@
 			
 		});
 		
-		$('#addbanner').on('hide.bs.modal',function(e){
+		$('#addbanner').on('hidden.bs.modal',function(e){
 			$('#bannerid').val("");
 			$('#addprimaryimgurl').attr('src','');
 			$('#bannerprimaryimgid').val("");
@@ -535,7 +537,7 @@
 			$('#banner-modal-title').text('添加横幅');
 		});
 		
-		$('#addbannerpic').on('hide.bs.modal',function(e){
+		$('#addbannerpic').on('hidden.bs.modal',function(e){
 				$('#bannerpicid').val('');
 				$('#name').val('');
 				$('#type').val('');
@@ -551,15 +553,14 @@
 	})(jQuery);
 	
 	$('.form_date').datetimepicker({
-        language:  'fr',
+         language:  'zh-CN',
         weekStart: 1,
         todayBtn:  1,
 		autoclose: 1,
 		todayHighlight: 1,
 		startView: 2,
 		minView: 2,
-		forceParse: 0,
-		pickerPosition: 'bottom-left'
+		forceParse: 0
     });
 	
 	function savebanner(){

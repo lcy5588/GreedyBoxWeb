@@ -82,7 +82,7 @@ class M_brand extends CI_Model{
 
 		//如果是分类页
 		if(!empty($cat)){
-			$where = "cid=cat_id AND cat_slug='".$cat."'";
+			$where = "cid=cat.id AND cat.slug='".$cat."'";
 			$this->db->join($this->cat_table,$where);
 			$this->db->order_by('click_count DESC');
 			$query = $this->db->get($this->brand_table,$limit,$offset);

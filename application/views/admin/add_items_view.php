@@ -46,12 +46,12 @@
 						<select class="form-control" id="cid" name="cid">
 						  
 						  <?php foreach($lxquery->result() as $lxarray):?>
-						  <option value="<?php echo $lxarray->cat_id;?>"><?php echo $lxarray->cat_name;?></option>
+						  <option value="<?php echo $lxarray->id;?>"><?php echo $lxarray->name;?></option>
 						  <?php 
 						  //结束类型
 						  endforeach;?>
 						</select>
-						<? } ?>
+						<?php } ?>
 					</div>
 				  </div>
 
@@ -106,16 +106,16 @@
 						<select class="form-control" id="additemcid" name="additemcid">
 						  
 						  <?php foreach($lxquery->result() as $lxarray):?>
-						  <option value="<?php echo $lxarray->cat_id;?>"><?php echo $lxarray->cat_name;?></option>
+						  <option value="<?php echo $lxarray->id;?>"><?php echo $lxarray->name;?></option>
 						  <?php 
 						  //结束类型
 						  endforeach;?>
 						</select>
-						<? } ?>
+						<?php } ?>
 			</li>
 		</ul>
 		
-	<? if($query->num_rows()>0){ ?>
+	<?php if($query->num_rows()>0){ ?>
 
 	<table class="table table-bordered table-striped" style="table-layout:fixed;word-break:break-all;overflow:hidden;" width="960px">
     <thead>
@@ -156,12 +156,11 @@
 	</tbody>
   </table>
 	<div class="pagenav">
-		<?=$pagination;?>
+		<?php echo $pagination;?>
 	</div>
-	<? } ?>
+	<?php } ?>
     </div>
  
-</div>
 
 <script>
 	(function($){

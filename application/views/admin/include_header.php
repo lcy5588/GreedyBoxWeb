@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/index.css" />
 	<script type='text/javascript' src='<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js'></script>
-	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap-datetimepicker.min.js'></script>
+	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap-datetimepicker.js'></script>
+	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap-datetimepicker.zh-CN.js'></script>
 </head>
 <body style="padding-top:60px;">
 
@@ -17,21 +18,29 @@
       <div class="container-fluid">          
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li class="">
-                 <a href="<?php echo site_url('admin')?>">搜索添加商品</a>
-              </li>
-              <li class="">
-                 <a href="<?php echo site_url('admin/manageitem')?>">商品管理</a>
-              </li>
-			  <li class="">
-                 <a href="<?php echo site_url('admin/managebanner')?>">专题/活动管理</a>
-              </li>
+				
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">商品<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					 <li class="">
+					 <a href="<?php echo site_url('admin')?>">搜索添加商品</a>
+				  </li>
+				  <li class="">
+					 <a href="<?php echo site_url('admin/manageitem')?>">商品管理</a>
+				  </li>
+				  <li class="">
+					 <a href="<?php echo site_url('admin/managebanner')?>">专题/活动管理</a>
+					</li>
+				  <li class="">
+					<a href="<?php echo site_url('admin/managebrand')?>">品牌管理</a>
+				  </li>
+				</ul>
+			</li>
+			  
               <li class="">
                 <a href="<?php echo site_url('admin/cat')?>">类别管理</a>
               </li>
-			  <li class="">
-                <a href="<?php echo site_url('admin/managebrand')?>">品牌管理</a>
-              </li>
+			  
               <li class="">
                 <a href="<?php echo site_url('admin/keyword')?>">搜索关键词管理</a>
               </li>

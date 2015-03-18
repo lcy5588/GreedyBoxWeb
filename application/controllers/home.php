@@ -5,7 +5,7 @@ class Home extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_item');
+		$this->load->model('M_article');
 		$this->load->model('M_keyword');
 		$this->load->library('pagination');
 		$this->load->model('M_cat');
@@ -40,31 +40,33 @@ class Home extends CI_Controller {
 		$cats = $this->M_cat->get_all_cat();
 		$data['cat'] = $cats;
 		
-		$this->load->model('M_bannerpic');
+		//$this->load->model('M_bannerpic');
 		
-		$itemcats = array();
-		$index=0;
-		foreach($cats->result() as $cat){
-			$index++;
-			$itemcat = array(
-						'cat' => $cat,
-						'item' => $this->M_item->get_all_item_by_cid($limit,'0',$cat->cat_id),
-						'brand' => $this->M_brand->get_all_brand_by_cid($limit,'0',$cat->cat_id),
-						'label' => $this->M_label->get_all_label_by_cid($limit,'0',$cat->cat_id),
-						'bannerpic' => $this->M_bannerpic->get_bannerpic_loop_by_type($index,'4')
-			);
-			
-			$itemcats[] = $itemcat;
-		}
+		$articles = $this->M_article->get_all_articles();
+		$data['articles'] = $articles;
+		//$itemcats = array();
+		//$index=0;
+		//foreach($cats->result() as $cat){
+		//	$index++;
+		//	$itemcat = array(
+		//				'cat' => $cat,
+		//				'item' => $this->M_item->get_all_item_by_cid($limit,'0',$cat->cat_id),
+		//				'brand' => $this->M_brand->get_all_brand_by_cid($limit,'0',$cat->cat_id),
+		//				'label' => $this->M_label->get_all_label_by_cid($limit,'0',$cat->cat_id),
+		//				'bannerpic' => $this->M_bannerpic->get_bannerpic_loop_by_type($index,'4')
+		//	);
+		//	
+		//	$itemcats[] = $itemcat;
+		//}
 		
-		$data['itemcats'] = $itemcats;
+		//$data['itemcats'] = $itemcats;
 		
 		$this->load->model('M_friendlink');
 		
 		$data['friendlinks'] = $this->M_friendlink->get_all_friendlink_by_type('100','0');
 		
 		//横幅信息
-		$data['banners'] =$this->M_banner->get_all_banner($limit,0);
+		//$data['banners'] =$this->M_banner->get_all_banner($limit,0);
 		
 		//站点信息
 		$data['site_name'] = $this->config->item('site_name');
