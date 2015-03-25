@@ -11,6 +11,7 @@
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap-datetimepicker.js'></script>
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap-datetimepicker.zh-CN.js'></script>
+	<script src="<?php echo base_url()?>assets/ckeditor/ckeditor.js"></script>
 </head>
 <body style="padding-top:60px;">
 
@@ -36,11 +37,15 @@
 				  </li>
 				</ul>
 			</li>
-			  
+			   <li class="">
+                <a href="<?php echo site_url('admin/managearticle')?>">文章管理</a>
+              </li>
               <li class="">
                 <a href="<?php echo site_url('admin/cat')?>">类别管理</a>
               </li>
-			  
+			   <li class="">
+                <a href="<?php echo site_url('admin/managelevel')?>">级别管理</a>
+              </li>
               <li class="">
                 <a href="<?php echo site_url('admin/keyword')?>">搜索关键词管理</a>
               </li>
