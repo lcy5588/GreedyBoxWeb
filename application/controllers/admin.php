@@ -958,12 +958,18 @@ class Admin extends CI_Controller {
 	public function addlevel(){
 		$this->load->model('M_level');
 		$data=array(
-				'id' => $this->input->post('id'),
 				'name' => $this->input->post('name'),
 				'color' => $this->input->post('color')
 		);
 		
 		echo $this->M_level->add_level_by($data);
+	}
+	
+	public function deletelevel(){
+		$this->load->model('M_level');
+		$id = $this->input->post('id');
+		
+		echo $this->M_level->delete_level($id);
 	}
 }
 

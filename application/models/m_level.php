@@ -27,8 +27,7 @@ class M_level extends CI_Model{
 	
 	function add_level_by($level)
 	{
-            $data = array(
-                           'id' => $level['id'] ,
+            $data = array(                        
                            'name' =>$level['name'],
                            'color' =>$level['color']
                         );
@@ -74,7 +73,7 @@ class M_level extends CI_Model{
 	}
 
 	function delete_level($level_id){
-		$this->db->delete($this->level_table,array('id'=>$level_id));
+		return $this->db->delete($this->level_table,array('id'=>$level_id));
 	}
 
 }
