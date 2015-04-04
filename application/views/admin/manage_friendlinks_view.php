@@ -62,7 +62,7 @@
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addfriendlink">添加</button></li>
 		</ul>
 		
-	<? if($friendlinks->num_rows()>0){ ?>
+	<?php if($friendlinks->num_rows()>0){ ?>
 
 	<table class="table table-bordered table-striped">
     <thead>
@@ -98,12 +98,11 @@
 	</tbody>
   </table>
 	<div class="pagenav">
-		<?=$pagination;?>
+		<?php $pagination;?>
 	</div>
-	<? } ?>
+	<?php } ?>
     </div>
  
-</div>
 <script>
 	(function($){
 		$('.btn_delete').click(function(){

@@ -10,15 +10,15 @@
           <form role="form" id="addcatform" name="addcatform" method="post" action="<?php echo site_url('admin/addcat')?>">
               <div class="form-group">
                 <label for="cat_id">淘宝类别ID</label>
-                <input type="text" class="form-control" id="cat_id" name="cat_id" placeholder="淘宝类别ID">
+                <input type="text" class="form-control" id="id" name="id" placeholder="淘宝类别ID">
               </div>
               <div class="form-group">
                 <label for="cat_name">分类名称</label>
-                <input type="text" class="form-control" id="cat_name" name="cat_name" placeholder="分类名称">
+                <input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
               </div>  
 				<div class="form-group">
                 <label for="cat_slug">英文缩写（slug）</label>
-                <input type="text" class="form-control" id="cat_slug" name="cat_slug" placeholder="英文缩写（slug）">
+                <input type="text" class="form-control" id="slug" name="slug" placeholder="英文缩写（slug）">
               </div> 			          			 
               <button type="button" class="btn btn-default submitaddcat" id="submitaddcat" name="submitaddcat">Submit</button>
 			  <button type="submit" class="btn btn-default">go</button>
@@ -43,6 +43,9 @@
           英文缩写（slug）
         </th>
         <th>
+          页面类型
+        </th>
+        <th>
           淘宝ID
         </th>
         <th>
@@ -53,14 +56,23 @@
     <tbody>
     <?php
         $index = 1;
-		   foreach($cat->result() as $row){
-                echo '<tr class="cat_row">';
-                echo '<td>'.$index.'</td>';
-                echo '<td><input type="text" class="input-small cat_name" value="'.$row->cat_name.'"></td>';
-                echo '<td><input type="text" class="input-small cat_slug" value="'.$row->cat_slug.'"></td>';
-                echo '<td class="cid" value="'.$row->cat_id.'">'.$row->cat_id.'</td>';
-                echo '<td><a href="'.site_url('admin/catdelete/'.$row->cat_id).'">×</a></td>';
-                echo '</tr>';
+		   foreach($cat->result() as $row){ ?>
+                <tr class="cat_row">
+                <td><?php echo $index?></td>
+                <td><input type="text" class="cat_name input-small"  value="<?php echo $row->name?>"></td>
+                <td><input type="text" class="cat_slug input-small" value="<?php echo $row->slug?>"></td>
+                <td><select class="cat_typeid form-control" value="<?php echo $row->typeid?>">
+                <?php
+                foreach($pagetype->result() as $type){echo '<option value ="'.$type->id.'"';
+					if($type->id == $row->typeid){echo 'selected="selected"';}
+					echo '>'.$type->name.'</option>';
+					}
+				?>
+                </select></td>
+                <td class="cat_id" value="<?php echo $row->id;?>"><?php echo $row->id?></td>
+                <td><a href="<?php echo site_url('admin/catdelete/'.$row->id);?>">×</a></td>
+                </tr>
+                <?php 
                 $index++;
 			}
 		 ?>
@@ -86,10 +98,17 @@
 		$('#btn-save').click(function(){
             var data = new Array();
             $('.cat_row').each(function(index){
-                data[index] = {id : $(this).find('.cid').attr('value'), name : $(this).find('.cat_name').attr('value'),slug : $(this).find('.cat_slug').attr('value')}
+                data[index] = {
+					id : $(this).find('.cat_id').attr('value'),
+					 name : $(this).find('.cat_name').val(),
+					 slug : $(this).find('.cat_slug').val(),
+					 typeid : $(this).find('.cat_typeid').val()}
+				 //var catname = $(this).find('.cat_name');
+				 //alert($(this).find('.cat_typeid').val());
             });
+           
                  data = JSON.stringify(data);
-
+				
                     // The rest of this code assumes you are not using a library.
                     // It can be made less wordy if you use one.
                     var form = document.createElement("form");

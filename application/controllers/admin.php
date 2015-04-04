@@ -17,6 +17,8 @@ class Admin extends CI_Controller {
 			$this->load->model('M_banner');
 			$this->load->model('M_label');
 			$this->load->model('M_brand');
+			$this->load->model('M_pagetype');
+			$this->load->model('M_article');
 			$this->load->view('admin/include_login'); //检查cookie
 		}
 
@@ -177,6 +179,7 @@ class Admin extends CI_Controller {
 	 */
 	public function cat(){
 		$data['cat'] = $this->M_cat->get_all_cat();
+		$data['pagetype'] = $this->M_pagetype->get_all_pagetype();
 		$data['cat_saved'] = false;
 		$this->load->view('admin/include_header');
 		$this->load->view('admin/cat_view',$data);
@@ -197,9 +200,9 @@ class Admin extends CI_Controller {
 	/*手动添加类目*/
 	public function addcat(){
 		$data=array(
-				'id' => $this->input->post('cat_id'),
-				'name' => $this->input->post('cat_name'),
-				'slug' => $this->input->post('cat_slug')
+				'id' => $this->input->post('id'),
+				'name' => $this->input->post('name'),
+				'slug' => $this->input->post('slug')
 		);
 		
 		echo $this->M_cat->add_cat_by($data);
@@ -209,6 +212,7 @@ class Admin extends CI_Controller {
 		$this->M_cat->update_cat();
 		$data['cat_saved'] = true;
         $data['cat'] = $this->M_cat->get_all_cat();
+        $data['pagetype'] = $this->M_pagetype->get_all_pagetype();
         $this->load->view('admin/include_header');
         $this->load->view('admin/cat_view',$data);
 	}
@@ -676,7 +680,7 @@ class Admin extends CI_Controller {
 			
 			if($lxquery->num_rows()>0){
 				foreach($lxquery->result() as $lx){
-					$lx_zd[$lx->cat_id] = $lx->cat_name;
+					$lx_zd[$lx->id] = $lx->name;
 				}
 			}
 			
@@ -837,6 +841,135 @@ class Admin extends CI_Controller {
 		else{
 			echo false;
 		}
+	}
+	
+	/**
+	 *手动设置文章条目信息
+	 *
+	 */
+	 public function managearticle($page = 1){
+		    $limit = 10;
+			$offset = ($page-1)*$limit;
+			$this->load->library('pagination');
+
+			$config['base_url'] = site_url('/admin/manageitem/');
+			//site_url可以防止换域名代码错误。
+
+	        $config['use_page_numbers'] = TRUE;
+	        //$config['first_url'] = site_url('/admin/managearticle');
+
+			$config['total_rows'] = $this->M_article->count_articles();
+			//这是模型里面的方法，获得总数。
+
+			$config['per_page'] = $limit;
+			$config['first_link'] = '首页';
+			$config['last_link'] = '尾页';
+			$config['num_links']=10;
+			$config['uri_segment'] = 3;
+			//上面是自定义文字以及左右的连接数
+
+			$this->pagination->initialize($config);
+			//初始化配置
+
+			$data['pagination']=$this->pagination->create_links();
+			//通过数组传递参数
+			//以上是重点
+
+			$data['query'] = $this->M_article->get_all_articles($limit,$offset);
+            
+			$data['lxquery'] =  $this->M_cat->get_all_cat();
+			
+			$this->load->view('admin/include_header');
+			$this->load->view('admin/manage_articles_view',$data);
+	}
+	
+	/**
+	 * 手动设置文章条目信息
+	 *
+	 */
+	public function setarticle(){
+		$data = array(                     
+                           'article_cid' =>$_POST['article_cid'],
+                           'article_labelid' =>$_POST['article_labelid'],
+                           'article_title' =>$_POST['article_title'],
+                           'article_content' =>$_POST['article_content'],
+                           'article_html' =>$_POST['article_html'],
+                           'article_authorid' =>$_POST['article_authorid'],
+                           'article_levelid' => $_POST['article_levelid']
+                        );
+		
+		echo $this->M_article->add_article_by($data);
+	}
+	
+	/**
+	 * 删除文章
+	 */
+	public function delete_article(){
+		$articleid = $_POST['article_id'];
+		echo $this->M_article->delete_article($articleid);
+	}
+	
+	public function getarticlebyid(){
+		$articleid = $_POST['article_id'];
+		
+		$article = $this->M_article->get_article_by_id($articleid);
+		
+		if($article !=null){
+			$data = array(
+						 'id' => $article -> id ,
+                           'cid' => $article -> cid ,
+                           'labelid' => $article -> labelid ,
+                           'title' =>$article -> title,
+                           'html' =>$article -> html,
+                           'authorid' =>$article -> authorid,
+                           'levelid' => $article -> levelid
+			);
+			
+		echo json_encode($data);
+		}else echo false; 
+	}
+
+	public function updataarticle(){	
+		$data = array( 
+							'article_id' =>$_POST['article_id'],
+                           'article_cid' =>$_POST['article_cid'],
+                           'article_labelid' =>$_POST['article_labelid'],
+                           'article_title' =>$_POST['article_title'],
+                           'article_content' =>$_POST['article_content'],
+                           'article_html' =>$_POST['article_html'],
+                           'article_authorid' =>$_POST['article_authorid'],
+                           'article_levelid' => $_POST['article_levelid']
+                        );
+		echo $this->M_article->update_article_by($data);
+	}
+	
+	/**
+	 * 管理级别
+	 */
+	public function managelevel(){
+		$this->load->model('M_level');
+		$data['level'] = $this->M_level->get_all_level();
+		
+		$this->load->view('admin/include_header');
+		$this->load->view('admin/manage_levels_view',$data);
+	}
+	
+	/*手动添加级别*/
+	public function addlevel(){
+		$this->load->model('M_level');
+		$data=array(
+				'name' => $this->input->post('name'),
+				'color' => $this->input->post('color')
+		);
+		
+		echo $this->M_level->add_level_by($data);
+	}
+	
+	public function deletelevel(){
+		$this->load->model('M_level');
+		$id = $this->input->post('id');
+		
+		echo $this->M_level->delete_level($id);
 	}
 }
 

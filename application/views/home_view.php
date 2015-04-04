@@ -1,246 +1,145 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="zh-CN">
+<html lang="zh-cn">
 <head>
-<meta charset="UTF-8" />
-	<title><?php
-	if(!empty($cat_name)){
-		echo $cat_name.' - ';
-	}
-	 echo $site_name;
-	 ?></title>
-	<meta name="keywords" content="<?php 
-	if(!empty($cat_name)){
-		echo $cat_name.',';
-	}
-		echo $site_keyword; ?>">
-	<meta name="description" content="<?php echo $site_description; ?>">
-	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/index.css" />
-	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/blockshow.css" />
-	<script type='text/javascript' src='<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js'></script>
-	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap.js'></script>
-	<script type='text/javascript' src='<?php echo base_url()?>assets/js/index.js'></script>
-	<!--[if lt IE 9]>
-	<script src="<?php echo base_url()?>assets/js/html5shiv.js"></script>
-	<![endif]-->
+	<meta charset="utf-8">
+	<title>这是个bootstrap学习实例</title>
+
+	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="<?php echo base_url()?>assets/docs.min.css" rel="stylesheet">
+	<script src="<?php echo base_url()?>assets/ckeditor/ckeditor.js"></script>
 </head>
-<body>
-
-<header id="branding" role="banner">
-    <div id="site-title">
-        <h1>
-            <a href="<?php echo site_url();?>" title="<?php echo $site_name;?>" rel="home" class="logo"><?php echo $site_name;?></a>
-        </h1>
-		<div id="site-op">		
-				<form class="form-horizontal"  role="form" action="<?php echo site_url('home/search');?>">
-					 <div class="form-group form-group-lg">				
-						<div class="col-sm-10">
-						  <input class="form-control" type="text" placeholder="" name="keyword">
-						</div>
-						<button type="submit" class="col-sm-2 btn btn-primary btn-lg">搜索</button>
-					  </div>
-				</form>
+<body >
+<header class="navbar navbar-default navbar-fixed-top" role="banner" >
+<div class="container">
+		<div class="navbar-header">
+			 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+				<a class="navbar-brand" href="<?php echo site_url()?>">Brand</a>
 		</div>
-		<div id="site-op-reg">
-		
-		</div>
-    </div>
-
-</header>
-<div class="container">  
-<div class="row">   
- <div class="col-md-1">      
- <!--Sidebar content--> 
- <ul class="nav nav-pills nav-stacked" role="tablist">
-      <?php
-						$is_home = '';
-						if(empty($cat_slug)){
-							$is_home = 'active';
-						}
-						?>
-					<li role="presentation" class="<?php echo $is_home;?>"><a href="<?php echo site_url()?>">全部</a></li>
-					<?php
+			<nav class="collapse navbar-collapse bs-navbar-collapse" id="bs-example-navbar-collapse-2">
+			  <ul class="nav navbar-nav">
+				  <?php
 					   foreach($cat->result() as $row){
 							$is_current = '';
-							if(!empty($cat_slug) && $row->cat_slug == $cat_slug){
+							if(!empty($slug) && $row->slug == $slug){
 								$is_current = 'active';
 							}
-						   echo '<li role="presentation" class="'.$is_current.'"><a href="'.site_url('cat/'.rawurlencode($row->cat_slug)).'">'.$row->cat_name.'</a></li>';
+						   echo '<li role="presentation" class="'.$is_current.'"><a href="'.site_url('cat/'.rawurlencode($row->slug)).'">'.$row->name.'</a></li>';
 						}
 					 ?>
- </ul>
-  </div>   
-   <div class="col-md-11">  
-       <!--Body content-->
-	<div id="wrapper">
-	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-	  <!-- Wrapper for slides -->
-	  <div class="carousel-inner" role="listbox">
-		<?php if($banners->num_rows()>0){
-				$row = 0;
-				foreach($banners->result() as $banner):
-				
-		?>
-		<div class="item <?php if($row==0){echo 'active';}?>" id="banner">
-		  
-		  <div id="primerybanner">
-			<a href="<?php echo site_url('home/bannerpic/'.$banner->bannerpic_primary_id)?>" target="_blank">
-				<img src="<?php echo $banner->bannerpic_primary_imgurl?>"class="banner-row-320" alt="">
-			</a>
+			  </ul>
+			  <form class="navbar-form navbar-right" role="search">
+				<div class="form-group">
+				  <input type="text" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			  </form>
+			</nav>
 			
-		  </div>
-		  <div id="otherbanner">
-			<div id="leftbanner">
-				<a href="<?php echo site_url('home/bannerpic/'.$banner->bannerpic1_id)?>" target="_blank" class="banner-row-240 banner-col-200 banner-block-hidden">
-					<img src="<?php echo $banner->bannerpic1_imgurl?>" class="banner-col-200">
-				</a>	
-				<a href="<?php echo site_url('home/bannerpic/'.$banner->bannerpic2_id)?>" target="_blank" class="banner-row-80 banner-col-200 banner-block-hidden">
-					<img src="<?php echo $banner->bannerpic2_imgurl?>" class="banner-col-200">
-				</a>		
-			</div>
-			<div id="rightbanner">
-				<a href="<?php echo site_url('home/bannerpic/'.$banner->bannerpic3_id)?>" target="_blank" class="banner-row-240 banner-col-200 banner-block-hidden">
-					<img src="<?php echo $banner->bannerpic3_imgurl?>" class="banner-col-200">
-				</a>
-				<a href="<?php echo site_url('home/bannerpic/'.$banner->bannerpic4_id)?>" target="_blank" class="banner-row-80 banner-col-200 banner-block-hidden">
-					<img src="<?php echo $banner->bannerpic4_imgurl?>" class="banner-col-200">
-				</a>
-			</div>
-			
-		</div>
-		  
-		  <div class="carousel-caption">
-			
-		  </div>
-		  
-		  
-		</div>
-		<?php $row++; endforeach;}?>
-	  </div>
-
-	  <!-- Controls -->
-	  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-		<span class="glyphicon glyphicon-chevron-left"></span>
-		<span class="sr-only">Previous</span>
-	  </a>
-	  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-		<span class="glyphicon glyphicon-chevron-right"></span>
-		<span class="sr-only">Next</span>
-	  </a>
-	</div>	
-	
-	
-<?php foreach($itemcats as $itemcat):?>
-	
-<div class="floor-content">
-<div class="floor-show  floor-<?php echo $itemcat['cat']->cat_slug;?>">
-<div class="floor-show-left floor-title grid-row-90">
+		
 </div>
-<div class="floor-show-middle floor-brand-slide">
-<div class="brand-slide-content brand-slide-row">
-<p class="brand-slide-pannel">
-<?php $brands = $itemcat['brand'];if($brands->num_rows()>0){ ?>
-<?php foreach ($brands->result() as $brand):?>
-<a href="<?php echo site_url('home/brand/'.$brand->id)?>" target="_blank"><img src="<?php echo $brand->img_url?>" width="90" height="45" alt="<?php echo $brand->name?>"></a>
-<?php endforeach;}?>
-</p>
-</div>
-</div>
-<div class="floor-show-right">
-<ul class="floor-label-list">
-<?php $labels = $itemcat['label'];if($labels->num_rows()>0){ ?>
-<?php foreach ($labels->result() as $label):?>
-<li>
-<a href="<?php echo site_url('home/label/'.$label->id)?>" target="_blank"><?php echo $label->title?></a>
-</li>
-<?php endforeach;}?>
-</ul>
-</div>
-
-<div class="floor-show-sort">
-<ul>
-	<li class="new"><a href="javascript:void(0);" class="sortactive" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $itemcat['cat']->cat_slug;?>','<?php echo $itemcat['cat']->cat_id;?>','adddatetime')">最新</a></li>
-	<li class="hot"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $itemcat['cat']->cat_slug;?>','<?php echo $itemcat['cat']->cat_id;?>','click_count')">最热</a></li>
-	<li class="low"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $itemcat['cat']->cat_slug;?>','<?php echo $itemcat['cat']->cat_id;?>','price')">最低</a></li>
-</ul>
-</div>
-</div>
-
-<div class="floor-banner-container" id="<?php echo $itemcat['cat']->cat_slug;?>">
-<?php $items = $itemcat['item'];if($items->num_rows()>0){ ?>
-<?php foreach ($items->result() as $array):?>
-
-<div class="grid-col-235 grid-row-330 good-list">
-	<div class="grid-good">
-		<a class="grid-row-330 floor-banner" href="<?php echo site_url('home/redirect').'/'.$array->id ?>" target="_blank">
-		<img src="<?php echo $array->img_url ?>" class="grid-col-235 grid-row-250" alt="<?php echo $array->title ?>">		
-		<div class="good-info">
-			<div class="good-title">
-				<?php echo $array->title ?>
-			</div>
-		</div>
-		</a>
-		<div class="good-info-price">
-			<span class="price">￥<?php echo $array->price ?></span>
-			<span class="oldprice">￥<?php echo $array->oldprice?></span>
-			<span class="discount"><?php echo $array->discount?>折</span>
-		</div>
+</header>
+<div class="bs-docs-header"  style="padding-top:70px;display:none;">
+	<div class="container">
+		<h1>zujian</h1>
+		<p>here is zujian</p>	
 	</div>
 </div>
-<?php endforeach;}?>
+<div class="container bs-docs-container"  style="padding-top:80px;"  id="top" >
+
+      <div class="row">
+		<div class="col-md-9" role="main">
+  
+
+<?php $isfirst = true; foreach($articles->result() as $article):?>
+<div class="media bs-callout-right bs-callout-info-right">
+      <div class="media-left">
+        <a href="#">
+			<?php if($isfirst){?>
+          <img class="media-object" data-src="holder.js/200x200" alt="Generic placeholder image">
+			<?php $isfirst=false;} else{?>
+			<img class="media-object" data-src="holder.js/180x180" alt="Generic placeholder image">
+			<?php }?>
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading"><?php echo $article->title;?></h4>
+        <?php echo $article->content;?>
+      </div>
 </div>
-	
-</div>
-<div class="middlebannerpic">
-		<a href="<?php $bannerpic=$itemcat['bannerpic'];if($bannerpic != null){ echo site_url('home/bannerpic/'.$bannerpic->id)?>" target="_blank">
-		<img src="<?php echo $bannerpic->imgurl;?>" alt="<?php echo $bannerpic->name;}?>">
-		</a>
-</div>
+
 <?php endforeach;?>
 
-	
 
-
-		</div>
- 
-       </div> 
-       
-		
-		
-       </div>   
-     </div>
-
-
-
-<div class="container">  
-	<div class="row">   
-		 <div class="col-md-11 col-md-offset-1"> 
-			<footer id="ft" class="main-footer" role="contentinfo">
-					<div class="panel panel-default">
-					  <div class="panel-heading">
-						<h3 class="panel-title">友谊链接</h3>
-					  </div>
-					  <div class="panel-body friendlink">
-						<?php if($friendlinks->num_rows()>0){ foreach($friendlinks->result() as $friendlink):?>
-						<span class="link"><a href="<?php echo $friendlink->click_url;?>"><?php echo $friendlink->name?></a></span><?php endforeach;}?>
-					  </div>
-					</div>
-					<div class="panel panel-default">
-					  <div class="panel-body">
-						<p> Copyright ©2014&nbsp;<a href="<?php echo site_url();?>" title="<?php echo $site_name;?>"><?php echo $site_name;?></a></p>
-					  </div>
-					</div>
-					
-			</footer>
-		</div>
-	</div>
+<div>
+<textarea name="editor1"></textarea>
+        <script>
+            CKEDITOR.replace( 'editor1' );
+        </script>
 </div>
-<!--
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F312a3f860939b0a65594477fb1a860c4' type='text/javascript'%3E%3C/script%3E"));
-</script>
--->
+
+<nav>
+  <ul class="pagination">
+    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
+    <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
+    <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
+    <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
+     <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+</div>
+
+
+
+
+<div class="col-md-3 hidden-print hidden-xs hidden-sm" >
+	<div>
+		<ul class="list-unstyled">
+			<li>
+					<a href="#">
+					  <img class="media-object" data-src="holder.js/180x180" alt="Generic placeholder image">
+					</a>
+			</li>
+         </ul>
+	</div>
+	<div role="Advertisement">
+          <ul class="list-unstyled">
+			<li>
+					<a href="#">
+					  <img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
+					</a>
+			</li>
+			<li>
+					<a href="#">
+					  <img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
+					</a>
+			</li>
+          </ul>
+    </div>
+</div>
+</div>
+</div>
+<footer class="bs-docs-footer" role="contentinfo">
+	<div class="container">
+		<p>这是footer</p>
+	</div>
+</footer>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
+
 </body>
 </html>

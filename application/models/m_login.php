@@ -62,13 +62,9 @@ class M_login extends CI_Model{
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
 		  ),
-			'num_iid' => array(
-				 'type' => 'VARCHAR',
-				 'constraint' => '128',
-		  ),
 		  'adddatetime' => array(
 				 'type' => 'TIMESTAMP',
-				 'null' => TRUE,
+				 'default' => 'CURRENT_TIMESTAMP',
 		  )
 		);
 
@@ -155,12 +151,12 @@ class M_login extends CI_Model{
 				 'null' => TRUE,
 		  ),
 		  'startdatetime' => array(
-				 'type' => 'datetime',
+				 'type' => 'datet',
 				 'null' => TRUE,
 		  )
 		  ,
 		  'enddatetime' => array(
-				 'type' => 'datetime'
+				 'type' => 'date'
 		  )
 		);
 
@@ -354,22 +350,26 @@ class M_login extends CI_Model{
 
 
 		$fields_cat = array(
-			'cat_id' => array(
+			'id' => array(
 				 'type' => 'INT',
 				 'constraint' => '128',
 		  ),
-			'cat_name' => array(
+			'name' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
 		  ),
-			'cat_slug' => array(
+			'slug' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
+		  ),
+			'typeid' => array(
+				 'type' => 'INT',
+				 'constraint' => '32',
 		  )
 		);
 
 		$this->dbforge->add_field($fields_cat);
-		$this->dbforge->add_key('cat_id',TRUE);
+		$this->dbforge->add_key('id',TRUE);
 
 		//创建表cat，如果不存在
 	   if($this->dbforge->create_table('cat', TRUE))
@@ -406,7 +406,126 @@ class M_login extends CI_Model{
 	   }
 
 
-		$fields_admin = array(
+		
+		
+		//创建article
+		$fields_article = array(
+			'id' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),
+			'cid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,
+		  ),
+			'labelid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,
+		  ),
+			'title' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '100',
+		  ),
+			'content' => array(
+				 'type' => 'TEXT'
+		  ),
+			'html' => array(
+				 'type' => 'TEXT'
+		  ),
+			'authorid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,
+		  ),
+			'levelid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,				 
+		  ),
+			'click_count' => array(
+				 'type' => 'INT',
+				 'constraint' => '32',
+				 'default' => 0				 
+		  ),
+		  'adddatetime' => array(
+				 'type' => 'TIMESTAMP',	
+				 'default' => 'CURRENT_TIMESTAMP'			 
+		  )
+		);
+
+		$this->dbforge->add_field($fields_article);
+		$this->dbforge->add_key('id');
+
+		//创建表user，如果不存在
+	   if($this->dbforge->create_table('article', TRUE))
+	   {
+		   $data['text'] .=  '<p>表article创建成功!</p>';
+	   }
+	   
+	   //创建level
+		$fields_level = array(
+			'id' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),			
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '32',
+		  ),			
+			'color' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '32',
+		  )
+		);
+
+		$this->dbforge->add_field($fields_level);
+		$this->dbforge->add_key('id');
+		
+		//创建表level，如果不存在
+	   if($this->dbforge->create_table('level', TRUE))
+	   {
+		   $data['text'] .=  '<p>表level创建成功!</p>';
+	   }
+	   
+	   
+		 //创建level
+		$fields_pagetype = array(
+			'id' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),			
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '64',
+		  ),			
+			'listview' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		  ),			
+			'contentview' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		  )
+		);
+
+		$this->dbforge->add_field($fields_pagetype);
+		$this->dbforge->add_key('id');
+
+		//创建表pagetype，如果不存在
+	   if($this->dbforge->create_table('pagetype', TRUE))
+	   {
+		   $data['text'] .=  '<p>表pagetype创建成功!</p>';
+	   }
+	   
+	   $fields_admin = array(
 			'user_email' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
@@ -426,7 +545,7 @@ class M_login extends CI_Model{
 		   $data['text'] .=  '<p>表admin创建成功!</p>';
 		   $data['text'] .=  '<p>请输入管理员帐号信息!</p>';
 	   }
-
+	   
 		//检查是否已经存在一个admin
 		$data['is_installed'] = $this->db->get('admin')->num_rows();
 

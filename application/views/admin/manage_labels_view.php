@@ -25,12 +25,12 @@
                 <select class="form-control" id="cid" name="cid">
                   
                   <?php foreach($lxquery->result() as $lxarray):?>
-                  <option value="<?php echo $lxarray->cat_id;?>"><?php echo $lxarray->cat_name;?></option>
+                  <option value="<?php echo $lxarray->id;?>"><?php echo $lxarray->name;?></option>
                   <?php 
 				  //结束类型
 				  endforeach;?>
                 </select>
-                <? } ?>
+                <?php } ?>
               </div>             			 
               <button type="button" class="btn btn-default" id="submitaddlabel">Submit</button>
           </form>
@@ -61,7 +61,7 @@
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addlabel">添加</button></li>
 		</ul>
 		
-	<? if($labels->num_rows()>0){ ?>
+	<?php if($labels->num_rows()>0){ ?>
 
 	<table class="table table-bordered table-striped">
     <thead>
@@ -96,12 +96,11 @@
 	</tbody>
   </table>
 	<div class="pagenav">
-		<?=$pagination;?>
+		<?php echo $pagination;?>
 	</div>
-	<? } ?>
+	<?php } ?>
     </div>
  
-</div>
 <script>
 	(function($){
 		$('.btn_delete').click(function(){
