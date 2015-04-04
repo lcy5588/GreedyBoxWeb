@@ -63,8 +63,8 @@ class M_login extends CI_Model{
 				 'constraint' => '128',
 		  ),
 		  'adddatetime' => array(
-				 'type' => 'TIMESTAMP',
-				 'default' => 'CURRENT_TIMESTAMP',
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
 		  )
 		);
 
@@ -151,12 +151,13 @@ class M_login extends CI_Model{
 				 'null' => TRUE,
 		  ),
 		  'startdatetime' => array(
-				 'type' => 'datet',
-				 'null' => TRUE,
+				  'type' => 'VARCHAR',
+				 'constraint' => '14',
 		  )
 		  ,
 		  'enddatetime' => array(
-				 'type' => 'date'
+				  'type' => 'VARCHAR',
+				 'constraint' => '14',
 		  )
 		);
 
@@ -452,8 +453,8 @@ class M_login extends CI_Model{
 				 'default' => 0				 
 		  ),
 		  'adddatetime' => array(
-				 'type' => 'TIMESTAMP',	
-				 'default' => 'CURRENT_TIMESTAMP'			 
+				 'type' => 'VARCHAR',
+				 'constraint' => '14'
 		  )
 		);
 
