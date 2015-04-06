@@ -8,11 +8,9 @@
     		</div>
         <div class="modal-body">
           <form role="form" id="addlevelform" name="addlevelform" method="post" action="<?php echo site_url('admin/addlevel')?>">
-              
-               <input type="hidden" class="form-control" id="id" name="id" value="">
               <div class="form-group">
                 <label >级别ID:</label>
-                <label id="showid"></label>
+				<input type="text" class="form-control" id="id" name="id" placeholder="级别名称">                
               </div>
               <div class="form-group">
                 <label for="name">级别名称</label>
@@ -55,7 +53,7 @@
         
 		   foreach($level->result() as $row){ ?>
                 <tr class="level_row">
-                <td class="level_id" value="<?php echo $row->id ?>"><?php echo $row->id ?></td>
+                <td><input type="text" class="level_id input-small"  value="<?php echo $row->id ?>"></td>
                 <td><input type="text" class="level_name input-small"  value="<?php echo $row->name ?>"></td>
                 <td><input type="text" class="level_color input-small" value="<?php echo $row->color ?>"></td>           
                 <td>
@@ -67,9 +65,9 @@
 		 ?>
     </tbody>
   </table>
-    <a href="#" title="" class="btn btn-primary" id="btn-save">保存</a>
+    <a href="javascript:void(0);" title="" class="btn btn-primary" id="btn-save">保存</a>
 	<button class="btn btn-primary" data-toggle="modal" data-target="#addlevel">手动新增</button>
-    <a href="<?php echo site_url('admin/leveladd')?>" title="">新增类别</a>	
+
 </div>
  
 <script>
@@ -88,24 +86,22 @@
             var data = new Array();
             $('.level_row').each(function(index){
                 data[index] = {
-					id : $(this).find('.level_id').attr('value'),
+					id : $(this).find('.level_id').val(),
 					 name : $(this).find('.level_name').val(),
-					 color : $(this).find('.level_slug').val()}
-				 //var catname = $(this).find('.cat_name');
-				 //alert($(this).find('.cat_typeid').val());
+					 color : $(this).find('.level_color').val()}
+				 //var catname = $(this).find('.level_id');
+				 alert($(this).find('.level_id').val() + $(this).find('.level_name').val() + $(this).find('.level_color').val());
             });
-           
-			 data = JSON.stringify(data);
 			
 			$.post('<?php echo site_url("admin/updatalevel")?>',
-				data,function(result){
-
+				{data:JSON.stringify(data)},function(result){
+						
 						if(result != null){
 							location.reload();
 						}else{
 							alert('更新失败');
 						}
-					},"json");						                  
+					});						                  
         });
         
         $('.btn_delete').click(function(){

@@ -90,10 +90,12 @@ class M_pagetype extends CI_Model{
 			$this->db->where('id', $pagetype -> id);
 			$this->db->update($this->pagetype_table, $data);
         }
+		
+		return '1';
 	}
 
 	function delete_pagetype($pagetype_id){
-		$this->db->delete($this->pagetype_table,array('id'=>$pagetype_id));
+		return $this->db->delete($this->pagetype_table,array('id'=>$pagetype_id));
 	}
 
 }

@@ -958,6 +958,7 @@ class Admin extends CI_Controller {
 	public function addlevel(){
 		$this->load->model('M_level');
 		$data=array(
+				'id' => $this->input->post('id'),
 				'name' => $this->input->post('name'),
 				'color' => $this->input->post('color')
 		);
@@ -970,6 +971,46 @@ class Admin extends CI_Controller {
 		$id = $this->input->post('id');
 		
 		echo $this->M_level->delete_level($id);
+	}
+	
+	public function updatalevel(){
+		$this->load->model('M_level');
+		
+		echo $this->M_level->update_level();
+	}
+	
+	/*页面类型*/
+	public function managepagetype(){
+		$this->load->model('M_pagetype');
+		$data['pagetype'] = $this->M_pagetype->get_all_pagetype();
+		
+		$this->load->view('admin/include_header');
+		$this->load->view('admin/manage_pagetypes_view',$data);
+	}
+	
+	public function addpagetype(){
+		$this->load->model('M_pagetype');
+		$data=array(
+				'id' => $this->input->post('id'),
+				'name' => $this->input->post('name'),
+				'listview' => $this->input->post('listview'),
+				'contentview' => $this->input->post('contentview')
+		);
+		
+		echo $this->M_pagetype->add_pagetype_by($data);
+	}
+	
+	public function deletepagetype(){
+		$this->load->model('M_pagetype');
+		$id = $this->input->post('id');
+		
+		echo $this->M_pagetype->delete_pagetype($id);
+	}
+	
+	public function updatapagetype(){
+		$this->load->model('M_pagetype');
+		
+		echo $this->M_pagetype->update_pagetype();
 	}
 }
 

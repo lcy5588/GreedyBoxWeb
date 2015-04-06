@@ -27,7 +27,8 @@ class M_level extends CI_Model{
 	
 	function add_level_by($level)
 	{
-            $data = array(                        
+            $data = array(
+							'id' =>$level['id'],
                            'name' =>$level['name'],
                            'color' =>$level['color']
                         );
@@ -63,13 +64,16 @@ class M_level extends CI_Model{
 		 $data_decode = json_decode($_POST['data']);
 		foreach($data_decode as $level){
 			$data = array(
+			   'id'  => $level->id,
                'name' => $level -> name,
                'color' => $level -> color
             );
 
 			$this->db->where('id', $level -> id);
-			$this->db->update($this->level_table, $data);
+		    $this->db->update($this->level_table, $data);
         }
+		
+		return 1;
 	}
 
 	function delete_level($level_id){

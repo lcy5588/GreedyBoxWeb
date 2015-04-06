@@ -39,6 +39,9 @@
 			   <li class="">
                 <a href="<?php echo site_url('admin/managearticle')?>">文章管理</a>
               </li>
+			  <li class="">
+                <a href="<?php echo site_url('admin/managepagetype')?>">页面类型管理</a>
+              </li>
               <li class="">
                 <a href="<?php echo site_url('admin/cat')?>">类别管理</a>
               </li>
