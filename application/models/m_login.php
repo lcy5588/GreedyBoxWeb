@@ -514,6 +514,10 @@ class M_login extends CI_Model{
 			'contentview' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
+		  ),
+		    'identification' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '32',
 		  )
 		);
 

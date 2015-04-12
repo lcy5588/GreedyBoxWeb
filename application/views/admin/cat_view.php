@@ -16,12 +16,23 @@
                 <label for="cat_name">分类名称</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
               </div>  
-				<div class="form-group">
+			  <div class="form-group">
                 <label for="cat_slug">英文缩写（slug）</label>
                 <input type="text" class="form-control" id="slug" name="slug" placeholder="英文缩写（slug）">
-              </div> 			          			 
+              </div> 
+			  <div class="form-group">
+                <label for="cat_pagetype">页面类型</label>
+                <select class="form-control" id="pagetypeid" name="pagetypeid" value="">
+                <?php
+                foreach($pagetype->result() as $type){echo '<option value ="'.$type->id.'">';
+					
+					echo $type->name.'</option>';
+					}
+				?>
+                </select>
+              </div>			  
               <button type="button" class="btn btn-default submitaddcat" id="submitaddcat" name="submitaddcat">Submit</button>
-			  <button type="submit" class="btn btn-default">go</button>
+			  
           </form>
         </div>
         <div class="modal-footer">
@@ -70,7 +81,7 @@
 				?>
                 </select></td>
                 <td class="cat_id" value="<?php echo $row->id;?>"><?php echo $row->id?></td>
-                <td><a href="<?php echo site_url('admin/catdelete/'.$row->id);?>">×</a></td>
+                <td><a href="#" title="删除此条" class="btn_delete"  data-catid="<?php echo $row->id; ?>">删除</a></td>
                 </tr>
                 <?php 
                 $index++;
@@ -107,24 +118,48 @@
 				 //alert($(this).find('.cat_typeid').val());
             });
            
-                 data = JSON.stringify(data);
-				
-                    // The rest of this code assumes you are not using a library.
-                    // It can be made less wordy if you use one.
-                    var form = document.createElement("form");
-                    form.setAttribute("method", 'POST');
-                    form.setAttribute("action", "<?php echo site_url('admin/catupdate_op');?>");
-
-                    var hiddenField = document.createElement("input");
-                    hiddenField.setAttribute("type", "hidden");
-                    hiddenField.setAttribute("name", 'data');
-                    hiddenField.setAttribute("value", data);
-                    
-                    form.appendChild(hiddenField);
-
-                    document.body.appendChild(form);
-                    form.submit();
+             
+			$.post('<?php echo site_url("admin/catupdate_op/")?>',
+			{data:JSON.stringify(data)},function(result){
+						
+						if(result != null){
+							location.reload();
+						}else{
+							alert('更新失败');
+						}
+					});
+					
         });
+		
+		$('.btn_delete').click(function(){
+			var r=confirm("你真的真的要删除吗？无法恢复！");
+				if (r==true)
+				{
+					var that = $(this);
+					var delete_cat_id = $(this).data('catid');
+					
+					$.post('<?php echo site_url("admin/catdelete/")?>',
+						{
+							id: delete_cat_id
+						},function(data){
+								if(data){ //如果删除成功
+									that.parents('tr').fadeToggle();
+								}
+							});
+				} else
+				{
+				}
+		
+		});
+		
+		$('#addcat').on('hide.bs.modal', function (e){
+			$('#id').val("");
+			$('#name').val("");
+			$('#slug').val("");
+			
+
+			$('#modal-title').text('增加类型条目');
+		});
 	})(jQuery);
 </script>
 </body>

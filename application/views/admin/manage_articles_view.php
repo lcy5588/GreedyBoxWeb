@@ -1,14 +1,6 @@
 	<div id="page-items">
 	
-         <!--增加修改modal--> 
-          <div class="modal fade" id="articlemodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-    	<div class="modal-content">
-    		<div class="modal-header">
-      			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      			<h4 class="modal-title" id="modal-title">新增文章</h4>
-    		</div>
-        <div class="modal-body">
+        <div class="container" style="display:none;" id="addarticlediv" name="addarticlediv">
 		<form role="form" class="form-horizontal" id="articlemodelform" name="articlemodelform" method="post" action="<?php echo site_url('admin/addorupdataitem')?>">
 		  
 		  <input type="hidden" id="article_id" name="article_id" value=""/>
@@ -36,7 +28,17 @@
 					</div>
 					<label for="article_labelid" class="col-sm-1 control-label">标签</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="article_labelid" name="article_labelid" placeholder="标签">
+						
+						<?php if($labelquery && $labelquery->num_rows()>0){?>
+						<select class="form-control" id="article_labelid" name="article_labelid">
+						  
+						  <?php foreach($labelquery->result() as $labelarray):?>
+						  <option value="<?php echo $labelarray->id;?>"><?php echo $labelarray->title;?></option>
+						  <?php 
+						  //结束类型
+						  endforeach;?>
+						</select>
+						<?php } ?>
 					</div>
 					 
 				  </div>
@@ -45,7 +47,17 @@
 					<div class="form-group">
 					<label for="article_levelid" class="col-sm-1 control-label">级别</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="article_levelid" name="article_levelid" placeholder="级别">
+						<?php if($levelquery && $levelquery->num_rows()>0){?>
+						<select class="form-control" id="article_levelid" name="article_levelid">
+						  
+						  <?php foreach($levelquery->result() as $levelarray):?>
+						  <option value="<?php echo $levelarray->id;?>"><?php echo $levelarray->name;?></option>
+						  <?php 
+						  //结束类型
+						  endforeach;?>
+						</select>
+						<?php } ?>
+						
 					</div>
 					<label for="article_authorid" class="col-sm-1 control-label">作者</label>
 					<div class="col-sm-5">
@@ -66,15 +78,14 @@
 					</script>
 		 </div>
           
-        </div>
+        
         <div class="modal-footer">
 			 <button type="button" class="btn btn-default"  id="submitaddarticle" name="submitaddarticle">保存</button>
 			 <button type="button" class="btn btn-default">清空</button>
-			 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			 <button type="button" class="btn btn-default" onclick="hidediv();">取消</button>
         </div>
           </div>
-          </div>
-          </div><!--end <div class="modal fade" id="articlemodel"-->
+         
          
         <div class="pull-right">
           <form class="form-inline" role="form" action="" method="get" id="search">
@@ -130,9 +141,9 @@
 	<tr>
     	<th style="width:5%;"><?php echo $array->id ?></th>
         <td style="width:15%;"><?php echo $array->title; ?></td>
-        <td style="width:5%;"><?php echo $array->cid ?></td>        
-        <td style="width:10%;"><?php echo $array->labelid; ?></td>        
-        <td style="width:15%;"><?php echo $array->levelid; ?></td>
+        <td style="width:5%;"><?php echo $lx_zd[$array->cid]?></td>        
+        <td style="width:10%;"><?php echo $label_zd[$array->labelid]; ?></td>        
+        <td style="width:15%;"><?php echo $level_zd[$array->levelid]; ?></td>
         <td style="width:25%;"><?php echo $array->content; ?></td>
         <td style="width:5%;"><?php echo $array->click_count ?></td>
         <td style="width:10%;"><?php echo $array->adddatetime;?></td>
@@ -202,7 +213,7 @@
 									CKEDITOR.instances.editor.setData(data['html']);
 									
 									$('#modal-title').text('修改文章');
-									$('#articlemodel').modal('show');
+									$('#addarticlediv').show();
 								}else{
 									alert('获取信息失败');
 								}
@@ -218,21 +229,11 @@
 			if ($('#article_id').val() != ""){
 				url = "<?php echo site_url('admin/updataarticle/')?>";
 			}
-			alert(url);
+			
 			$.post(url, $("#articlemodelform").serialize(),function(data){
 				if(data){
-				
-					/* if($('#item_id').val() == ""){
-						
-						$('tbody').prepend('<tr><th>'+data+'</th><td><img src="'+$('#img_url').val()+'" class="thumbnail" alt="" title=""></td>'
-						+'<td>'+$('#title').val()+'</td><td>'+$('#click_url').val()+'</td><td>'+$('#sellernick').val()+'</td>'
-						+'<td><strong>'+$('#price').val()+'</strong></td><td>'+$('#cid').val()+'</td><td>0</td>'
-						+'<td><a href="#" title="修改此条" class="btn_update" data-itemid="'+data+'">修改</a>&nbsp;&nbsp;'
-						+'<a href="#" title="删除此条" class="btn_delete"  data-itemid="'+data+'">删除</a> </td></tr>').fadeIn();
-					} */
-					alert(data);
 					location.reload();
-					$('#articlemodel').modal('hide');
+					hidediv();
 				}
 			});
 		});
@@ -253,9 +254,9 @@
 				
 		$('#articlemodelbtn').click(function(){
 			var cid = $('#articlemodelcid').val();
-			$('#cid').val(cid);
+			$('#article_cid').val(cid);
 			
-			$('#articlemodel').modal('show');
+			$('#addarticlediv').show();
 		});
 	})(jQuery);
 	
@@ -266,6 +267,23 @@
 			$('#article_content').val(stemTxt);
 			
 			$('#article_html').val(stem);
+	}
+	
+	function hidediv()
+	{
+		$('#article_id').val("");
+		$('#article_title').val("");
+		$('#article_cid').val("");
+		$('#article_levelid').val("");
+		$('#article_authorid').val("");
+		$('#article_labelid').val("");
+		$('#article_content').val("");
+		$('#article_html').val("");
+		CKEDITOR.instances.editor.setData("");
+		
+		$('#modal-title').text('增加文章');
+		
+		$('#addarticlediv').hide();
 	}
 </script>
 </body>

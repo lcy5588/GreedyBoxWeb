@@ -75,14 +75,6 @@
 
 <?php endforeach;?>
 
-
-<div>
-<textarea name="editor1"></textarea>
-        <script>
-            CKEDITOR.replace( 'editor1' );
-        </script>
-</div>
-
 <nav>
   <ul class="pagination">
     <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>

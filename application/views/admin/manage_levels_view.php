@@ -89,8 +89,7 @@
 					id : $(this).find('.level_id').val(),
 					 name : $(this).find('.level_name').val(),
 					 color : $(this).find('.level_color').val()}
-				 //var catname = $(this).find('.level_id');
-				 alert($(this).find('.level_id').val() + $(this).find('.level_name').val() + $(this).find('.level_color').val());
+				 
             });
 			
 			$.post('<?php echo site_url("admin/updatalevel")?>',
@@ -123,6 +122,15 @@
 				{
 				}
 		
+		});
+		
+		$('#addlevel').on('hide.bs.modal', function (e){
+			$('#id').val("");
+			$('#name').val("");
+			$('#color').val("");
+			
+
+			$('#modal-title').text('增加级别类型条目');
 		});
 	})(jQuery);
 </script>
