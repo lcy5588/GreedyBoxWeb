@@ -6,12 +6,17 @@
 		  <input type="hidden" id="article_id" name="article_id" value=""/>
 			  
 			  <div class="form-group">
-				<label for="title" class="col-sm-1 control-label">标题</label>
+				<label for="article_title" class="col-sm-1 control-label">标题</label>
 				<div class="col-sm-11">
 					<input type="text" class="form-control" id="article_title" name="article_title" placeholder="标题">
 				</div>
 			  </div>
-			  
+			   <div class="form-group">
+				<label for="article_imgurl" class="col-sm-1 control-label">图片地址</label>
+				<div class="col-sm-11">
+					<input type="text" class="form-control" id="article_imgurl" name="article_imgurl" placeholder="图片地址">
+				</div>
+			  </div>
 				  <div class="form-group">
 					  <label for="article_cid" class="col-sm-1 control-label">类型</label>
 				  <div class="col-sm-5">
@@ -124,9 +129,10 @@
       <tr>
         <th style="width:5%;">序号</th>
         <th style="width:15%;">标题</th>
+		<th style="width:10">图片</th>
         <th style="width:5%;">类别</th>       
         <th style="width:10%;">标签</th>
-        <th style="width:15%;">级别</th>
+        <th style="width:5%;">级别</th>
         <th style="width:25%;">内容简要</th>
         <th style="width:5%;">点击次数</th>
         <th style="width:10%;">添加时间</th>
@@ -141,9 +147,12 @@
 	<tr>
     	<th style="width:5%;"><?php echo $array->id ?></th>
         <td style="width:15%;"><?php echo $array->title; ?></td>
+		<td style="width:10%;">
+			<img src="<?php echo $array->imgurl; ?>" class="thumbnail" alt="" title="">
+		</td>
         <td style="width:5%;"><?php echo $lx_zd[$array->cid]?></td>        
         <td style="width:10%;"><?php echo $label_zd[$array->labelid]; ?></td>        
-        <td style="width:15%;"><?php echo $level_zd[$array->levelid]; ?></td>
+        <td style="width:5%;"><?php echo $level_zd[$array->levelid]; ?></td>
         <td style="width:25%;"><?php echo $array->content; ?></td>
         <td style="width:5%;"><?php echo $array->click_count ?></td>
         <td style="width:10%;"><?php echo $array->adddatetime;?></td>
@@ -209,6 +218,7 @@
 									$('#article_levelid').val(data['levelid']);
 									$('#article_authorid').val(data['authorid']);
 									$('#article_labelid').val(data['labelid']);
+									$('#article_imgurl').val(data['imgurl']);
 									
 									CKEDITOR.instances.editor.setData(data['html']);
 									
@@ -236,20 +246,6 @@
 					hidediv();
 				}
 			});
-		});
-		
-		$('#articlemodel').on('hide.bs.modal', function (e){
-			$('#article_id').val("");
-			$('#article_title').val("");
-			$('#article_cid').val("");
-			$('#article_levelid').val("");
-			$('#article_authorid').val("");
-			$('#article_labelid').val("");
-			$('#article_content').val("");
-			$('#article_html').val("");
-			CKEDITOR.instances.editor.setData("");
-			
-			$('#modal-title').text('增加文章');
 		});
 				
 		$('#articlemodelbtn').click(function(){
@@ -279,6 +275,8 @@
 		$('#article_labelid').val("");
 		$('#article_content').val("");
 		$('#article_html').val("");
+		$('#article_imgurl').val("");
+		
 		CKEDITOR.instances.editor.setData("");
 		
 		$('#modal-title').text('增加文章');

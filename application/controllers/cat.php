@@ -106,7 +106,8 @@ class Cat extends CI_Controller {
 		
 		
 		if($identification == 'article'){
-			
+			$articles = $this->M_article->get_all_articles();
+			$data['articles'] = $articles;
 		}else if($identification == 'item'){
 			$itemcat = array();
 		

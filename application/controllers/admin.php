@@ -929,7 +929,8 @@ class Admin extends CI_Controller {
                            'article_content' =>$_POST['article_content'],
                            'article_html' =>$_POST['article_html'],
                            'article_authorid' =>$_POST['article_authorid'],
-                           'article_levelid' => $_POST['article_levelid']
+                           'article_levelid' => $_POST['article_levelid'],
+						   'article_imgurl' => $_POST['article_imgurl']
                         );
 		
 		echo $this->M_article->add_article_by($data);
@@ -956,7 +957,8 @@ class Admin extends CI_Controller {
                            'title' =>$article -> title,
                            'html' =>$article -> html,
                            'authorid' =>$article -> authorid,
-                           'levelid' => $article -> levelid
+                           'levelid' => $article -> levelid,
+						   'imgurl' => $article -> imgurl
 			);
 			
 		echo json_encode($data);
@@ -972,7 +974,8 @@ class Admin extends CI_Controller {
                            'article_content' =>$_POST['article_content'],
                            'article_html' =>$_POST['article_html'],
                            'article_authorid' =>$_POST['article_authorid'],
-                           'article_levelid' => $_POST['article_levelid']
+                           'article_levelid' => $_POST['article_levelid'],
+						   'article_imgurl' => $_POST['article_imgurl']
                         );
 		echo $this->M_article->update_article_by($data);
 	}

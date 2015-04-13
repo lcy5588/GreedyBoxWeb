@@ -2,7 +2,12 @@
 <html lang="zh-cn">
 <head>
 	<meta charset="utf-8">
-	<title>这是个bootstrap学习实例</title>
+	<title><?php
+	 echo $site_name;
+	 ?></title>
+	<meta name="keywords" content="<?php 
+		echo $site_keyword; ?>">
+	<meta name="description" content="<?php echo $site_description; ?>">
 
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
@@ -44,12 +49,6 @@
 		
 </div>
 </header>
-<div class="bs-docs-header"  style="padding-top:70px;display:none;">
-	<div class="container">
-		<h1>zujian</h1>
-		<p>here is zujian</p>	
-	</div>
-</div>
 <div class="container bs-docs-container"  style="padding-top:80px;"  id="top" >
 
       <div class="row">
@@ -61,9 +60,9 @@
       <div class="media-left">
         <a href="#">
 			<?php if($isfirst){?>
-          <img class="media-object" data-src="holder.js/200x200" alt="Generic placeholder image">
+          <img class="media-object" src="<?php echo $article->imgurl?>" style="width:200px;height:200px;" alt="Generic placeholder image">
 			<?php $isfirst=false;} else{?>
-			<img class="media-object" data-src="holder.js/180x180" alt="Generic placeholder image">
+			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:180px;height:180px;" alt="Generic placeholder image">
 			<?php }?>
         </a>
       </div>

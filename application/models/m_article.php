@@ -25,7 +25,8 @@ class M_article extends CI_Model{
                            'content' =>$article -> article_content,
                            'html' =>$article -> article_html,
                            'authorid' =>$article -> article_authorid,
-                           'levelid' => $article -> article_levelid
+                           'levelid' => $article -> article_levelid,
+						   'imgurl' => $article -> imgurl
                            
                         );
             $this->db->insert($this->article_table, $data);
@@ -41,7 +42,8 @@ class M_article extends CI_Model{
                            'content' =>$article['article_content'],
                            'html' =>$article['article_html'],
                            'authorid' =>$article['article_authorid'],
-                           'levelid' => $article['article_levelid']
+                           'levelid' => $article['article_levelid'],
+						   'imgurl' => $article['imgurl']
                         );
             return $this->db->insert($this->article_table, $data);
     }
@@ -49,7 +51,7 @@ class M_article extends CI_Model{
 	
 	function get_article_by_id($id = ''){
     	if(!empty($id)){
-			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime');
+			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime,imgurl');
     		$result = $this->db->get_where($this->article_table, array('id'=>$id))->result();
     		return $result[0];
     	}else {
@@ -85,7 +87,8 @@ class M_article extends CI_Model{
                            'content' =>$article -> article_content,
                            'html' =>$article -> article_html,
                            'authorid' =>$article -> article_authorid,
-                           'levelid' => $article -> article_levelid
+                           'levelid' => $article -> article_levelid,
+						   'imgurl' => $article -> article_imgurl
             );
 
 			$this->db->where('id', $article -> article_id);
@@ -101,7 +104,8 @@ class M_article extends CI_Model{
                            'content' =>$article['article_content'],
                            'html' =>$article['article_html'],
                            'authorid' =>$article['article_authorid'],
-                           'levelid' => $article['article_levelid']
+                           'levelid' => $article['article_levelid'],
+						   'imgurl' => $article['article_imgurl']
             );
             
         $this->db->where('id', $article['article_id']);
