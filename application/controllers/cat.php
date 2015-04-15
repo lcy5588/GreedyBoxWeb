@@ -18,6 +18,8 @@ class Cat extends CI_Controller {
 		$this->load->model('M_brand');
 		$this->load->model('M_banner');
 		$this->load->model('M_label');
+		$this->load->model('M_pagetype');
+		$this->load->model('M_article');
 	}
 
 	/**
@@ -40,14 +42,29 @@ class Cat extends CI_Controller {
 
 		$config['base_url'] = site_url('/cat/'.$cat_slug);
 		//site_url可以防止换域名代码错误。
-
-		$config['total_rows'] = $this->M_item->count_items($cat_slug_decode);
+		
+		//分类标题
+		$cat = $this->M_cat->get_cat_by_slug($cat_slug_decode);
+		
+		$pagetypeid = $cat->typeid;
+		
+		$identification = $this->M_pagetype->get_pagetype_identification($pagetypeid);
+		
+		if($identification == 'article'){
+			$config['total_rows'] = $this->M_article->count_articles($cat->id);
+		}else if($identification == 'item'){
+			$config['total_rows'] = $this->M_item->count_items($cat_slug_decode);
+		}else if($identification == 'joke'){
+			//$config['total_rows'] = $this->M_article->count_articles($cat->id);
+		}
+		
+		
 		//这是模型里面的方法，获得总数。
 
 		$config['per_page'] = $limit;
 		$config['first_link'] = '首页';
 		$config['last_link'] = '尾页';
-		$cionfig['num_links']=10;
+		$config['num_links']=10;
 		//上面是自定义文字以及左右的连接数
 
 		$this->pagination->initialize($config);
@@ -59,34 +76,25 @@ class Cat extends CI_Controller {
 		//关键词列表，这个在后台配置
 		$data['keyword_list'] = $this->M_keyword->get_all_keyword(5);
 
-		//分类标题
-		$cat = $this->M_cat->get_cat_by_slug($cat_slug_decode);
+		
 		
 		if(!empty($cat))
-		$data['cat_name'] = $cat->cat_name;
+		$data['cat_name'] = $cat->name;
 		else $data['cat_name'] = '';
 		
-		//$this->load->model('M_cat');
 		$data['cat']=$this->M_cat->get_all_cat();
 
 		$data['cat_slug'] = $cat_slug_decode;
 
 		//所有条目数据
 		//$data['items']=$this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode);
-		$this->load->model('M_bannerpic');
 		
 		
-		$itemcat = array();
 		
-		if(!empty($cat)){
-			$itemcat['item'] = $this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode);
-			$itemcat['brand'] = $this->M_brand->get_all_brand(10,0,$cat_slug_decode);
-			$itemcat['label'] = $this->M_label->get_all_label(8,0,$cat_slug_decode);
-			$itemcat['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');
-			$itemcat['cat'] = $cat;
-		}
+		//$this->load->model('M_bannerpic');
 		
-		$data['itemcat'] = $itemcat;
+		
+		
 		
 		
 		//站点信息
@@ -95,8 +103,30 @@ class Cat extends CI_Controller {
 		//keysords和description
 		$data['site_keyword'] = $this->config->item('site_keyword');
 		$data['site_description'] = $this->config->item('site_description');
-
-		$this->load->view('cat_view',$data);
+		
+		
+		if($identification == 'article'){
+			$articles = $this->M_article->get_all_articles();
+			$data['articles'] = $articles;
+		}else if($identification == 'item'){
+			$itemcat = array();
+		
+			if(!empty($cat)){
+				$itemcat['item'] = $this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode);
+				$itemcat['brand'] = $this->M_brand->get_all_brand(10,0,$cat_slug_decode);
+				$itemcat['label'] = $this->M_label->get_all_label(8,0,$cat_slug_decode);
+				//$itemcat['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');
+				$itemcat['cat'] = $cat;
+			}
+			
+			$data['itemcat'] = $itemcat;
+		}else if($identification == 'joke'){
+			//$config['total_rows'] = $this->M_article->count_articles($cat->id);
+		}
+		
+		$listview = $this->M_pagetype->get_pagetype_listview($pagetypeid);
+		
+		$this->load->view($listview,$data);
 
 	}
 
@@ -170,7 +200,6 @@ class Cat extends CI_Controller {
 		}
 		else echo false;
 	}
-
 
 }
 

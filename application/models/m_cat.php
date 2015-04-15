@@ -32,7 +32,8 @@ class M_cat extends CI_Model{
             $data = array(
                            'id' => $cat['id'] ,
                            'name' =>$cat['name'],
-                           'slug' =>$cat['slug']
+                           'slug' =>$cat['slug'],
+						   'typeid' => $cat['typeid']
                         );
             return $this->db->insert($this->cat_table, $data);
     }
@@ -86,10 +87,12 @@ class M_cat extends CI_Model{
 			$this->db->where('id', $cat -> id);
 			$this->db->update($this->cat_table, $data);
         }
+		
+		return true;
 	}
 
 	function delete_cat($cat_id){
-		$this->db->delete($this->cat_table,array('id'=>$cat_id));
+		return $this->db->delete($this->cat_table,array('id'=>$cat_id));
 	}
 
     /**

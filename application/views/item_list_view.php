@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
 	<meta charset="utf-8">
-	<title>这是个bootstrap学习实例</title>
+	<title>item list view</title>
 
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
@@ -25,10 +25,10 @@
 					<?php
 					   foreach($cat->result() as $row){
 							$is_current = '';
-							if(!empty($cat_slug) && $row->cat_slug == $cat_slug){
+							if(!empty($cat_slug) && $row->slug == $cat_slug){
 								$is_current = 'active';
 							}
-						   echo '<li role="presentation" class="'.$is_current.'"><a href="'.site_url('cat/'.rawurlencode($row->cat_slug)).'">'.$row->cat_name.'</a></li>';
+						   echo '<li role="presentation" class="'.$is_current.'"><a href="'.site_url('cat/'.rawurlencode($row->slug)).'">'.$row->name.'</a></li>';
 						}
 					 ?>
 			  </ul>

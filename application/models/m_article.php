@@ -25,7 +25,8 @@ class M_article extends CI_Model{
                            'content' =>$article -> article_content,
                            'html' =>$article -> article_html,
                            'authorid' =>$article -> article_authorid,
-                           'levelid' => $article -> article_levelid
+                           'levelid' => $article -> article_levelid,
+						   'imgurl' => $article -> imgurl
                            
                         );
             $this->db->insert($this->article_table, $data);
@@ -35,14 +36,14 @@ class M_article extends CI_Model{
 	function add_article_by($article)
 	{
             $data = array(
-                           'id' => $article['article_id'] ,
                            'cid' =>$article['article_cid'],
                            'labelid' =>$article['article_labelid'],
                            'title' =>$article['article_title'],
                            'content' =>$article['article_content'],
                            'html' =>$article['article_html'],
                            'authorid' =>$article['article_authorid'],
-                           'levelid' => $article['article_levelid']
+                           'levelid' => $article['article_levelid'],
+						   'imgurl' => $article['imgurl']
                         );
             return $this->db->insert($this->article_table, $data);
     }
@@ -50,7 +51,7 @@ class M_article extends CI_Model{
 	
 	function get_article_by_id($id = ''){
     	if(!empty($id)){
-			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime');
+			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime,imgurl');
     		$result = $this->db->get_where($this->article_table, array('id'=>$id))->result();
     		return $result[0];
     	}else {
@@ -86,7 +87,8 @@ class M_article extends CI_Model{
                            'content' =>$article -> article_content,
                            'html' =>$article -> article_html,
                            'authorid' =>$article -> article_authorid,
-                           'levelid' => $article -> article_levelid
+                           'levelid' => $article -> article_levelid,
+						   'imgurl' => $article -> article_imgurl
             );
 
 			$this->db->where('id', $article -> article_id);
@@ -102,7 +104,8 @@ class M_article extends CI_Model{
                            'content' =>$article['article_content'],
                            'html' =>$article['article_html'],
                            'authorid' =>$article['article_authorid'],
-                           'levelid' => $article['article_levelid']
+                           'levelid' => $article['article_levelid'],
+						   'imgurl' => $article['article_imgurl']
             );
             
         $this->db->where('id', $article['article_id']);
@@ -164,13 +167,12 @@ class M_article extends CI_Model{
 	}
 
 	function count_articles($cid=""){
-			if(empty($cat_slug)){
+			if(empty($cid)){
 			return $this->db->count_all_results($this->article_table);
 		}else{
 
-			$this->db->select('COUNT(item.id) AS count');
-			$where = "cid= '".$cid."'";
-			$this->db->where($where);
+			$this->db->select('COUNT(id) AS count');
+			$this->db->where('cid',$cid);
 			$query = $this->db->get($this->article_table);
 
 			if ($query->num_rows() > 0)

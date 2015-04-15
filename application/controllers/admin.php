@@ -19,6 +19,8 @@ class Admin extends CI_Controller {
 			$this->load->model('M_brand');
 			$this->load->model('M_pagetype');
 			$this->load->model('M_article');
+			$this->load->model('M_level');
+			
 			$this->load->view('admin/include_login'); //检查cookie
 		}
 
@@ -180,7 +182,7 @@ class Admin extends CI_Controller {
 	public function cat(){
 		$data['cat'] = $this->M_cat->get_all_cat();
 		$data['pagetype'] = $this->M_pagetype->get_all_pagetype();
-		$data['cat_saved'] = false;
+		
 		$this->load->view('admin/include_header');
 		$this->load->view('admin/cat_view',$data);
 	}
@@ -202,19 +204,15 @@ class Admin extends CI_Controller {
 		$data=array(
 				'id' => $this->input->post('id'),
 				'name' => $this->input->post('name'),
-				'slug' => $this->input->post('slug')
+				'slug' => $this->input->post('slug'),
+				'typeid' => $this->input->post('pagetypeid')
 		);
 		
 		echo $this->M_cat->add_cat_by($data);
 	}
 	
 	public function catupdate_op(){
-		$this->M_cat->update_cat();
-		$data['cat_saved'] = true;
-        $data['cat'] = $this->M_cat->get_all_cat();
-        $data['pagetype'] = $this->M_pagetype->get_all_pagetype();
-        $this->load->view('admin/include_header');
-        $this->load->view('admin/cat_view',$data);
+		return $this->M_cat->update_cat();
 	}
 
 
@@ -230,12 +228,10 @@ class Admin extends CI_Controller {
 	 * 删除商品类目
 	 *
 	 */
-	public function catdelete($cat_id){
-		$this->M_cat->delete_cat($cat_id);
-        $data['cat'] = $this->M_cat->get_all_cat();
-		$data['cat_saved'] = true;
-        $this->load->view('admin/include_header');
-        $this->load->view('admin/cat_view',$data);
+	public function catdelete(){
+		$cat_id = $this->input->post("id");
+		
+		echo $this->M_cat->delete_cat($cat_id);
 	}
 
 	/**
@@ -877,7 +873,45 @@ class Admin extends CI_Controller {
 
 			$data['query'] = $this->M_article->get_all_articles($limit,$offset);
             
-			$data['lxquery'] =  $this->M_cat->get_all_cat();
+			$lxquery = $this->M_cat->get_all_cat();
+			$data['lxquery'] = $lxquery;
+			
+			$lx_zd = array();
+			
+			if($lxquery->num_rows()>0){
+				foreach($lxquery->result() as $lx){
+					$lx_zd[$lx->id] = $lx->name;
+				}
+			}
+			
+			$data['lx_zd'] = $lx_zd;
+			
+			$levelquery = $this->M_level->get_all_level();
+			$data['levelquery'] = $levelquery;
+			
+			$level_zd = array();
+			
+			if($levelquery->num_rows()>0){
+				foreach($levelquery->result() as $lx){
+					$level_zd[$lx->id] = $lx->name;
+				}
+			}
+			
+			$data['level_zd'] = $level_zd;
+			
+			$labelquery = $this->M_label->get_all_label();
+			$data['labelquery'] = $labelquery;
+			
+			$label_zd = array();
+			
+			if($labelquery->num_rows()>0){
+				foreach($labelquery->result() as $lx){
+					$label_zd[$lx->id] = $lx->title;
+				}
+			}
+			
+			$data['label_zd'] = $label_zd;
+			
 			
 			$this->load->view('admin/include_header');
 			$this->load->view('admin/manage_articles_view',$data);
@@ -895,7 +929,8 @@ class Admin extends CI_Controller {
                            'article_content' =>$_POST['article_content'],
                            'article_html' =>$_POST['article_html'],
                            'article_authorid' =>$_POST['article_authorid'],
-                           'article_levelid' => $_POST['article_levelid']
+                           'article_levelid' => $_POST['article_levelid'],
+						   'article_imgurl' => $_POST['article_imgurl']
                         );
 		
 		echo $this->M_article->add_article_by($data);
@@ -922,7 +957,8 @@ class Admin extends CI_Controller {
                            'title' =>$article -> title,
                            'html' =>$article -> html,
                            'authorid' =>$article -> authorid,
-                           'levelid' => $article -> levelid
+                           'levelid' => $article -> levelid,
+						   'imgurl' => $article -> imgurl
 			);
 			
 		echo json_encode($data);
@@ -938,7 +974,8 @@ class Admin extends CI_Controller {
                            'article_content' =>$_POST['article_content'],
                            'article_html' =>$_POST['article_html'],
                            'article_authorid' =>$_POST['article_authorid'],
-                           'article_levelid' => $_POST['article_levelid']
+                           'article_levelid' => $_POST['article_levelid'],
+						   'article_imgurl' => $_POST['article_imgurl']
                         );
 		echo $this->M_article->update_article_by($data);
 	}
@@ -947,7 +984,7 @@ class Admin extends CI_Controller {
 	 * 管理级别
 	 */
 	public function managelevel(){
-		$this->load->model('M_level');
+		
 		$data['level'] = $this->M_level->get_all_level();
 		
 		$this->load->view('admin/include_header');
@@ -956,7 +993,7 @@ class Admin extends CI_Controller {
 	
 	/*手动添加级别*/
 	public function addlevel(){
-		$this->load->model('M_level');
+		
 		$data=array(
 				'id' => $this->input->post('id'),
 				'name' => $this->input->post('name'),
@@ -967,14 +1004,14 @@ class Admin extends CI_Controller {
 	}
 	
 	public function deletelevel(){
-		$this->load->model('M_level');
+		
 		$id = $this->input->post('id');
 		
 		echo $this->M_level->delete_level($id);
 	}
 	
 	public function updatalevel(){
-		$this->load->model('M_level');
+		
 		
 		echo $this->M_level->update_level();
 	}
@@ -994,7 +1031,8 @@ class Admin extends CI_Controller {
 				'id' => $this->input->post('id'),
 				'name' => $this->input->post('name'),
 				'listview' => $this->input->post('listview'),
-				'contentview' => $this->input->post('contentview')
+				'contentview' => $this->input->post('contentview'),
+				'identification' => $this->input->post('identification')
 		);
 		
 		echo $this->M_pagetype->add_pagetype_by($data);

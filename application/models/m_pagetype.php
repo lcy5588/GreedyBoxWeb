@@ -20,7 +20,8 @@ class M_pagetype extends CI_Model{
                            'id' => $pagetype -> id ,
                            'name' =>$pagetype -> name,
                            'listview' =>$pagetype -> listview,
-                           'contentview' => $pagetype -> contentview
+                           'contentview' => $pagetype -> contentview,
+						   'identification' => $pagetype -> identification
                         );
             $this->db->insert($this->pagetype_table, $data);
         }
@@ -32,7 +33,8 @@ class M_pagetype extends CI_Model{
                            'id' => $pagetype['id'] ,
                            'name' =>$pagetype['name'],
                            'listview' =>$pagetype['listview'],
-                           'contentview' => $pagetype['contentview']
+                           'contentview' => $pagetype['contentview'],
+						   'identification' => $pagetype['identification']
                         );
             return $this->db->insert($this->pagetype_table, $data);
     }
@@ -73,6 +75,15 @@ class M_pagetype extends CI_Model{
     	}
     }
 	
+	function get_pagetype_identification($pagetype_id = ''){
+    	if(!empty($pagetype_id)){
+    		$result = $this->db->get_where($this->pagetype_table, array('id'=>$pagetype_id))->result();
+    		return $result[0]->identification;
+    	}else {
+    		return '';
+    	}
+    }
+	
 	function get_all_pagetype()
 	{
 		$query = $this->db->get($this->pagetype_table);
@@ -84,7 +95,9 @@ class M_pagetype extends CI_Model{
 		foreach($data_decode as $pagetype){
 			$data = array(
                'name' => $pagetype -> name,
-               'listview' => $pagetype -> listview
+               'listview' => $pagetype -> listview,
+			   'contentview' => $pagetype -> contentview,
+			   'identification' => $pagetype -> identification
             );
 
 			$this->db->where('id', $pagetype -> id);

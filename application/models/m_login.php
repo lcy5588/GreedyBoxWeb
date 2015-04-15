@@ -447,6 +447,11 @@ class M_login extends CI_Model{
 				 'constraint' => '128',
 				 'unsigned' => TRUE,				 
 		  ),
+			'imgurl' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '200',
+				 'null' => TRUE			 
+		  ),
 			'click_count' => array(
 				 'type' => 'INT',
 				 'constraint' => '32',
@@ -514,6 +519,10 @@ class M_login extends CI_Model{
 			'contentview' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
+		  ),
+		    'identification' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '32',
 		  )
 		);
 
