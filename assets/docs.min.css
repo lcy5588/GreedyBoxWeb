@@ -694,7 +694,27 @@ h1[id]{
 	color:#1b809e
 }
 
-.bs-callout-info-right{
+.bs-callout-level-red{
+	border-left-color:red
+}
+
+.bs-callout-level-blue{
+	border-left-color:#1b809e
+}
+
+.bs-callout-level-green{
+	border-left-color:green
+}
+
+.bs-callout-level-orange{
+	border-left-color:orange
+}
+
+.bs-callout-level-yellow{
+	border-left-color:yellow
+}
+
+.bs-callout-level-blue{
 	border-left-color:#1b809e
 }
 

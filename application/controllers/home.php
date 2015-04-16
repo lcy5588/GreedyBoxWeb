@@ -13,6 +13,7 @@ class Home extends CI_Controller {
 		$this->load->model('M_bannerpic');
 		$this->load->model('M_banner');
 		$this->load->model('M_label');
+		$this->load->model('M_level');
 	}
 
     /**
@@ -43,6 +44,18 @@ class Home extends CI_Controller {
 		$articles = $this->M_article->get_all_articles();
 		$data['articles'] = $articles;
 		
+		$levelquery = $this->M_level->get_all_level();
+			$data['levelquery'] = $levelquery;
+			
+			$level_zd = array();
+			
+			if($levelquery->num_rows()>0){
+				foreach($levelquery->result() as $lx){
+					$level_zd[$lx->id] = $lx->color;
+				}
+			}
+			
+		$data['level_zd'] = $level_zd;
 		
 		$this->load->model('M_friendlink');
 		
@@ -55,6 +68,7 @@ class Home extends CI_Controller {
 		$data['site_keyword'] = $this->config->item('site_keyword');
 		$data['site_description'] = $this->config->item('site_description');
 		
+
 		$this->load->view('home_view',$data);
 	}
 

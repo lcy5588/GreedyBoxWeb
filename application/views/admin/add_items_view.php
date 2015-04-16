@@ -70,10 +70,7 @@
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="discount" name="discount" placeholder="discount">
 					</div>
-					<label for="num_iid" class="col-sm-2 control-label">num_iid</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="num_iid" name="num_iid" placeholder="num_iid">
-					</div>
+					
 				  </div>		  
           </form>
         </div>
@@ -203,7 +200,7 @@
 									$('#sellernick').val(data['sellernick']);
 									$('#oldprice').val(data['oldprice']);
 									$('#discount').val(data['discount']);
-									$('#num_iid').val(data['num_iid']);
+									
 									
 									$('#modal-title').text('修改商品条目');
 									$('#additem').modal('show');
@@ -215,11 +212,14 @@
 		});
 		
 		$('#submitadditem').click(function(){
+			alert("here");
 			var url = "<?php echo site_url('admin/setitem/')?>";
 			if ($('#item_id').val() != ""){
 				url = "<?php echo site_url('admin/updataitem/')?>";
 			}
+			
 			$.post(url, $("#additemform").serialize(),function(data){
+				alert(data);
 				if(data){
 				
 					/* if($('#item_id').val() == ""){
@@ -247,7 +247,7 @@
 			$('#sellernick').val("");
 			$('#oldprice').val("");
 			$('#discount').val("");
-			$('#num_iid').val("");
+			
 			$('#modal-title').text('增加商品条目');
 		});
 		
@@ -264,7 +264,7 @@
 		$('#additembtn').click(function(){
 			var cid = $('#additemcid').val();
 			$('#cid').val(cid);
-			$('#num_iid').val("0");
+			
 			
 			$('#additem').modal('show');
 		});

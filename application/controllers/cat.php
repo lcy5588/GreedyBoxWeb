@@ -20,6 +20,7 @@ class Cat extends CI_Controller {
 		$this->load->model('M_label');
 		$this->load->model('M_pagetype');
 		$this->load->model('M_article');
+		$this->load->model('M_bannerpic');
 	}
 
 	/**
@@ -84,7 +85,7 @@ class Cat extends CI_Controller {
 		
 		$data['cat']=$this->M_cat->get_all_cat();
 
-		$data['cat_slug'] = $cat_slug_decode;
+		$data['slug'] = $cat_slug_decode;
 
 		//所有条目数据
 		//$data['items']=$this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode);
@@ -115,7 +116,7 @@ class Cat extends CI_Controller {
 				$itemcat['item'] = $this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode);
 				$itemcat['brand'] = $this->M_brand->get_all_brand(10,0,$cat_slug_decode);
 				$itemcat['label'] = $this->M_label->get_all_label(8,0,$cat_slug_decode);
-				//$itemcat['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');
+				$itemcat['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');
 				$itemcat['cat'] = $cat;
 			}
 			

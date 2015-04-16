@@ -22,14 +22,12 @@ class M_item extends CI_Model{
                'click_url' =>  $_POST['click_url'],
                'price' => $_POST['price'],
                'sellernick' => $_POST['sellernick'],
-               'num_iid' => $_POST['num_iid'],
 			   'oldprice' => $_POST['oldprice'],
-			   'discount' => $_POST['discount']
+			   'discount' => $_POST['discount'],
+			   'adddatetime' => '20150416'
             );
-			
-		$this->db->insert('item', $data);
 		
-		return mysql_insert_id();
+		return $this->db->insert($this->item_table, $data);
 	}
 
 	function delete_item($item_id){
@@ -48,7 +46,6 @@ class M_item extends CI_Model{
                'click_url' =>  $_POST['click_url'],
                'price' => $_POST['price'],
                'sellernick' => $_POST['sellernick'],
-               'num_iid' => $_POST['num_iid'],
 			   'oldprice' => $_POST['oldprice'],
 			   'discount' => $_POST['discount']
             );

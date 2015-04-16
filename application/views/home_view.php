@@ -17,6 +17,8 @@
 <body >
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
 <div class="container">
+<div class="row">
+		<div class="col-md-10 col-md-offset-1">
 		<div class="navbar-header">
 			 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
 				<span class="sr-only">Toggle navigation</span>
@@ -42,21 +44,23 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Search">
 				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
+				<button type="submit" class="btn btn-default">搜索</button>
 			  </form>
 			</nav>
-			
+
+		</div>
+		</div>
 		
 </div>
 </header>
 <div class="container bs-docs-container"  style="padding-top:80px;"  id="top" >
 
       <div class="row">
-		<div class="col-md-9" role="main">
+		<div class="col-md-7 col-md-offset-1" role="main">
   
 
 <?php $isfirst = true; foreach($articles->result() as $article):?>
-<div class="media bs-callout-right bs-callout-info-right">
+<div class="media bs-callout-right bs-callout-level-<?php echo $level_zd[$article->levelid]?>">
       <div class="media-left">
         <a href="#">
 			<?php if($isfirst){?>
