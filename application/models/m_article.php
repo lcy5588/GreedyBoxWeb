@@ -26,8 +26,8 @@ class M_article extends CI_Model{
                            'html' =>$article -> article_html,
                            'authorid' =>$article -> article_authorid,
                            'levelid' => $article -> article_levelid,
-						   'imgurl' => $article -> imgurl
-                           
+						   'imgurl' => $article -> imgurl,
+                           'adddatetime' => date('YmdHis',time())
                         );
             $this->db->insert($this->article_table, $data);
         }
@@ -43,7 +43,8 @@ class M_article extends CI_Model{
                            'html' =>$article['article_html'],
                            'authorid' =>$article['article_authorid'],
                            'levelid' => $article['article_levelid'],
-						   'imgurl' => $article['imgurl']
+						   'imgurl' => $article['imgurl'],
+						   'adddatetime' => date('YmdHis',time())
                         );
             return $this->db->insert($this->article_table, $data);
     }
@@ -53,7 +54,9 @@ class M_article extends CI_Model{
     	if(!empty($id)){
 			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime,imgurl');
     		$result = $this->db->get_where($this->article_table, array('id'=>$id))->result();
-    		return $result[0];
+			
+			return $result[0];
+			
     	}else {
     		return null;
     	}

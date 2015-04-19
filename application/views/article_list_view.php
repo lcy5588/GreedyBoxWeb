@@ -59,15 +59,11 @@
 		<div class="col-md-7 col-md-offset-1" role="main">
   
 
-<?php $isfirst = true; foreach($articles->result() as $article):?>
+<?php foreach($articles->result() as $article):?>
 <div class="media bs-callout-right bs-callout-info-right">
       <div class="media-left">
         <a href="#">
-			<?php if($isfirst){?>
-          <img class="media-object" src="<?php echo $article->imgurl?>" style="width:200px;height:200px;" alt="Generic placeholder image">
-			<?php $isfirst=false;} else{?>
-			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:180px;height:180px;" alt="Generic placeholder image">
-			<?php }?>
+			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
         </a>
       </div>
       <div class="media-body">
@@ -128,7 +124,14 @@
 </div>
 <footer class="bs-docs-footer" role="contentinfo">
 	<div class="container">
-		<p>这是footer</p>
+	<div class="row">   
+		 <div class="col-md-12">
+		
+		<p> Copyright ©2014&nbsp;&nbsp;<a href="<?php echo site_url();?>" title="<?php echo $site_name;?>"><?php echo $site_name;?></a>&nbsp;&nbsp;<a href="#">友情链接</a>&nbsp;&nbsp;<a href="#">网站地图</a></p>
+					 
+		</div>
+		</div><!--end of row-->
+	 </div>
 	</div>
 </footer>
 

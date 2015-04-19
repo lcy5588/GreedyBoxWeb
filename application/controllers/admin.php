@@ -19,6 +19,7 @@ class Admin extends CI_Controller {
 			$this->load->model('M_brand');
 			$this->load->model('M_pagetype');
 			$this->load->model('M_article');
+			$this->load->model('M_joke');
 			$this->load->model('M_level');
 			
 			$this->load->view('admin/include_login'); //检查cookie
@@ -340,6 +341,7 @@ class Admin extends CI_Controller {
 			$data['query'] = $this->M_item->get_all_item($limit,$offset);
             
 			$data['lxquery'] =  $this->M_cat->get_all_cat();
+			$data['labelquery'] = $this->M_label->get_all_label();
 			
 			$this->load->view('admin/include_header');
 			$this->load->view('admin/add_items_view',$data);
@@ -380,6 +382,7 @@ class Admin extends CI_Controller {
 			$item_info_array['sellernick']=$iteminfo->sellernick;
 			$item_info_array['oldprice']=$iteminfo->oldprice;
 			$item_info_array['discount']=$iteminfo->discount;
+			$item_info_array['labelid']=$iteminfo->labelid;
 			
 			echo json_encode($item_info_array);
 		}else{
@@ -587,7 +590,6 @@ class Admin extends CI_Controller {
 			$data['labels'] = $this->M_label->get_all_label();
             $data['lxquery'] =  $this->M_cat->get_all_cat();
 			
-			
 			$this->load->view('admin/include_header');
 			$this->load->view('admin/manage_labels_view',$data);
 	}
@@ -608,6 +610,7 @@ class Admin extends CI_Controller {
 			$data = array(
 						'id' =>$label->id,
 						'title' =>$label->title,
+						'slug' =>$label->slug,
 					   'click_url'=>$label->click_url,
 					   'cid' => $label->cid,
 			);
@@ -622,6 +625,7 @@ class Admin extends CI_Controller {
 		$data = array(
 			   'title' => $this->input->post('title'),
                'cid' => $this->input->post('cid'),
+			   'slug' =>  $this->input->post('slug'),
                'click_url' =>  $this->input->post('click_url')
 		); 
 		
@@ -977,6 +981,139 @@ class Admin extends CI_Controller {
 						   'article_imgurl' => $_POST['article_imgurl']
                         );
 		echo $this->M_article->update_article_by($data);
+	}
+	
+	/**
+	 *手动设置文章条目信息
+	 *
+	 */
+	 public function managejoke($page = 1){
+		    $limit = 10;
+			$offset = ($page-1)*$limit;
+			$this->load->library('pagination');
+
+			$config['base_url'] = site_url('/admin/managejoke/');
+			//site_url可以防止换域名代码错误。
+
+	        $config['use_page_numbers'] = TRUE;
+	        //$config['first_url'] = site_url('/admin/managearticle');
+
+			$config['total_rows'] = $this->M_joke->count_jokes();
+			//这是模型里面的方法，获得总数。
+
+			$config['per_page'] = $limit;
+			$config['first_link'] = '首页';
+			$config['last_link'] = '尾页';
+			$config['num_links']=10;
+			$config['uri_segment'] = 3;
+			//上面是自定义文字以及左右的连接数
+
+			$this->pagination->initialize($config);
+			//初始化配置
+
+			$data['pagination']=$this->pagination->create_links();
+			//通过数组传递参数
+			//以上是重点
+
+			$data['query'] = $this->M_joke->get_all_jokes($limit,$offset);
+            
+			$lxquery = $this->M_cat->get_all_cat();
+			$data['lxquery'] = $lxquery;
+			
+			$lx_zd = array();
+			
+			if($lxquery->num_rows()>0){
+				foreach($lxquery->result() as $lx){
+					$lx_zd[$lx->id] = $lx->name;
+				}
+			}
+			
+			$data['lx_zd'] = $lx_zd;
+			
+			$levelquery = $this->M_level->get_all_level();
+			$data['levelquery'] = $levelquery;
+			
+			$level_zd = array();
+			
+			if($levelquery->num_rows()>0){
+				foreach($levelquery->result() as $lx){
+					$level_zd[$lx->id] = $lx->name;
+				}
+			}
+			
+			$data['level_zd'] = $level_zd;
+			
+			$labelquery = $this->M_label->get_all_label();
+			$data['labelquery'] = $labelquery;
+			
+			$label_zd = array();
+			
+			if($labelquery->num_rows()>0){
+				foreach($labelquery->result() as $lx){
+					$label_zd[$lx->id] = $lx->title;
+				}
+			}
+			
+			$data['label_zd'] = $label_zd;
+			
+			
+			$this->load->view('admin/include_header');
+			$this->load->view('admin/manage_jokes_view',$data);
+	}
+	
+	/**
+	 * 手动设置文章条目信息
+	 *
+	 */
+	public function setjoke(){
+		$data = array(                     
+                           'joke_cid' =>$_POST['joke_cid'],
+                           'joke_labelid' =>$_POST['joke_labelid'],
+                           'joke_html' =>$_POST['joke_html'],
+                           'joke_authorid' =>$_POST['joke_authorid'],
+                           'joke_levelid' => $_POST['joke_levelid']
+                        );
+		
+		echo $this->M_joke->add_joke_by($data);
+	}
+	
+	/**
+	 * 删除文章
+	 */
+	public function delete_joke(){
+		$jokeid = $_POST['joke_id'];
+		echo $this->M_joke->delete_joke($jokeid);
+	}
+	
+	public function getjokebyid(){
+		$jokeid = $_POST['joke_id'];
+		
+		$joke = $this->M_joke->get_joke_by_id($jokeid);
+		
+		if($joke !=null){
+			$data = array(
+						 'id' => $joke -> id ,
+                           'cid' => $joke -> cid ,
+                           'labelid' => $joke -> labelid ,
+                           'html' =>$joke -> html,
+                           'authorid' =>$joke -> authorid,
+                           'levelid' => $joke -> levelid,
+			);
+			
+		echo json_encode($data);
+		}else echo false; 
+	}
+
+	public function updatajoke(){	
+		$data = array( 
+							'joke_id' =>$_POST['joke_id'],
+                           'joke_cid' =>$_POST['joke_cid'],
+                           'joke_labelid' =>$_POST['joke_labelid'],
+                           'joke_html' =>$_POST['joke_html'],
+                           'joke_authorid' =>$_POST['joke_authorid'],
+                           'joke_levelid' => $_POST['joke_levelid'],
+                        );
+		echo $this->M_joke->update_joke_by($data);
 	}
 	
 	/**

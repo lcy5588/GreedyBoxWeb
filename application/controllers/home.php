@@ -14,6 +14,8 @@ class Home extends CI_Controller {
 		$this->load->model('M_banner');
 		$this->load->model('M_label');
 		$this->load->model('M_level');
+		$this->load->model('M_pagetype');
+		$this->load->model('M_joke');
 	}
 
     /**
@@ -32,14 +34,38 @@ class Home extends CI_Controller {
 	public function page()
 	{
 
-		$limit=32;
+		$limit=1;
+		$config['base_url'] = base_url();
+		$config['total_rows'] = $this->M_article->count_articles();
+		
+		//这是模型里面的方法，获得总数。
 
+		$config['per_page'] = $limit;
+		$config['first_link'] = '首页';
+		$config['last_link'] = '尾页';
+		$config['num_links']=10;
+		//上面是自定义文字以及左右的连接数
+
+		$this->pagination->initialize($config);
+		$data['pagination']=$this->pagination->create_links();
+		
+		
 		//关键词列表，这个在后台配置
 		$data['keyword_list'] = $this->M_keyword->get_all_keyword(5);
 
 		//类别
 		$cats = $this->M_cat->get_all_cat();
 		$data['cat'] = $cats;
+		
+		$cat_zd = array();
+			
+			if($cats->num_rows()>0){
+				foreach($cats->result() as $lx){
+					$cat_zd[$lx->id] = $lx->typeid;
+				}
+			}
+			
+		$data['cat_zd'] = $cat_zd;
 		
 		$articles = $this->M_article->get_all_articles();
 		$data['articles'] = $articles;
@@ -57,6 +83,23 @@ class Home extends CI_Controller {
 			
 		$data['level_zd'] = $level_zd;
 		
+		$pagetypequery = $this->M_pagetype->get_all_pagetype();
+			
+			
+		$pagetype_zd = array();
+		
+		if($pagetypequery->num_rows()>0){
+			foreach($pagetypequery->result() as $lx){
+				$pagetype_zd[$lx->id] = $lx->identification;
+			}
+		}
+		
+		$data['pagetype_zd'] = $pagetype_zd;
+		
+		$jokes = $this->M_joke->get_all_jokes();
+		
+		$data['jokes'] = $jokes;
+		
 		$this->load->model('M_friendlink');
 		
 		$data['friendlinks'] = $this->M_friendlink->get_all_friendlink_by_type('100','0');
@@ -68,7 +111,6 @@ class Home extends CI_Controller {
 		$data['site_keyword'] = $this->config->item('site_keyword');
 		$data['site_description'] = $this->config->item('site_description');
 		
-
 		$this->load->view('home_view',$data);
 	}
 

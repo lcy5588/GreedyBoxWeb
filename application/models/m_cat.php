@@ -145,5 +145,14 @@ class M_cat extends CI_Model{
 		
 		return $result;
 	}
+	
+	function get_all_cat_by_typeid($typeid)
+	{
+		$this->db->where("typeid",$typeid);
+		
+		$result = $this->db->get($cat_table);
+		
+		return $result;
+	}
 
 }

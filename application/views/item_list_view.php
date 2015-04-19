@@ -60,43 +60,36 @@
       <div class="row">
 		<div class="col-md-8 col-md-offset-1" role="main">
 		<div id="wrapper">
-<div class="floor-content row">
-<div class="floor-show  floor-<?php echo $itemcat['cat']->slug;?> col-md-12">
+<?php foreach($items as $item){?>
+<div class="floor-content row" id="label_<?php echo $item['label']->slug;?>">
+<div class="floor-show  floor-<?php echo $item['label']->slug;?> col-md-12">
 <div class="floor-show-left floor-title grid-row-90 col-md-3">
 </div>
 <div class="floor-show-middle floor-brand-slide col-md-4">
 <div class="brand-slide-content brand-slide-row">
 <p class="brand-slide-pannel">
-<?php $brands = $itemcat['brand'];if($brands->num_rows()>0){ ?>
-<?php foreach ($brands->result() as $brand):?>
-<a href="<?php echo site_url('home/brand/'.$brand->id)?>" target="_blank"><img src="<?php echo $brand->img_url?>" width="90" height="45" alt="<?php echo $brand->name?>"></a>
-<?php endforeach;}?>
+
 </p>
 </div>
 </div>
 <div class="floor-show-right col-md-4">
 <ul class="floor-label-list">
-<?php $labels = $itemcat['label'];if($labels->num_rows()>0){ ?>
-<?php foreach ($labels->result() as $label):?>
-<li>
-<a href="<?php echo site_url('home/label/'.$label->id)?>" target="_blank"><?php echo $label->title?></a>
-</li>
-<?php endforeach;}?>
+
 </ul>
 </div>
 
 <div class="floor-show-sort col-md-1">
 <ul>
-	<li class="new"><a href="javascript:void(0);" class="sortactive" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $itemcat['cat']->slug;?>','<?php echo $itemcat['cat']->id;?>','adddatetime')">最新</a></li>
-	<li class="hot"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $itemcat['cat']->slug;?>','<?php echo $itemcat['cat']->id;?>','click_count')">最热</a></li>
-	<li class="low"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $itemcat['cat']->slug;?>','<?php echo $itemcat['cat']->id;?>','price')">最低</a></li>
+	<li class="new"><a href="javascript:void(0);" class="sortactive" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $item['label']->slug;?>','<?php echo $item['label']->id;?>','adddatetime')">最新</a></li>
+	<li class="hot"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $item['label']->slug;?>','<?php echo $item['label']->id;?>','click_count')">最热</a></li>
+	<li class="low"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $item['label']->slug;?>','<?php echo $item['label']->id;?>','price')">最低</a></li>
 </ul>
 </div>
 </div>
 
-<div class="floor-banner-container col-md-12" id="<?php echo $itemcat['cat']->slug;?>">
-<?php $items = $itemcat['item'];if($items->num_rows()>0){ ?>
-<?php foreach ($items->result() as $array):?>
+<div class="floor-banner-container col-md-12" id="<?php echo $item['label']->slug;?>">
+<?php $labelitem = $item['item'];if($labelitem->num_rows()>0){ ?>
+<?php foreach ($labelitem->result() as $array):?>
 
 <div class="col-md-4 grid-row-330 good-list">
 	<div class="grid-good">
@@ -120,11 +113,11 @@
 	
 </div>
 <div class="middlebannerpic row">
-		<a href="<?php $bannerpic=$itemcat['bannerpic'];if($bannerpic != null){ echo site_url('home/bannerpic/'.$bannerpic->id)?>" target="_blank">
+		<a href="<?php $bannerpic=$item['bannerpic'];if($bannerpic != null){ echo site_url('home/bannerpic/'.$bannerpic->id)?>" target="_blank">
 		<img src="<?php echo $bannerpic->imgurl;?>" alt="<?php echo $bannerpic->name;}?>">
 		</a>
 </div>
-
+<?php } ?>
 	
 
 
@@ -153,36 +146,29 @@
 <div class="col-md-2" role="complementary">
           <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm">
             <ul class="nav bs-docs-sidenav">
-              
+              <?php foreach($itemlabels->result() as $label){?>
                 <li>
-				  <a href="#glyphicons">Glyphicons 字体图标最多那么长那么长那么长那么惨</a>
-				  <ul class="nav">
-					<li><a href="#glyphicons-glyphs">所有可用的图标</a></li>
-					<li><a href="#glyphicons-how-to-use">如何使用</a></li>
-					<li><a href="#glyphicons-examples">实例</a></li>
-				  </ul>
-			</li>
-		<li><a href="#wells">Well</a></li>
-
-              
+				  <a href="#label_<?php echo $label->slug?>"><?php echo $label->title?></a>
+			    </li>
+			  <?php } ?>
             </ul>
             <a class="back-to-top" href="#top">
               返回顶部
-            </a>
-            
-            <a href="#" class="bs-docs-theme-toggle" role="button">
-              主题预览
-            </a>
-            
+            </a> 
           </nav>
         </div>
 </div>
 </div>
-<footer>
+<footer class="bs-docs-footer" role="contentinfo">
 	<div class="container">
-		<div class="col-md-10 col-md-offset-1">
-		这是footer
+	<div class="row">   
+		 <div class="col-md-12">
+		
+		<p> Copyright ©2014&nbsp;&nbsp;<a href="<?php echo site_url();?>" title="<?php echo $site_name;?>"><?php echo $site_name;?></a>&nbsp;&nbsp;<a href="#">友情链接</a>&nbsp;&nbsp;<a href="#">网站地图</a></p>
+					 
 		</div>
+		</div><!--end of row-->
+	 </div>
 	</div>
 </footer>
 

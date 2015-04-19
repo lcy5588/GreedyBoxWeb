@@ -21,6 +21,7 @@ class Cat extends CI_Controller {
 		$this->load->model('M_pagetype');
 		$this->load->model('M_article');
 		$this->load->model('M_bannerpic');
+		$this->load->model('M_joke');
 	}
 
 	/**
@@ -56,7 +57,7 @@ class Cat extends CI_Controller {
 		}else if($identification == 'item'){
 			$config['total_rows'] = $this->M_item->count_items($cat_slug_decode);
 		}else if($identification == 'joke'){
-			//$config['total_rows'] = $this->M_article->count_articles($cat->id);
+			$config['total_rows'] = $this->M_joke->count_jokes($cat->id);
 		}
 		
 		
@@ -105,24 +106,38 @@ class Cat extends CI_Controller {
 		$data['site_keyword'] = $this->config->item('site_keyword');
 		$data['site_description'] = $this->config->item('site_description');
 		
+		$labels = $this->M_label->get_all_label_by_cid(8,0,$cat->id);
+		$data['labels'] = $labels;
 		
 		if($identification == 'article'){
 			$articles = $this->M_article->get_all_articles();
 			$data['articles'] = $articles;
-		}else if($identification == 'item'){
-			$itemcat = array();
-		
-			if(!empty($cat)){
-				$itemcat['item'] = $this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode);
-				$itemcat['brand'] = $this->M_brand->get_all_brand(10,0,$cat_slug_decode);
-				$itemcat['label'] = $this->M_label->get_all_label(8,0,$cat_slug_decode);
-				$itemcat['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');
-				$itemcat['cat'] = $cat;
-			}
 			
-			$data['itemcat'] = $itemcat;
+			
+		}else if($identification == 'item'){
+			
+			$itemlabels = $this->M_label->get_all_label_by_cid(8,0,$cat->id);
+			$items = array();
+			foreach($itemlabels->result() as $label){
+			
+				$item = array();
+			
+				if(!empty($label)){
+					$item['item'] = $this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode,$label->id);
+					//$item['brand'] = $this->M_brand->get_all_brand(10,0,$cat_slug_decode);
+					//$itemcat['label'] = $this->M_label->get_all_label(8,0,$cat_slug_decode);
+					$item['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');
+					//$item['cat'] = $cat;
+					$item['label'] = $label;
+					
+					$items[] = $item;
+				}
+			}
+			$data['items'] = $items;
+			$data['itemlabels'] = $itemlabels;
 		}else if($identification == 'joke'){
-			//$config['total_rows'] = $this->M_article->count_articles($cat->id);
+			$jokes = $this->M_joke->get_all_jokes();
+			$data['jokes'] = $jokes;
 		}
 		
 		$listview = $this->M_pagetype->get_pagetype_listview($pagetypeid);

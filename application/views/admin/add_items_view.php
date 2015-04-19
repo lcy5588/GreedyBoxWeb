@@ -34,12 +34,8 @@
 					<input type="text" class="form-control" id="img_url" name="img_url" placeholder="图片地址">
 				</div>
 			  </div>
-			  
-				  <div class="form-group">
-					<label for="sellernick" class="col-sm-2 control-label">卖家</label>
-					<div class="col-sm-4">
-						<input type="text" class="form-control" id="sellernick" name="sellernick" placeholder="卖家">
-					</div>
+			  <div class="form-group">
+					
 					 <label for="cid" class="col-sm-2 control-label">类型</label>
 				  <div class="col-sm-4">
 					  <?php if($lxquery && $lxquery->num_rows()>0){?>
@@ -53,24 +49,39 @@
 						</select>
 						<?php } ?>
 					</div>
+					<label for="labelid" class="col-sm-2 control-label">标签</label>
+					<div class="col-sm-4">
+						<select class="form-control" id="labelid" name="labelid">
+						   <?php foreach($labelquery->result() as $labelarray):?>
+						  <option value="<?php echo $labelarray->id;?>"><?php echo $labelarray->title;?></option>
+						  <?php 
+						  //结束类型
+						  endforeach;?>
+						</select>
+					</div>
 				  </div>
-
 				  <div class="form-group">
-					<label for="price" class="col-sm-2 control-label">价格</label>
+					<label for="sellernick" class="col-sm-2 control-label">卖家</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="sellernick" name="sellernick" placeholder="卖家">
+					</div>
+					 <label for="price" class="col-sm-2 control-label">价格</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="price" name="price" placeholder="价格">
 					</div>
+				  </div>
+
+				  <div class="form-group">
+					
 					<label for="oldprice" class="col-sm-2 control-label">旧价格</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="oldprice" name="oldprice" placeholder="oldprice">
 					</div>
-				  </div>			  
-				  <div class="form-group">
+					
 					<label for="discount" class="col-sm-2 control-label">折扣</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="discount" name="discount" placeholder="discount">
 					</div>
-					
 				  </div>		  
           </form>
         </div>
@@ -200,7 +211,7 @@
 									$('#sellernick').val(data['sellernick']);
 									$('#oldprice').val(data['oldprice']);
 									$('#discount').val(data['discount']);
-									
+									$('#labelid').val(data['labelid']);
 									
 									$('#modal-title').text('修改商品条目');
 									$('#additem').modal('show');
@@ -212,14 +223,12 @@
 		});
 		
 		$('#submitadditem').click(function(){
-			alert("here");
 			var url = "<?php echo site_url('admin/setitem/')?>";
 			if ($('#item_id').val() != ""){
 				url = "<?php echo site_url('admin/updataitem/')?>";
 			}
 			
 			$.post(url, $("#additemform").serialize(),function(data){
-				alert(data);
 				if(data){
 				
 					/* if($('#item_id').val() == ""){
@@ -247,6 +256,7 @@
 			$('#sellernick').val("");
 			$('#oldprice').val("");
 			$('#discount').val("");
+			$('#labelid').val("");
 			
 			$('#modal-title').text('增加商品条目');
 		});

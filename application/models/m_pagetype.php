@@ -84,6 +84,24 @@ class M_pagetype extends CI_Model{
     	}
     }
 	
+	function get_pagetype_contentview_by_identification($identification = ''){
+    	if(!empty($identification)){
+    		$result = $this->db->get_where($this->pagetype_table, array('identification'=>$identification))->result();
+    		return $result[0]->contentview;
+    	}else {
+    		return '';
+    	}
+    }
+	
+	function is_exist_by_identification($identification){
+		if(!empty($identification)){
+    		$result = $this->db->get_where($this->pagetype_table, array('identification'=>$identification))->result();
+    		return !empty($result[0]);
+    	}else {
+    		return false;
+    	}
+	}
+	
 	function get_all_pagetype()
 	{
 		$query = $this->db->get($this->pagetype_table);

@@ -36,6 +36,10 @@ class M_login extends CI_Model{
 				 'type' => 'INT',
 				 'constraint' => '128',
 		  ),
+			'labelid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+		  ),
 			'click_count' => array(
 				 'type' => 'INT',
 				 'constraint' => '128',
@@ -253,6 +257,10 @@ class M_login extends CI_Model{
 				 'type' => 'INT',
 				 'constraint' => '128',
 		  ),
+			'slug' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		  ),
 			'click_count' => array(
 				 'type' => 'INT',
 				 'constraint' => '128',
@@ -455,6 +463,17 @@ class M_login extends CI_Model{
 			'click_count' => array(
 				 'type' => 'INT',
 				 'constraint' => '32',
+				 'unsigned' => TRUE,
+				 'default' => 0				 
+		  ),'good' => array(
+				 'type' => 'INT',
+				 'constraint' => '32',
+				 'unsigned' => TRUE,
+				 'default' => 0				 
+		  ),'unlike' => array(
+				 'type' => 'INT',
+				 'constraint' => '32',
+				 'unsigned' => TRUE,
 				 'default' => 0				 
 		  ),
 		  'adddatetime' => array(
@@ -470,6 +489,63 @@ class M_login extends CI_Model{
 	   if($this->dbforge->create_table('article', TRUE))
 	   {
 		   $data['text'] .=  '<p>表article创建成功!</p>';
+	   }
+	   
+	   //创建joke
+		$fields_joke = array(
+			'id' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),
+			'cid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,
+		  ),
+			'labelid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,
+				 'null' => TRUE
+		  ),
+			'html' => array(
+				 'type' => 'TEXT'
+		  ),
+			'authorid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,
+		  ),
+			'levelid' => array(
+				 'type' => 'INT',
+				 'constraint' => '128',
+				 'unsigned' => TRUE,				 
+		  ),'good' => array(
+				 'type' => 'INT',
+				 'constraint' => '32',
+				 'unsigned' => TRUE,
+				 'default' => 0,
+		  ),'unlike' => array(
+				 'type' => 'INT',
+				 'constraint' => '32',
+				 'unsigned' => TRUE,
+				 'default' => 0				 
+		  ),
+		  'adddatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14'
+		  )
+		);
+
+		$this->dbforge->add_field($fields_joke);
+		$this->dbforge->add_key('id');
+
+		//创建表joke，如果不存在
+	   if($this->dbforge->create_table('joke', TRUE))
+	   {
+		   $data['text'] .=  '<p>表joke创建成功!</p>';
 	   }
 	   
 	   //创建level

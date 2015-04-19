@@ -17,6 +17,7 @@ class M_label extends CI_Model{
 	{
 		$data = array(
 					   'title' =>$label['title'],
+					   'slug'=>$label['slug'],
 					   'click_url'=>$label['click_url'],
 					   'cid' => $label['cid']
 					);
@@ -28,6 +29,7 @@ class M_label extends CI_Model{
 
 			$data = array(
 					   'title' =>$label['title'],
+					   'slug'=>$label['slug'],
 					   'click_url'=>$label['click_url'],
 					   'cid' => $label['cid']
 					);

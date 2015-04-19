@@ -24,7 +24,8 @@ class M_item extends CI_Model{
                'sellernick' => $_POST['sellernick'],
 			   'oldprice' => $_POST['oldprice'],
 			   'discount' => $_POST['discount'],
-			   'adddatetime' => '20150416'
+			   'adddatetime' => date('YmdHis',time()),
+			   'labelid' => $_POST['labelid']
             );
 		
 		return $this->db->insert($this->item_table, $data);
@@ -47,7 +48,8 @@ class M_item extends CI_Model{
                'price' => $_POST['price'],
                'sellernick' => $_POST['sellernick'],
 			   'oldprice' => $_POST['oldprice'],
-			   'discount' => $_POST['discount']
+			   'discount' => $_POST['discount'],
+			   'labelid' => $_POST['labelid']
             );
 		
 		$this->db->where('id',$item_id);
@@ -85,18 +87,27 @@ class M_item extends CI_Model{
 	//获得所有条目
 	//$limit为每页书目，必填
 	//$offset为偏移，必填
-	function get_all_item($limit='40',$offset='0',$cat='',$sort='adddatetime desc')
+	function get_all_item($limit='40',$offset='0',$cat='',$labelid='',$sort='adddatetime desc')
 	{
 
 		//如果是分类页
 		if(!empty($cat)){
 			$where = "cid= cat.id AND slug='".$cat."'";
+			
+			if(!empty($labelid)){
+				$where = $where." AND labelid=".$labelid;
+			}
+			
 			$this->db->join($this->cat_table,$where);
 			$this->db->order_by($sort);
 			$query = $this->db->get($this->item_table,$limit,$offset);
 			}
 		//如果是主页
 		else{
+			if(!empty($labelid)){
+				$this->db->where("labelid",$labelid);
+			}
+			
 			$this->db->order_by($sort);
 			$query = $this->db->get($this->item_table,$limit,$offset);
 		}
