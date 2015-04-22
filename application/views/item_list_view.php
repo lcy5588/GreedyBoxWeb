@@ -94,7 +94,7 @@
 <div class="col-md-4 grid-row-330 good-list">
 	<div class="grid-good">
 		<a class="grid-row-330 floor-banner" href="<?php echo site_url('home/redirect').'/'.$array->id ?>" target="_blank">
-		<img src="<?php echo $array->img_url ?>" class="col-md-12" alt="<?php echo $array->title ?>">		
+		<img data-original="<?php echo $array->img_url ?>" class="lazy col-md-12" alt="<?php echo $array->title ?>">		
 		<div class="good-info">
 			<div class="good-title">
 				<?php echo $array->title ?>
@@ -114,7 +114,7 @@
 </div>
 <div class="middlebannerpic row">
 		<a href="<?php $bannerpic=$item['bannerpic'];if($bannerpic != null){ echo site_url('home/bannerpic/'.$bannerpic->id)?>" target="_blank">
-		<img src="<?php echo $bannerpic->imgurl;?>" alt="<?php echo $bannerpic->name;}?>">
+		<img class="lazy" data-original="<?php echo $bannerpic->imgurl;?>" alt="<?php echo $bannerpic->name;}?>">
 		</a>
 </div>
 <?php } ?>
@@ -175,5 +175,11 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+     $("img.lazy").lazyload();
+  });
+  </script>
 </body>
 </html>

@@ -63,7 +63,7 @@
 <div class="media bs-callout-right bs-callout-info-right">
       <div class="media-left">
         <a href="#">
-			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
+			<img class="lazy media-object" data-original="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
         </a>
       </div>
       <div class="media-body">
@@ -138,6 +138,11 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
-
+<script src="<?php echo base_url()?>assets/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+     $("img.lazy").lazyload();
+  });
+  </script>
 </body>
 </html>
