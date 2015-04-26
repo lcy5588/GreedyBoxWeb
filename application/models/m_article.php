@@ -66,7 +66,7 @@ class M_article extends CI_Model{
 	{
 		//如果是分类页
 		if(!empty($cid)){
-			$where = "cid= '".$cid."'";
+			$where = "cid = ".$cid;
 			$this->db->where($where);
 			$this->db->order_by($sort);
 			$query = $this->db->get($this->article_table,$limit,$offset);

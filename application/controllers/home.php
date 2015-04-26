@@ -16,6 +16,7 @@ class Home extends CI_Controller {
 		$this->load->model('M_level');
 		$this->load->model('M_pagetype');
 		$this->load->model('M_joke');
+		$this->load->model('M_item');
 	}
 
     /**
@@ -35,17 +36,16 @@ class Home extends CI_Controller {
 	{
 
 		$limit=1;
-		$config['base_url'] = base_url();
+		$config['base_url'] = base_url()."/index.php/";
 		$config['total_rows'] = $this->M_article->count_articles();
-		
-		//这是模型里面的方法，获得总数。
-
 		$config['per_page'] = $limit;
 		$config['first_link'] = '首页';
 		$config['last_link'] = '尾页';
 		$config['num_links']=10;
-		//上面是自定义文字以及左右的连接数
-
+		$config['uri_segment'] = 1;
+		$config['cur_page'] = 1;
+		$config['use_page_numbers'] = TRUE;
+		
 		$this->pagination->initialize($config);
 		$data['pagination']=$this->pagination->create_links();
 		
@@ -71,15 +71,16 @@ class Home extends CI_Controller {
 		$data['articles'] = $articles;
 		
 		$levelquery = $this->M_level->get_all_level();
-			$data['levelquery'] = $levelquery;
-			
-			$level_zd = array();
-			
-			if($levelquery->num_rows()>0){
-				foreach($levelquery->result() as $lx){
-					$level_zd[$lx->id] = $lx->color;
-				}
+
+		$data['levelquery'] = $levelquery;
+		
+		$level_zd = array();
+		
+		if($levelquery->num_rows()>0){
+			foreach($levelquery->result() as $lx){
+				$level_zd[$lx->id] = $lx->color;
 			}
+		}
 			
 		$data['level_zd'] = $level_zd;
 		

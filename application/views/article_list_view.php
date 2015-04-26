@@ -60,14 +60,14 @@
   
 
 <?php foreach($articles->result() as $article):?>
-<div class="media bs-callout-right bs-callout-info-right">
+<div class="media bs-callout-right bs-callout-level-<?php echo $level_zd[$article->levelid]?>">
       <div class="media-left">
-        <a href="#">
+        <a href="<?php $clickurl = site_url('content/'.$pagetype_zd[$cat_zd[$article->cid]].'/'.$article->id);echo $clickurl;?>">
 			<img class="lazy media-object" data-original="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
         </a>
       </div>
       <div class="media-body">
-        <h4 class="media-heading"><?php echo $article->title;?></h4>
+        <h4 class="media-heading"><a href="<?php echo $clickurl;?>"><?php echo $article->title;?></a></h4>
         <?php echo $article->content;?>
       </div>
 </div>

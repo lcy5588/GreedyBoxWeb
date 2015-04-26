@@ -12,7 +12,6 @@
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/docs.min.css" rel="stylesheet">
-	<script src="<?php echo base_url()?>assets/ckeditor/ckeditor.js"></script>
 </head>
 <body >
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
@@ -63,7 +62,7 @@
 <div class="media bs-callout-right bs-callout-info-right">
       <div class="media-left">
         <a href="#">
-			<img class="media-object" src="" style="width:150px;height:96px;" alt="Generic placeholder image">
+			<img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
         </a>
       </div>
       <div class="media-body">
@@ -138,6 +137,21 @@
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
-
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+	    $("img").each(function(){
+			var src = $(this).attr('src');
+			
+			img.removeAttr("src")
+			img.attr('data-original',src);
+			img.addClass("lazy");
+		});
+		
+		$(window).load(function(){
+			$("img.lazy").lazyload();
+		});
+  });
+  
+  </script>
 </body>
 </html>

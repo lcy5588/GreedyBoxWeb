@@ -150,7 +150,7 @@ class M_cat extends CI_Model{
 	{
 		$this->db->where("typeid",$typeid);
 		
-		$result = $this->db->get($cat_table);
+		$result = $this->db->get($this->cat_table);
 		
 		return $result;
 	}

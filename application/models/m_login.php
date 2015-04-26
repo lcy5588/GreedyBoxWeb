@@ -265,10 +265,6 @@ class M_login extends CI_Model{
 				 'type' => 'INT',
 				 'constraint' => '128',
 				 'default' => 0
-		  ),
-			'click_url' => array(
-				 'type' => 'VARCHAR',
-				 'constraint' => '512',
 		  )
 		);
 

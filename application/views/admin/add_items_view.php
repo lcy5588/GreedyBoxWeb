@@ -53,7 +53,7 @@
 					<div class="col-sm-4">
 						<select class="form-control" id="labelid" name="labelid">
 						   <?php foreach($labelquery->result() as $labelarray):?>
-						  <option value="<?php echo $labelarray->id;?>"><?php echo $labelarray->title;?></option>
+						  <option value="<?php echo $labelarray->id;?>" class="label-cid label-cid-<?php echo $labelarray->cid?>"><?php echo $labelarray->title;?></option>
 						  <?php 
 						  //结束类型
 						  endforeach;?>
@@ -151,7 +151,7 @@
         <td style="width:25%;"><?php echo $array->click_url; ?></td>        
         <td style="width:15%;"><?php echo $array->sellernick; ?></td>
         <td style="width:5%;"><strong><?php echo $array->price; ?></strong></td>
-        <td style="width:5%;"><?php echo $array->cid ?></td>
+        <td style="width:5%;"><?php echo $lx_zd[$array->cid] ?></td>
         <td style="width:5%;"><?php echo $array->click_count;?></td>
         <td style="width:10%;">
         	<a href="#" title="修改此条" class="btn_update" data-itemid="<?php echo $array->id; ?>">修改</a>&nbsp;&nbsp;
@@ -211,6 +211,9 @@
 									$('#sellernick').val(data['sellernick']);
 									$('#oldprice').val(data['oldprice']);
 									$('#discount').val(data['discount']);
+									
+									showlabel();
+									
 									$('#labelid').val(data['labelid']);
 									
 									$('#modal-title').text('修改商品条目');
@@ -274,11 +277,22 @@
 		$('#additembtn').click(function(){
 			var cid = $('#additemcid').val();
 			$('#cid').val(cid);
-			
+			showlabel();
 			
 			$('#additem').modal('show');
 		});
+		
+		$('#cid').change(function(){
+			showlabel();
+		});
 	})(jQuery);
+	
+	function showlabel(){
+		var cid = $('#cid').val();
+		$('.label-cid').hide();
+		$('.label-cid-'+ cid).show();
+		$('#labelid').val('');
+	}
 </script>
 </body>
 </html>

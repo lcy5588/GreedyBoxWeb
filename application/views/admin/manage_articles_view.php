@@ -38,7 +38,7 @@
 						<select class="form-control" id="article_labelid" name="article_labelid">
 						  
 						  <?php foreach($labelquery->result() as $labelarray):?>
-						  <option value="<?php echo $labelarray->id;?>"><?php echo $labelarray->title;?></option>
+						  <option value="<?php echo $labelarray->id;?>" class="label-cid label-cid-<?php echo $labelarray->cid;?>"><?php echo $labelarray->title;?></option>
 						  <?php 
 						  //结束类型
 						  endforeach;?>
@@ -215,12 +215,16 @@
 									$('#article_id').val(data['id']);
 									$('#article_title').val(data['title']);
 									$('#article_cid').val(data['cid']);
+									
+									showlabel();
+									
 									$('#article_levelid').val(data['levelid']);
 									$('#article_authorid').val(data['authorid']);
 									$('#article_labelid').val(data['labelid']);
 									$('#article_imgurl').val(data['imgurl']);
 									
 									CKEDITOR.instances.editor.setData(data['html']);
+									
 									
 									$('#modal-title').text('修改文章');
 									$('#addarticlediv').show();
@@ -234,6 +238,7 @@
 		$('#submitaddarticle').click(function(){
 			
 			setContent();
+			
 			
 			var url = "<?php echo site_url('admin/setarticle/')?>";
 			if ($('#article_id').val() != ""){
@@ -251,8 +256,13 @@
 		$('#articlemodelbtn').click(function(){
 			var cid = $('#articlemodelcid').val();
 			$('#article_cid').val(cid);
+			showlabel();
 			
 			$('#addarticlediv').show();
+		});
+		
+		$('#article_cid').change(function(){
+			showlabel();
 		});
 	})(jQuery);
 	
@@ -282,6 +292,13 @@
 		$('#modal-title').text('增加文章');
 		
 		$('#addarticlediv').hide();
+	}
+	
+	function showlabel(){
+		var cid = $('#article_cid').val();
+		$('.label-cid').hide();
+		$('.label-cid-'+ cid).show();
+		$('#article_labelid').val('');
 	}
 </script>
 </body>

@@ -18,7 +18,6 @@ class M_label extends CI_Model{
 		$data = array(
 					   'title' =>$label['title'],
 					   'slug'=>$label['slug'],
-					   'click_url'=>$label['click_url'],
 					   'cid' => $label['cid']
 					);
 		return $this->db->insert($this->label_table, $data);
@@ -30,7 +29,6 @@ class M_label extends CI_Model{
 			$data = array(
 					   'title' =>$label['title'],
 					   'slug'=>$label['slug'],
-					   'click_url'=>$label['click_url'],
 					   'cid' => $label['cid']
 					);
 
@@ -146,16 +144,16 @@ class M_label extends CI_Model{
 		return $labelid;
 	}
 	
-	function get_label_clickurl($labelid){
-		$this->db->select('click_url');
-		$this->db->where('id',$labelid);
-		$query = $this->db->get($this->label_table);
+	// function get_label_clickurl($labelid){
+		// $this->db->select('click_url');
+		// $this->db->where('id',$labelid);
+		// $query = $this->db->get($this->label_table);
 		
-		if($query->num_rows() > 0){
-			$row = $query->row();
-			return $row->click_url;			
-		}
+		// if($query->num_rows() > 0){
+			// $row = $query->row();
+			// return $row->click_url;			
+		// }
 		
-		return null;
-	}
+		// return null;
+	// }
 }

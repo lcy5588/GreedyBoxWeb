@@ -12,6 +12,7 @@
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/docs.min.css" rel="stylesheet">
+	<link href="<?php echo base_url()?>assets/sideimg.css" rel="stylesheet">
 </head>
 <body >
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
@@ -77,18 +78,7 @@
 
 <nav>
   <ul class="pagination">
-    <li class="disabled"><a href="#" aria-label="Previous">
-	<span aria-hidden="true">&laquo;</span></a></li>
-    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
-     <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
+    <?php echo $pagination;?>
   </ul>
 </nav>
 
@@ -97,7 +87,7 @@
 
 
 
-<div class="col-md-3 hidden-print hidden-xs hidden-sm" >
+<div class="col-md-3 hidden-print hidden-xs hidden-sm" id="sidepannel">
 	<?php if($jokes->num_rows() > 0){?>
 	<div>
 		<ul class="list-unstyled">
@@ -129,7 +119,7 @@
 		 <div class="col-md-12">
 		
 		<p> Copyright ©2014&nbsp;&nbsp;<a href="<?php echo site_url();?>" title="<?php echo $site_name;?>"><?php echo $site_name;?></a>&nbsp;&nbsp;<a href="#">友情链接</a>&nbsp;&nbsp;<a href="#">网站地图</a></p>
-		<p><?php echo $pagination;?></p> 
+		
 		</div>
 		</div><!--end of row-->
 	 </div>
@@ -142,20 +132,23 @@
 <script src="<?php echo base_url()?>assets/js/jquery.lazyload.min.js"></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
-	  $(".gifcontrol").each(function(){
-			var img = $(this).find("img");
-			img.onload = null;
-			 var src = img.attr('src');
+	   $(".gifcontrol").each(function(){
+			 var img = $(this).find("img");
+			// img.onload = null;
+			  var src = img.attr('src');
 			
 			 if(src.search('.gif$') > 0){
 				 img.removeAttr("src")
 				 img.attr('data-original',src);
 				 img.addClass("lazy");
 			}
-			
 		});
-     $("img.lazy").lazyload();
+		
+		 $(window).load(function(){
+				$("img.lazy").lazyload();
+			 });
   });
+  
   </script>
 </body>
 </html>

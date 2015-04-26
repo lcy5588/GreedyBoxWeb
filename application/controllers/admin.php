@@ -340,8 +340,33 @@ class Admin extends CI_Controller {
 
 			$data['query'] = $this->M_item->get_all_item($limit,$offset);
             
-			$data['lxquery'] =  $this->M_cat->get_all_cat();
-			$data['labelquery'] = $this->M_label->get_all_label();
+			$typeid = $this->M_pagetype->get_pagetypeid_by_identification('item');
+			$lxquery = $this->M_cat->get_all_cat_by_typeid($typeid);
+			
+			$data['lxquery'] = $lxquery;
+			
+			$lx_zd = array();
+			
+			if($lxquery->num_rows()>0){
+				foreach($lxquery->result() as $lx){
+					$lx_zd[$lx->id] = $lx->name;
+				}
+			}
+			
+			$data['lx_zd'] = $lx_zd;
+			
+			$labelquery = $this->M_label->get_all_label();
+			$data['labelquery'] = $labelquery;
+			
+			$label_zd = array();
+			
+			if($labelquery->num_rows()>0){
+				foreach($labelquery->result() as $lx){
+					$label_zd[$lx->id] = $lx->title;
+				}
+			}
+			
+			$data['label_zd'] = $label_zd;
 			
 			$this->load->view('admin/include_header');
 			$this->load->view('admin/add_items_view',$data);
@@ -588,7 +613,19 @@ class Admin extends CI_Controller {
 			//以上是重点
 
 			$data['labels'] = $this->M_label->get_all_label();
-            $data['lxquery'] =  $this->M_cat->get_all_cat();
+			
+			$lxquery = $this->M_cat->get_all_cat();
+			$data['lxquery'] = $lxquery;
+			
+			$lx_zd = array();
+			
+			if($lxquery->num_rows()>0){
+				foreach($lxquery->result() as $lx){
+					$lx_zd[$lx->id] = $lx->name;
+				}
+			}
+			
+			$data['lx_zd'] = $lx_zd;
 			
 			$this->load->view('admin/include_header');
 			$this->load->view('admin/manage_labels_view',$data);
@@ -875,8 +912,8 @@ class Admin extends CI_Controller {
 			//以上是重点
 
 			$data['query'] = $this->M_article->get_all_articles($limit,$offset);
-            
-			$lxquery = $this->M_cat->get_all_cat();
+            $typeid = $this->M_pagetype->get_pagetypeid_by_identification('article');
+			$lxquery = $this->M_cat->get_all_cat_by_typeid($typeid);
 			$data['lxquery'] = $lxquery;
 			
 			$lx_zd = array();
@@ -901,6 +938,7 @@ class Admin extends CI_Controller {
 			}
 			
 			$data['level_zd'] = $level_zd;
+			
 			
 			$labelquery = $this->M_label->get_all_label();
 			$data['labelquery'] = $labelquery;

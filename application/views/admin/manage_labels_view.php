@@ -19,10 +19,7 @@
                 <label for="slug">标识</label>
                 <input type="text" class="form-control" id="slug" name="slug" placeholder="标识">
               </div>
-              <div class="form-group">
-                <label for="click_url">点击地址</label>
-                <input type="text" class="form-control" id="click_url" name="click_url" placeholder="点击地址">
-              </div>
+              
 			 			  
              <div class="form-group">
               <label for="cid">类型</label>
@@ -76,7 +73,6 @@
         <th>序号</th>
         <th>名称</th>
 		<th>标识</th>		
-        <th>点击地址</th>
         <th>类别</th>
         <th>点击次数</th>
         <th>操作</th>
@@ -91,8 +87,8 @@
     	<th><?php echo $label->id ?></th>
         <td><?php echo $label->title ?></td>
 		<td><?php echo $label->slug ?></td>     		
-        <td style="max-width:400px;overflow:hidden;"><?php echo $label->click_url; ?></td>        
-        <td><?php echo $label->cid ?></td>
+               
+        <td><?php echo $lx_zd[$label->cid] ?></td>
         <td><?php echo $label->click_count;?></td>
         <td>
         	<a href="#" title="修改此条" class="btn_update" data-labelid="<?php echo $label->id; ?>">修改</a>&nbsp;&nbsp;
@@ -146,7 +142,7 @@
 									$('#title').val(data['title']);
 									$('#slug').val(data['slug']);
 									$('#cid').val(data['cid']);
-									$('#click_url').val(data['click_url']);																	
+																										
 									$('#addlabel_modal-title').text('修改商品条目');
 									$('#addlabel').modal('show');
 								}else{
@@ -172,7 +168,6 @@
 			$('#title').val("");
 			$('#cid').val("");
 			$('#slug').val("");
-			$('#click_url').val("");		
 			$('#modal-title').text('新增标签');
 		})
 	})(jQuery);

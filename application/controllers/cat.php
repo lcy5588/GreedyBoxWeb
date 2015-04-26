@@ -22,6 +22,7 @@ class Cat extends CI_Controller {
 		$this->load->model('M_article');
 		$this->load->model('M_bannerpic');
 		$this->load->model('M_joke');
+		$this->load->model('M_level');
 	}
 
 	/**
@@ -84,8 +85,8 @@ class Cat extends CI_Controller {
 		$data['cat_name'] = $cat->name;
 		else $data['cat_name'] = '';
 		
-		$data['cat']=$this->M_cat->get_all_cat();
-
+		$cats = $this->M_cat->get_all_cat();
+		$data['cat'] = $cats;
 		$data['slug'] = $cat_slug_decode;
 
 		//所有条目数据
@@ -110,9 +111,44 @@ class Cat extends CI_Controller {
 		$data['labels'] = $labels;
 		
 		if($identification == 'article'){
-			$articles = $this->M_article->get_all_articles();
+			$articles = $this->M_article->get_all_articles($limit,($page-1)*$limit,$cat->id);
 			$data['articles'] = $articles;
 			
+			$levelquery = $this->M_level->get_all_level();
+			$data['levelquery'] = $levelquery;
+			
+			$level_zd = array();
+			
+			if($levelquery->num_rows()>0){
+				foreach($levelquery->result() as $lx){
+					$level_zd[$lx->id] = $lx->color;
+				}
+			}
+			
+			$data['level_zd'] = $level_zd;
+			
+			$cat_zd = array();
+			
+			if($cats->num_rows()>0){
+				foreach($cats->result() as $lx){
+					$cat_zd[$lx->id] = $lx->typeid;
+				}
+			}
+			
+			$data['cat_zd'] = $cat_zd;
+			
+			$pagetypequery = $this->M_pagetype->get_all_pagetype();
+			
+			
+			$pagetype_zd = array();
+			
+			if($pagetypequery->num_rows()>0){
+				foreach($pagetypequery->result() as $lx){
+					$pagetype_zd[$lx->id] = $lx->identification;
+				}
+			}
+			
+			$data['pagetype_zd'] = $pagetype_zd;
 			
 		}else if($identification == 'item'){
 			
