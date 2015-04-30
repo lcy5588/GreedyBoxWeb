@@ -112,7 +112,8 @@ class Home extends CI_Controller {
 		$data['site_keyword'] = $this->config->item('site_keyword');
 		$data['site_description'] = $this->config->item('site_description');
 		
-		$this->load->view('home_view',$data);
+		$this->load->view('include_header',$data);
+		$this->load->view('home_view');
 	}
 
 	/**

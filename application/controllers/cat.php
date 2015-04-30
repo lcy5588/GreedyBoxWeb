@@ -171,7 +171,8 @@ class Cat extends CI_Controller {
 		
 		$listview = $this->M_pagetype->get_pagetype_listview($pagetypeid);
 		
-		$this->load->view($listview,$data);
+		$this->load->view('include_header',$data);
+		$this->load->view($listview);
 
 	}
 
