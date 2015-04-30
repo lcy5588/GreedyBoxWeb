@@ -39,11 +39,11 @@ class Cat extends CI_Controller {
 
 		$this->config->load('site_info');
 
-		$limit=40;
+		$limit=20;
 		//每页显示数目
 		$cat_slug_decode = rawurldecode($cat_slug);
 
-		$config['base_url'] = site_url('/cat/'.$cat_slug);
+		$config['base_url'] = site_url('/cat/'.$cat_slug.'/');
 		//site_url可以防止换域名代码错误。
 		
 		//分类标题
@@ -68,6 +68,9 @@ class Cat extends CI_Controller {
 		$config['first_link'] = '首页';
 		$config['last_link'] = '尾页';
 		$config['num_links']=10;
+		$config['uri_segment'] = 3;
+		$config['cur_page'] = $page;
+		$config['use_page_numbers'] = TRUE;
 		//上面是自定义文字以及左右的连接数
 
 		$this->pagination->initialize($config);
@@ -89,16 +92,6 @@ class Cat extends CI_Controller {
 		$data['cat'] = $cats;
 		$data['slug'] = $cat_slug_decode;
 
-		//所有条目数据
-		//$data['items']=$this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode);
-		
-		
-		
-		//$this->load->model('M_bannerpic');
-		
-		
-		
-		
 		
 		//站点信息
 		$data['site_name'] = $this->config->item('site_name');

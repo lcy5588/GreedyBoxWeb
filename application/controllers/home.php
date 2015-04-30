@@ -35,7 +35,7 @@ class Home extends CI_Controller {
 	public function page($page)
 	{
 
-		$limit=1;
+		$limit= 20;
 		$config['base_url'] = base_url()."/index.php/home/page/";
 		$config['total_rows'] = $this->M_article->count_articles();
 		$config['per_page'] = $limit;
@@ -67,7 +67,7 @@ class Home extends CI_Controller {
 			
 		$data['cat_zd'] = $cat_zd;
 		
-		$articles = $this->M_article->get_all_articles();
+		$articles = $this->M_article->get_all_articles($limit,($page-1)*$limit);
 		$data['articles'] = $articles;
 		
 		$levelquery = $this->M_level->get_all_level();

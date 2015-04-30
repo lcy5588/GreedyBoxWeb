@@ -166,12 +166,14 @@
     endforeach;?>
 	</tbody>
   </table>
-	<div class="pagenav">
-		<?php echo $pagination;?>
-	</div>
-	<?php } ?>
-
 	
+	<nav>
+	  <ul class="pagination">
+		<?php echo $pagination;?>
+	  </ul>
+	</nav>
+
+	<?php }?>
 	
     </div>
  

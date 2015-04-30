@@ -148,7 +148,7 @@
 				if (r==true)
 				{
 					$.post('<?php echo site_url("admin/resetleveldefaultdata/")?>',function(data){
-								alert(data);
+								
 								if(data){ 
 									location.reload();
 								}

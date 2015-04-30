@@ -12,6 +12,7 @@ class Admin extends CI_Controller {
 	function __construct()
 		{
 			parent::__construct();
+			$this->load->library('pagination');
 			$this->load->model('M_item');
 			$this->load->model('M_cat');
 			$this->load->model('M_banner');
@@ -311,7 +312,7 @@ class Admin extends CI_Controller {
 	 *
 	 */
 	 public function manageitem($page = 1){
-		    $limit = 10;
+		    $limit = 20;
 			$offset = ($page-1)*$limit;
 			$this->load->library('pagination');
 
@@ -319,7 +320,7 @@ class Admin extends CI_Controller {
 			//site_url可以防止换域名代码错误。
 
 	        $config['use_page_numbers'] = TRUE;
-	        //$config['first_url'] = site_url('/admin/manageitem');
+	        $config['first_url'] = site_url('/admin/manageitem/');
 
 			$config['total_rows'] = $this->M_item->count_items();
 			//这是模型里面的方法，获得总数。
@@ -329,6 +330,7 @@ class Admin extends CI_Controller {
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
 			$config['uri_segment'] = 3;
+			$config['cur_page'] = $page;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -422,14 +424,12 @@ class Admin extends CI_Controller {
 	 public function managebanner($page = 1){
 		    $limit = 15;
 			$offset = ($page-1)*$limit;
-			$this->load->library('pagination');
-			$this->load->model('M_bannerpic');
 			
-			$config['base_url'] = site_url('/admin/managebanner');
+			$config['base_url'] = site_url('/admin/managebanner/');
 			//site_url可以防止换域名代码错误。
 
 	        $config['use_page_numbers'] = TRUE;
-	        $config['first_url'] = site_url('/admin/managebanner');
+	        $config['first_url'] = site_url('/admin/managebanner/');
 
 			$config['total_rows'] = $this->M_bannerpic->count_bannerpic();
 			//这是模型里面的方法，获得总数。
@@ -439,6 +439,7 @@ class Admin extends CI_Controller {
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
 			$config['uri_segment'] = 3;
+			$config['cur_page'] = $page;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -586,14 +587,12 @@ class Admin extends CI_Controller {
 	 public function managelabel($page = 1){
 		    $limit = 15;
 			$offset = ($page-1)*$limit;
-			$this->load->library('pagination');
-			$this->load->model('M_label');
 			
-			$config['base_url'] = site_url('/admin/managelabel');
+			$config['base_url'] = site_url('/admin/managelabel/');
 			//site_url可以防止换域名代码错误。
 
 	        $config['use_page_numbers'] = TRUE;
-	        $config['first_url'] = site_url('/admin/managelabel');
+	        $config['first_url'] = site_url('/admin/managelabel/');
 
 			$config['total_rows'] = $this->M_label->count_label();
 			//这是模型里面的方法，获得总数。
@@ -603,6 +602,7 @@ class Admin extends CI_Controller {
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
 			$config['uri_segment'] = 3;
+			$config['cur_page'] = $page;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -682,14 +682,12 @@ class Admin extends CI_Controller {
 	 public function managebrand($page = 1){
 		    $limit = 15;
 			$offset = ($page-1)*$limit;
-			$this->load->library('pagination');
-			$this->load->model('M_brand');
 			
-			$config['base_url'] = site_url('/admin/managebrand');
+			$config['base_url'] = site_url('/admin/managebrand/');
 			//site_url可以防止换域名代码错误。
 
 	        $config['use_page_numbers'] = TRUE;
-	        $config['first_url'] = site_url('/admin/managebrand');
+	        $config['first_url'] = site_url('/admin/managebrand/');
 
 			$config['total_rows'] = $this->M_brand->count_brand();
 			//这是模型里面的方法，获得总数。
@@ -699,6 +697,7 @@ class Admin extends CI_Controller {
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
 			$config['uri_segment'] = 3;
+			$config['cur_page'] = $page;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -823,14 +822,12 @@ class Admin extends CI_Controller {
 	 public function managefriendlink($page = 1){
 		    $limit = 15;
 			$offset = ($page-1)*$limit;
-			$this->load->library('pagination');
 			$this->load->model('M_friendlink');
-			
-			$config['base_url'] = site_url('/admin/managefriendlink');
+			$config['base_url'] = site_url('/admin/managefriendlink/');
 			//site_url可以防止换域名代码错误。
 
 	        $config['use_page_numbers'] = TRUE;
-	        $config['first_url'] = site_url('/admin/managefriendlink');
+	        $config['first_url'] = site_url('/admin/managefriendlink/');
 
 			$config['total_rows'] = $this->M_friendlink->count_friendlink();
 			//这是模型里面的方法，获得总数。
@@ -840,6 +837,7 @@ class Admin extends CI_Controller {
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
 			$config['uri_segment'] = 3;
+			$config['cur_page'] = $page;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);
@@ -884,29 +882,19 @@ class Admin extends CI_Controller {
 	 *
 	 */
 	 public function managearticle($page = 1){
-		    $limit = 10;
-			$offset = ($page-1)*$limit;
-			$this->load->library('pagination');
-
-			$config['base_url'] = site_url('/admin/manageitem/');
-			//site_url可以防止换域名代码错误。
-
-	        $config['use_page_numbers'] = TRUE;
-	        //$config['first_url'] = site_url('/admin/managearticle');
-
+		    $limit= 20;
+		    $offset = $limit * ($page - 1);
+			$config['base_url'] = base_url()."/admin/managearticle/";
 			$config['total_rows'] = $this->M_article->count_articles();
-			//这是模型里面的方法，获得总数。
-
 			$config['per_page'] = $limit;
 			$config['first_link'] = '首页';
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
 			$config['uri_segment'] = 3;
-			//上面是自定义文字以及左右的连接数
-
+			$config['cur_page'] = $page;
+			$config['use_page_numbers'] = TRUE;
+			
 			$this->pagination->initialize($config);
-			//初始化配置
-
 			$data['pagination']=$this->pagination->create_links();
 			//通过数组传递参数
 			//以上是重点
@@ -1026,7 +1014,7 @@ class Admin extends CI_Controller {
 	 *
 	 */
 	 public function managejoke($page = 1){
-		    $limit = 10;
+		    $limit = 20;
 			$offset = ($page-1)*$limit;
 			$this->load->library('pagination');
 
@@ -1044,6 +1032,7 @@ class Admin extends CI_Controller {
 			$config['last_link'] = '尾页';
 			$config['num_links']=10;
 			$config['uri_segment'] = 3;
+			$config['cur_page'] = $page;
 			//上面是自定义文字以及左右的连接数
 
 			$this->pagination->initialize($config);

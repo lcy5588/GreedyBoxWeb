@@ -86,8 +86,16 @@ class M_pagetype extends CI_Model{
 	
 	function get_pagetypeid_by_identification($identification = ''){
     	if(!empty($identification)){
-    		$result = $this->db->get_where($this->pagetype_table, array('identification'=>$identification))->result();
-    		return $result[0]->id;
+			$query = $this->db->get_where($this->pagetype_table, array('identification'=>$identification));
+    		
+    		if($query->num_rows() > 0){
+				
+				$result = $query->result();
+				
+				return $result[0]->id;
+			}
+			
+			return '';
     	}else {
     		return '';
     	}
