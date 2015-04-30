@@ -82,7 +82,8 @@
     </tbody>
   </table>
     <a href="javascript:void(0);" title="" class="btn btn-primary" id="btn-save">保存</a>
-	<button class="btn btn-primary" data-toggle="modal" data-target="#addpagetype">手动新增</button>
+	<button class="btn btn-primary" data-toggle="modal" data-target="#addpagetype">新增</button>
+	<button class="btn btn-primary" onclick="resetpagetypedefaultdata();" style="float:right;">重置默认值</button>
 
 </div>
  
@@ -153,6 +154,18 @@
 			$('#modal-title').text('增加页面类型条目');
 		});
 	})(jQuery);
+	
+	function resetpagetypedefaultdata(){
+		var r=confirm("你真的需要重置为默认数据？");
+				if (r==true)
+				{
+					$.post('<?php echo site_url("admin/resetpagetypedefaultdata/")?>',function(data){
+								if(data){ 
+									location.reload();
+								}
+							});
+				} 
+	}
 </script>
 </body>
 <html>

@@ -137,5 +137,18 @@ class M_pagetype extends CI_Model{
 	function delete_pagetype($pagetype_id){
 		return $this->db->delete($this->pagetype_table,array('id'=>$pagetype_id));
 	}
+	
+    function reset_pagetype_default_data(){
+		
+		$this->db->empty_table($this->pagetype_table);
+		
+		$data = array(
+			array('name' => '文章', 'listview' => 'article_list_view','contentview'=>'article_content_view','identification'=>'article'),
+			array('name' => '笑点', 'listview' => 'joke_list_view','contentview'=>'joke_content_view','identification'=>'joke'),
+			array('name' => '商品', 'listview' => 'item_list_view','contentview'=>'item_content_view','identification'=>'item')
+			);
+		
+		return $this->db->insert_batch($this->pagetype_table,$data);
+	}
 
 }

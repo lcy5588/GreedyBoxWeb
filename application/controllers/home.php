@@ -24,7 +24,7 @@ class Home extends CI_Controller {
      *
      */
     public function index(){
-        $this->page();
+        $this->page(1);
     }
 
     /**
@@ -32,18 +32,18 @@ class Home extends CI_Controller {
      *
      * @param integer $page 第几页
      */
-	public function page()
+	public function page($page)
 	{
 
 		$limit=1;
-		$config['base_url'] = base_url()."/index.php/";
+		$config['base_url'] = base_url()."/index.php/home/page/";
 		$config['total_rows'] = $this->M_article->count_articles();
 		$config['per_page'] = $limit;
 		$config['first_link'] = '首页';
 		$config['last_link'] = '尾页';
 		$config['num_links']=10;
-		$config['uri_segment'] = 1;
-		$config['cur_page'] = 1;
+		$config['uri_segment'] = 3;
+		$config['cur_page'] = $page;
 		$config['use_page_numbers'] = TRUE;
 		
 		$this->pagination->initialize($config);

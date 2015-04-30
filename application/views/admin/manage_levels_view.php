@@ -31,6 +31,9 @@
           </div>
           </div>
  </div><!--end <div class="modal fade" id="additem"-->   
+ 
+    
+	
     <table class="table">
         <thead>
       <tr>
@@ -65,9 +68,14 @@
 		 ?>
     </tbody>
   </table>
-    <a href="javascript:void(0);" title="" class="btn btn-primary" id="btn-save">保存</a>
-	<button class="btn btn-primary" data-toggle="modal" data-target="#addlevel">手动新增</button>
-
+ <div class="pull-right">
+		<button class="btn btn-primary" onclick="resetleveldefaultdata();" style="float:right;">重置默认值</button>
+	</div>
+	<ul class="nav nav-pills">
+		<li class=""><button class="btn btn-primary" title="" class="btn btn-primary" id="btn-save">保存</button></li>
+		<li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addlevel">新增</button></li>
+	</ul>
+	
 </div>
  
 <script>
@@ -96,6 +104,7 @@
 				{data:JSON.stringify(data)},function(result){
 						
 						if(result != null){
+							alert('保存成功');
 							location.reload();
 						}else{
 							alert('更新失败');
@@ -133,6 +142,19 @@
 			$('#modal-title').text('增加级别类型条目');
 		});
 	})(jQuery);
+	
+	function resetleveldefaultdata(){
+		var r=confirm("你真的需要重置为默认数据？");
+				if (r==true)
+				{
+					$.post('<?php echo site_url("admin/resetleveldefaultdata/")?>',function(data){
+								alert(data);
+								if(data){ 
+									location.reload();
+								}
+							});
+				} 
+	}
 </script>
 </body>
 <html>

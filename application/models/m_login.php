@@ -569,6 +569,7 @@ class M_login extends CI_Model{
 	   if($this->dbforge->create_table('level', TRUE))
 	   {
 		   $data['text'] .=  '<p>表level创建成功!</p>';
+		   
 	   }
 	   
 	   
@@ -605,6 +606,7 @@ class M_login extends CI_Model{
 	   if($this->dbforge->create_table('pagetype', TRUE))
 	   {
 		   $data['text'] .=  '<p>表pagetype创建成功!</p>';
+		   
 	   }
 	   
 	   $fields_admin = array(
@@ -634,7 +636,4 @@ class M_login extends CI_Model{
 		return $data;
 
 	}
-
-
-
 }

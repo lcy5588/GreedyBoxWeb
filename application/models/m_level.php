@@ -79,5 +79,18 @@ class M_level extends CI_Model{
 	function delete_level($level_id){
 		return $this->db->delete($this->level_table,array('id'=>$level_id));
 	}
-
+	
+	function reset_level_default_data(){
+		$this->db->empty_table($this->level_table);
+		
+		$data = array(
+			array('name' => '小清新', 'color' => 'green'),
+			array('name' => '一般', 'color' => 'blue'),
+			array('name' => '暖心', 'color' => 'orange'),
+			array('name' => '18禁', 'color' => 'yellow'),
+			array('name' => '重口味', 'color' => 'red')
+			);
+		
+		return $this->db->insert_batch($this->level_table,$data);
+	}
 }

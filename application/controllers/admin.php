@@ -1190,9 +1190,14 @@ class Admin extends CI_Controller {
 		echo $this->M_level->update_level();
 	}
 	
+	public function resetleveldefaultdata(){
+		
+		echo $this->M_level->reset_level_default_data();
+	}
+	
 	/*页面类型*/
 	public function managepagetype(){
-		$this->load->model('M_pagetype');
+		
 		$data['pagetype'] = $this->M_pagetype->get_all_pagetype();
 		
 		$this->load->view('admin/include_header');
@@ -1200,7 +1205,7 @@ class Admin extends CI_Controller {
 	}
 	
 	public function addpagetype(){
-		$this->load->model('M_pagetype');
+		
 		$data=array(
 				'id' => $this->input->post('id'),
 				'name' => $this->input->post('name'),
@@ -1213,16 +1218,20 @@ class Admin extends CI_Controller {
 	}
 	
 	public function deletepagetype(){
-		$this->load->model('M_pagetype');
+		
 		$id = $this->input->post('id');
 		
 		echo $this->M_pagetype->delete_pagetype($id);
 	}
 	
 	public function updatapagetype(){
-		$this->load->model('M_pagetype');
+		
 		
 		echo $this->M_pagetype->update_pagetype();
+	}
+	
+	public function resetpagetypedefaultdata(){
+		echo $this->M_pagetype->reset_pagetype_default_data();
 	}
 }
 

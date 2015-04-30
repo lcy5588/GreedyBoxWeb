@@ -31,11 +31,12 @@
 				?>
                 </select>
               </div>			  
-              <button type="button" class="btn btn-default submitaddcat" id="submitaddcat" name="submitaddcat">Submit</button>
+             
 			  
           </form>
         </div>
         <div class="modal-footer">
+		  <button type="button" class="btn btn-default submitaddcat" id="submitaddcat" name="submitaddcat">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         </div>
           </div>
