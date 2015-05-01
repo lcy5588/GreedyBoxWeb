@@ -51,7 +51,7 @@
 	</div>
 </footer>
 
-<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
 

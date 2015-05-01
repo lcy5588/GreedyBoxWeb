@@ -11,7 +11,7 @@
 			<img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
         </a>
       </div>
-      <div class="media-body">
+      <div class="media-body gifcontrol">
         <h4 class="media-heading"></h4>
         <?php echo $joke->html;?>
       </div>
@@ -70,24 +70,25 @@
 	</div>
 </footer>
 
-<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery.gifplayer.js"></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
-	    $("img").each(function(){
-			var src = $(this).attr('src');
-			
-			img.removeAttr("src")
-			img.attr('data-original',src);
-			img.addClass("lazy");
-		});
-		
-		$(window).load(function(){
-			$("img.lazy").lazyload();
+	   $(".gifcontrol").each(function(){
+			 var img = $(this).find("img");
+			// img.onload = null;
+			  var src = img.attr('src');
+			 // var staticgif = 
+			 if(src.search('.gif$') > 0){
+				 //img.removeAttr("src")
+				 img.attr('data-gif',src);
+				 img.attr('data-wait','true');
+				 img.gifplayer();
+			}
 		});
   });
-  
   </script>
 </body>
 </html>

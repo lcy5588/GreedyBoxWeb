@@ -10,7 +10,7 @@
       <div class="media-left">
         <a href="<?php $clickurl = site_url('content/'.$pagetype_zd[$cat_zd[$article->cid]].'/'.$article->id);echo $clickurl;?>">
 			
-			<img class="lazy media-object" data-original="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
+			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
 			
         </a>
       </div>
@@ -72,27 +72,24 @@
 	</div>
 </footer>
 
-<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
-<script src="<?php echo base_url()?>assets/js/jquery.lazyload.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery.gifplayer.js"></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
 	   $(".gifcontrol").each(function(){
 			 var img = $(this).find("img");
 			// img.onload = null;
 			  var src = img.attr('src');
-			
+			 // var staticgif = 
 			 if(src.search('.gif$') > 0){
-				 img.removeAttr("src")
-				 img.attr('data-original',src);
-				 img.addClass("lazy");
+				 //img.removeAttr("src")
+				 img.attr('data-gif',src);
+				 img.attr('data-wait','true');
+				 img.gifplayer();
 			}
 		});
-		
-		 $(window).load(function(){
-				$("img.lazy").lazyload();
-			 });
   });
   
   </script>

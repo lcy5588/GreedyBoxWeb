@@ -13,7 +13,7 @@
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/docs.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/blockshow.css" />
-	<script src="<?php echo base_url()?>assets/ckeditor/ckeditor.js"></script>
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/gifplayer.css" />
 </head>
 <body >
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
