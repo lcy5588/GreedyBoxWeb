@@ -74,7 +74,8 @@ class Content extends CI_Controller {
 		
 		$contentview = $this->M_pagetype->get_pagetype_contentview_by_identification($identification);
 		
-		$this->load->view($contentview,$data);
+		$this->load->view('include_header',$data);
+		$this->load->view($contentview);
 
 	}
 	

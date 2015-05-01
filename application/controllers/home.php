@@ -172,9 +172,8 @@ class Home extends CI_Controller {
 	 * 搜索结果页
 	 *
 	 */
-	public function search(){
+	public function search($page=1){
         //$this->load->model('M_taobaoapi');
-        $data['cat'] = $this->M_cat->get_all_cat();
 
          //获取搜索关键词+过滤
         $data['keyword'] = trim($this->input->get('keyword', TRUE),"'\"><");
@@ -184,24 +183,81 @@ class Home extends CI_Controller {
 		//关键词列表，这个在后台配置
 		$data['keyword_list'] = $this->M_keyword->get_all_keyword(5);
 		
-		$this->load->model('M_bannerpic');
-
-		//搜索条目的结果
-		$itemcat = array(					
-					'item' => $this->M_item->searchItem($data['keyword']),
-					'bannerpic' => $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4')
-		);
+		$limit= 20;
+		$config['base_url'] = base_url()."/index.php/home/page/";
+		$config['total_rows'] = $this->M_article->count_articles_by_keyword($data['keyword']);
+		$config['per_page'] = $limit;
+		$config['first_link'] = '首页';
+		$config['last_link'] = '尾页';
+		$config['num_links']=10;
+		$config['uri_segment'] = 3;
+		$config['cur_page'] = $page;
+		$config['use_page_numbers'] = TRUE;
 		
-		$data['itemcat'] = $itemcat;
-        
+		$this->pagination->initialize($config);
+		$data['pagination']=$this->pagination->create_links();
+
+		//类别
+		$cats = $this->M_cat->get_all_cat();
+		$data['cat'] = $cats;
+		
+		$cat_zd = array();
+			
+			if($cats->num_rows()>0){
+				foreach($cats->result() as $lx){
+					$cat_zd[$lx->id] = $lx->typeid;
+				}
+			}
+			
+		$data['cat_zd'] = $cat_zd;
+		
+		$articles = $this->M_article->get_articles_by_keyword($data['keyword'],$limit,($page-1)*$limit);
+		$data['articles'] = $articles;
+		
+		$levelquery = $this->M_level->get_all_level();
+
+		$data['levelquery'] = $levelquery;
+		
+		$level_zd = array();
+		
+		if($levelquery->num_rows()>0){
+			foreach($levelquery->result() as $lx){
+				$level_zd[$lx->id] = $lx->color;
+			}
+		}
+			
+		$data['level_zd'] = $level_zd;
+		
+		$pagetypequery = $this->M_pagetype->get_all_pagetype();
+			
+			
+		$pagetype_zd = array();
+		
+		if($pagetypequery->num_rows()>0){
+			foreach($pagetypequery->result() as $lx){
+				$pagetype_zd[$lx->id] = $lx->identification;
+			}
+		}
+		
+		$data['pagetype_zd'] = $pagetype_zd;
+		
+		$jokes = $this->M_joke->get_all_jokes();
+		
+		$data['jokes'] = $jokes;
+		
+		$this->load->model('M_friendlink');
+		
+		$data['friendlinks'] = $this->M_friendlink->get_all_friendlink_by_type('100','0');
+		
 		//站点信息
 		$data['site_name'] = $this->config->item('site_name');
+
 		//keysords和description
 		$data['site_keyword'] = $this->config->item('site_keyword');
 		$data['site_description'] = $this->config->item('site_description');
-		$data['pid'] = '12345678';
 		
-		$this->load->view('search_view',$data);
+		$this->load->view('include_header',$data);
+		$this->load->view('search_view');
 	}
 	
 	

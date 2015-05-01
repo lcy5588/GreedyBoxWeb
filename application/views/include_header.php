@@ -12,6 +12,7 @@
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="<?php echo base_url()?>assets/docs.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/blockshow.css" />
 	<script src="<?php echo base_url()?>assets/ckeditor/ckeditor.js"></script>
 </head>
 <body >
@@ -40,9 +41,9 @@
 						}
 					 ?>
 			  </ul>
-			  <form class="navbar-form navbar-right" role="search">
+			  <form class="navbar-form navbar-right" role="search" action="<?php echo site_url('home/search')?>">
 				<div class="form-group">
-				  <input type="text" class="form-control" placeholder="Search">
+				  <input type="text" class="form-control" placeholder="Search" id="keyword" name="keyword" value="">
 				</div>
 				<button type="submit" class="btn btn-default">搜索</button>
 			  </form>

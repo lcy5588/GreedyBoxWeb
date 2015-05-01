@@ -187,4 +187,26 @@ class M_article extends CI_Model{
 			}
 		}
 	}
+	
+	function count_articles_by_keyword($keyword){
+		
+		$this->db->select('COUNT(id) AS count');
+		$this->db->like('title',$keyword);
+		$query = $this->db->get($this->article_table);
+
+		if ($query->num_rows() > 0)
+		{
+		   $row = $query->row();
+		   return $row->count;
+		}else{
+			return 0;
+		}
+	}
+	
+	function get_articles_by_keyword($keyword,$limit=40,$offset=0)
+	{
+		$this->db->like('title',$keyword);
+		$query = $this->db->get($this->article_table,$limit,$offset);
+		return $query;
+	}
 }
