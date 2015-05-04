@@ -36,10 +36,11 @@
                 </select>
                 <?php } ?>
               </div>             			 
-              <button type="button" class="btn btn-default" id="submitaddbrand">Submit</button>
+              
           </form>
         </div>
         <div class="modal-footer">
+			<button type="button" class="btn btn-default" id="submitaddbrand">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         </div>
           </div>
@@ -106,7 +107,9 @@
 		<?php echo $pagination;?>
 	  </ul>
 	</nav>
-    </div>
+	<?php }?>
+
+</div>
  
 <script>
 	(function($){

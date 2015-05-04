@@ -371,7 +371,7 @@ class Admin extends CI_Controller {
 			$data['label_zd'] = $label_zd;
 			
 			$this->load->view('admin/include_header');
-			$this->load->view('admin/add_items_view',$data);
+			$this->load->view('admin/manage_items_view',$data);
 	}
 
 	/**
@@ -422,6 +422,8 @@ class Admin extends CI_Controller {
 	 *
 	 */
 	 public function managebanner($page = 1){
+			$this->load->model('M_bannerpic');
+			
 		    $limit = 15;
 			$offset = ($page-1)*$limit;
 			
