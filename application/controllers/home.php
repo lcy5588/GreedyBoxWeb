@@ -101,10 +101,6 @@ class Home extends CI_Controller {
 		
 		$data['jokes'] = $jokes;
 		
-		$this->load->model('M_friendlink');
-		
-		$data['friendlinks'] = $this->M_friendlink->get_all_friendlink_by_type('100','0');
-		
 		//站点信息
 		$data['site_name'] = $this->config->item('site_name');
 
@@ -260,6 +256,42 @@ class Home extends CI_Controller {
 		$this->load->view('search_view');
 	}
 	
+	public function friendlinks(){
+		$cats = $this->M_cat->get_all_cat();
+		$data['cat'] = $cats;
+		
+		$this->load->model('M_friendlink');
+		
+		$data['friendlinks'] = $this->M_friendlink->get_all_friendlink_by_type('100','0');
+		
+		//站点信息
+		$data['site_name'] = $this->config->item('site_name');
+
+		//keysords和description
+		$data['site_keyword'] = $this->config->item('site_keyword');
+		$data['site_description'] = $this->config->item('site_description');
+		
+		$this->load->view('include_header',$data);
+		$this->load->view('friendlinks_view');
+		
+	}
+	
+	public function webmap(){
+		$cats = $this->M_cat->get_all_cat();
+		$data['cat'] = $cats;
+		
+		
+		
+		//站点信息
+		$data['site_name'] = $this->config->item('site_name');
+
+		//keysords和description
+		$data['site_keyword'] = $this->config->item('site_keyword');
+		$data['site_description'] = $this->config->item('site_description');
+		
+		$this->load->view('include_header',$data);
+		$this->load->view('webmap_view');
+	}
 	
 	public function getitemdataonlocal(){
 		$catid = $this->input->post('catid');
