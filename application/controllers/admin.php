@@ -1043,8 +1043,8 @@ class Admin extends CI_Controller {
 			//以上是重点
 
 			$data['query'] = $this->M_joke->get_all_jokes($limit,$offset);
-            
-			$lxquery = $this->M_cat->get_all_cat();
+            $typeid = $this->M_pagetype->get_pagetypeid_by_identification('joke');
+			$lxquery = $this->M_cat->get_all_cat_by_typeid($typeid);
 			$data['lxquery'] = $lxquery;
 			
 			$lx_zd = array();
@@ -1056,6 +1056,7 @@ class Admin extends CI_Controller {
 			}
 			
 			$data['lx_zd'] = $lx_zd;
+            
 			
 			$levelquery = $this->M_level->get_all_level();
 			$data['levelquery'] = $levelquery;

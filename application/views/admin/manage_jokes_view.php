@@ -25,7 +25,7 @@
 						<select class="form-control" id="joke_labelid" name="joke_labelid">
 						  
 						  <?php foreach($labelquery->result() as $labelarray):?>
-						  <option value="<?php echo $labelarray->id;?>"><?php echo $labelarray->title;?></option>
+						  <option value="<?php echo $labelarray->id;?>" class="label-cid label-cid-<?php echo $labelarray->cid;?>"><?php echo $labelarray->title;?></option>
 						  <?php 
 						  //结束类型
 						  endforeach;?>
@@ -129,7 +129,7 @@
         <td style="width:5%;"><?php echo $lx_zd[$array->cid]?></td>        
         <td style="width:10%;"><?php echo $label_zd[$array->labelid]; ?></td>        
         <td style="width:5%;"><?php echo $level_zd[$array->levelid]; ?></td>
-        <td style="width:25%;"><?php echo $array->html; ?></td>
+        <td style="width:25%;" class="gifcontrol"><?php echo $array->html; ?></td>
         <td style="width:10%;"><?php echo $array->adddatetime;?></td>
         <td style="width:10%;">
         	<a href="#" title="修改此条" class="btn_update" data-jokeid="<?php echo $array->id; ?>">修改</a>&nbsp;&nbsp;
@@ -152,9 +152,28 @@
 	
     </div>
  
-
+<script src="<?php echo base_url()?>assets/js/jquery.gifplayer.js"></script>
 <script>
 	(function($){
+		 $(".gifcontrol").each(function(){
+			 var img = $(this).find("img");
+			
+			  var src = img.attr('src');
+			
+			 if(src.search('.gif$') > 0){
+				 
+				var startpos = src.indexOf('/',7);
+				var endpos = src.indexOf('/',startpos+1);
+				var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
+				
+				img.attr('src',staticsrc);
+				img.attr('data-gif',src);
+				img.attr('data-wait','true');
+				img.gifplayer();
+			}
+		});
+		
+		
 		$('.btn_delete').click(function(){
 			//event.preventDefault();
 			var r=confirm("你真的真的要删除吗？无法恢复！");
@@ -191,6 +210,9 @@
 									
 									$('#joke_id').val(data['id']);
 									$('#joke_cid').val(data['cid']);
+									
+									showlabel();
+									
 									$('#joke_levelid').val(data['levelid']);
 									$('#joke_authorid').val(data['authorid']);
 									$('#joke_labelid').val(data['labelid']);
@@ -226,8 +248,12 @@
 		$('#jokemodelbtn').click(function(){
 			var cid = $('#jokemodelcid').val();
 			$('#joke_cid').val(cid);
-			
+			showlabel();
 			$('#addjokediv').show();
+		});
+		
+		$('#joke_cid').change(function(){
+			showlabel();
 		});
 	})(jQuery);
 	
@@ -251,6 +277,13 @@
 		$('#modal-title').text('增加文章');
 		
 		$('#addjokediv').hide();
+	}
+	
+	function showlabel(){
+		var cid = $('#joke_cid').val();
+		$('.label-cid').hide();
+		$('.label-cid-'+ cid).show();
+		$('#joke_labelid').val('');
 	}
 </script>
 </body>

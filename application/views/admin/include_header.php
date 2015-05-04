@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-datetimepicker.css" />
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/backend.css" />
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/index.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/gifplayer.css" />
 	<script type='text/javascript' src='<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap-datetimepicker.zh-CN.js'></script>

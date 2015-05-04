@@ -78,14 +78,19 @@
   $(function() {
 	   $(".gifcontrol").each(function(){
 			 var img = $(this).find("img");
-			// img.onload = null;
+			
 			  var src = img.attr('src');
-			 // var staticgif = 
+			
 			 if(src.search('.gif$') > 0){
-				 //img.removeAttr("src")
-				 img.attr('data-gif',src);
-				 img.attr('data-wait','true');
-				 img.gifplayer();
+				 
+				var startpos = src.indexOf('/',7);
+				var endpos = src.indexOf('/',startpos+1);
+				var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
+				
+				img.attr('src',staticsrc);
+				img.attr('data-gif',src);
+				img.attr('data-wait','true');
+				img.gifplayer();
 			}
 		});
   });
