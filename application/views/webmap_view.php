@@ -4,9 +4,28 @@
 <div class="row">
 	<div class="col-md-7 col-md-offset-1" role="main">
   
+	<h4>分类</h4>
+		<table >
+			<?php $rowNum=5; $numrows=$cat->num_rows();if($numrows > 0){$result = $cat->result();for($i = 0;$i < $numrows;$i = $i + $rowNum){?>
+			<tr>
+				<?php for($j = 0;$j < $rowNum && $i+$j < $numrows;$j++){?>
+				<td style="width:<?php echo 1/$rowNum * 100;?>%">
+					<h5><a href="<?php echo site_url('cat/'.$result[$j + $i]->slug);?>" target="_blank"><?php echo $result[$j+$i]->name;?></a></h5>
+				</td>
+				<?php }?>
+			</tr>
+			<?php }}?>
+		</table>
 
-
-
+	<h4>其他</h4>
+		<table >
+			<tr>
+				<td style="width:20%">
+					<h5><a href="<?php echo site_url('home/friendlinks');?>" target="_blank">友情链接</a></h5>
+				</td>
+			</tr>
+			
+		</table>
 	</div>
 	<div class="col-md-3 hidden-print hidden-xs hidden-sm" id="sidepannel">
 	
