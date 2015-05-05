@@ -5,9 +5,9 @@
 	<div class="col-md-7 col-md-offset-1" role="main">
   
 	<h4>分类</h4>
-		<table >
-			<?php $rowNum=5; $numrows=$cat->num_rows();if($numrows > 0){$result = $cat->result();for($i = 0;$i < $numrows;$i = $i + $rowNum){?>
-			<tr>
+		<table>
+			<?php $rowNum=10; $numrows=$cat->num_rows();if($numrows > 0){$result = $cat->result();for($i = 0;$i < $numrows;$i = $i + $rowNum){?>
+			<tr style="width:100%;">
 				<?php for($j = 0;$j < $rowNum && $i+$j < $numrows;$j++){?>
 				<td style="width:<?php echo 1/$rowNum * 100;?>%">
 					<h5><a href="<?php echo site_url('cat/'.$result[$j + $i]->slug);?>" target="_blank"><?php echo $result[$j+$i]->name;?></a></h5>

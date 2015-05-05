@@ -62,11 +62,16 @@ class M_article extends CI_Model{
     	}
     }
 	
-	function get_all_articles($limit='40',$offset='0',$cid='',$sort = "adddatetime desc")
+	function get_all_articles($limit='40',$offset='0',$cid='',$labelid='',$sort = "adddatetime desc")
 	{
 		//如果是分类页
 		if(!empty($cid)){
 			$where = "cid = ".$cid;
+			
+			if(!empty($labelid)){
+				$where = $where." AND labelid=".$labelid;
+			}
+			
 			$this->db->where($where);
 			$this->db->order_by($sort);
 			$query = $this->db->get($this->article_table,$limit,$offset);
@@ -169,13 +174,21 @@ class M_article extends CI_Model{
 		return $result;
 	}
 
-	function count_articles($cid=""){
-			if(empty($cid)){
+	function count_articles($cid="",$labelid=""){
+			if(empty($cid)&&empty($labelid)){
 			return $this->db->count_all_results($this->article_table);
 		}else{
 
 			$this->db->select('COUNT(id) AS count');
-			$this->db->where('cid',$cid);
+			
+			if(!empty($cid)){
+				$this->db->where('cid',$cid);
+			}
+			
+			if(!empty($labelid)){
+				$this->db->where('labelid',$labelid);
+			}
+			
 			$query = $this->db->get($this->article_table);
 
 			if ($query->num_rows() > 0)

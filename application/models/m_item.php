@@ -142,13 +142,18 @@ class M_item extends CI_Model{
 	 * @param string cat_slug 类别的slug
 	 * @return integer 类别的数目
 	 */
-	function count_items($cat_slug=''){
-		if(empty($cat_slug)){
+	function count_items($cat_slug='',$labelid=""){
+		if(empty($cat_slug) && empty($labelid)){
 			return $this->db->count_all_results($this->item_table);
 		}else{
 
 			$this->db->select('COUNT(item.id) AS count');
 			$where = "cid= cat.id AND slug='".$cat_slug."'";
+			
+			if(!empty($labelid)){
+				$where = $where." AND item.labelid = ".$labelid;
+			}
+			
 			$this->db->join($this->cat_table,$where);
 			$this->db->order_by('item.id DESC');
 			$query = $this->db->get($this->item_table);

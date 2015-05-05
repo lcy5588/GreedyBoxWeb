@@ -137,6 +137,17 @@ class M_label extends CI_Model{
          }else return null;
     }
 	
+	function get_labelid_by_slug($slug){
+         $data = array(
+                'slug' => $slug
+             );
+         $query = $this->db->get_where($this->label_table, $data);
+         if($query->num_rows()>0){
+         	$result = $query->result();
+         	return $result[0]->id;
+         }else return '';
+    }
+	
 	function add_click_count($labelid){
 		$this->db->set('click_count', 'click_count+1', FALSE);
 		$this->db->where('id', $labelid);

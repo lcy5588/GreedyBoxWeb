@@ -56,12 +56,17 @@ class M_joke extends CI_Model{
     	}
     }
 	
-	function get_all_jokes($limit='40',$offset='0',$cid='',$sort = "adddatetime desc")
+	function get_all_jokes($limit='40',$offset='0',$cid='',$labelid='',$sort = "adddatetime desc")
 	{
 		//如果是分类页
 		if(!empty($cid)){
-			$where = "cid= '".$cid."'";
-			$this->db->where($where);
+			$this->db->where('cid',$cid);
+			
+			if(!empty($labelid)){
+				$this->db->where('labelid',$labelid);
+			}
+			
+			
 			$this->db->order_by($sort);
 			$query = $this->db->get($this->joke_table,$limit,$offset);
 			}
@@ -157,13 +162,18 @@ class M_joke extends CI_Model{
 		return $result;
 	}
 
-	function count_jokes($cid=""){
-			if(empty($cid)){
+	function count_jokes($cid="",$labelid=""){
+			if(empty($cid)&&empty($labelid)){
 			return $this->db->count_all_results($this->joke_table);
 		}else{
 
 			$this->db->select('COUNT(id) AS count');
 			$this->db->where('cid',$cid);
+			
+			if(!empty($labelid)){
+				$this->db->where('labelid',$labelid);
+			}
+			
 			$query = $this->db->get($this->joke_table);
 
 			if ($query->num_rows() > 0)

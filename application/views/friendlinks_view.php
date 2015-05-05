@@ -4,9 +4,9 @@
 <div class="row">
 	<div class="col-md-7 col-md-offset-1" role="main">
 		<h4>友情链接</h4>
-		<table style="width:100%;">
-			<?php $rowNum=5; $numrows=$friendlinks->num_rows();if($numrows > 0){$result = $friendlinks->result();for($i = 0;$i < $numrows;$i = $i + $rowNum){?>
-			<tr>
+		<table>
+			<?php $rowNum=10; $numrows=$friendlinks->num_rows();if($numrows > 0){$result = $friendlinks->result();for($i = 0;$i < $numrows;$i = $i + $rowNum){?>
+			<tr style="width:100%;">
 				<?php for($j = 0;$j < $rowNum && $i+$j < $numrows;$j++){?>
 				<td style="width:<?php echo 1/$rowNum * 100;?>%">
 					<h5><a href="<?php echo $result[$j+$i]->click_url;?>" target="_blank"><?php echo $result[$j+$i]->name;?></a></h5>
