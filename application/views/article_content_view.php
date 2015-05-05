@@ -41,10 +41,10 @@
 <footer class="bs-docs-footer" role="contentinfo">
 	<div class="container">
 	<div class="row">   
-		 <div class="col-md-12">
+		<div class="col-md-12">
 		
-		<p> Copyright ©2014&nbsp;&nbsp;<a href="<?php echo site_url();?>" title="<?php echo $site_name;?>"><?php echo $site_name;?></a>&nbsp;&nbsp;<a href="#">友情链接</a>&nbsp;&nbsp;<a href="#">网站地图</a></p>
-					 
+		<p> Copyright ©2014&nbsp;&nbsp;<a href="<?php echo site_url();?>" title="<?php echo $site_name;?>"><?php echo $site_name;?></a>&nbsp;&nbsp;<a href="<?php echo site_url('home/friendlinks')?>" target="_blank">友情链接</a>&nbsp;&nbsp;<a href="<?php echo site_url('home/webmap')?>" target="_blank">网站地图</a></p>
+		
 		</div>
 		</div><!--end of row-->
 	 </div>
