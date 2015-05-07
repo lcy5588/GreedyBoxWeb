@@ -650,8 +650,7 @@ class Admin extends CI_Controller {
 						'id' =>$label->id,
 						'title' =>$label->title,
 						'slug' =>$label->slug,
-					   'click_url'=>$label->click_url,
-					   'cid' => $label->cid,
+					   'cid' => $label->cid
 			);
 			
 		echo json_encode($data);
@@ -664,8 +663,7 @@ class Admin extends CI_Controller {
 		$data = array(
 			   'title' => $this->input->post('title'),
                'cid' => $this->input->post('cid'),
-			   'slug' =>  $this->input->post('slug'),
-               'click_url' =>  $this->input->post('click_url')
+			   'slug' =>  $this->input->post('slug')
 		); 
 		
 		

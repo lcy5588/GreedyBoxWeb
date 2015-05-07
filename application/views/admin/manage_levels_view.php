@@ -9,15 +9,15 @@
         <div class="modal-body">
           <form role="form" id="addlevelform" name="addlevelform" method="post" action="<?php echo site_url('admin/addlevel')?>">
               <div class="form-group">
-                <label >级别ID:</label>
+                <label for="id" class="control-label">级别ID:</label>
 				<input type="text" class="form-control" id="id" name="id" placeholder="级别名称">                
               </div>
               <div class="form-group">
-                <label for="name">级别名称</label>
+                <label for="name" class="control-label">级别名称</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="级别名称">
               </div>  
 				<div class="form-group">
-                <label for="color">级别颜色</label>
+                <label for="color" class="control-label">级别颜色</label>
                 <input type="text" class="form-control" id="color" name="color" placeholder="级别颜色">
               </div> 			          			 
              
@@ -80,15 +80,18 @@
  
 <script>
 	(function($){
+		$.validity.setup({ outputMode:'boostrap' });
+		
 		$('#submitaddlevel').click(function () {
 			var url = "<?php echo site_url('admin/addlevel')?>";
-			
-			$.post(url,$('#addlevelform').serialize(),function(data){
-				if(data){
-					$('#addlevel').modal('hide');
-					location.reload();
-				}
-			});
+			if (validateMyAjaxInputs()) {
+				$.post(url,$('#addlevelform').serialize(),function(data){
+					if(data){
+						$('#addlevel').modal('hide');
+						location.reload();
+					}
+				});
+			}
 		});
 		$('#btn-save').click(function(){
             var data = new Array();
@@ -154,6 +157,28 @@
 								}
 							});
 				} 
+	}
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#id").require();
+			$("#name").require();
+			$("#color").require();
+			
+			// etc.
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
 	}
 </script>
 </body>

@@ -12,19 +12,19 @@
           <form role="form" id="addfriendlinkform" name="addfriendlinkform" method="post" action="<?php echo site_url('admin/addfriendlink')?>">
 		  <input type="hidden" id="friendlinkid" name="friendlinkid" value=""/>
               <div class="form-group">
-                <label for="name">标题</label>
+                <label for="name" class="control-label">标题</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="name">
               </div>
               <div class="form-group">
-                <label for="click_url">点击地址</label>
+                <label for="click_url" class="control-label">点击地址</label>
                 <input type="text" class="form-control" id="click_url" name="click_url" placeholder="点击地址">
               </div>  
-				<div class="form-group">
-                <label for="img_url">图片地址</label>
+				<div class="form-group" >
+                <label for="img_url" class="control-label">图片地址</label>
                 <input type="text" class="form-control" id="img_url" name="img_url" placeholder="图片地址">
               </div> 			  
-             <div class="form-group">
-              <label for="type">类型</label>
+             <div class="form-group" >
+              <label for="type" class="control-label">类型</label>
              
                 <select class="form-control" id="type" name="type">
                   
@@ -34,10 +34,11 @@
                 </select>
                
               </div>             			 
-              <button type="button" class="btn btn-default" id="submitaddfriendlink">Submit</button>
+              
           </form>
         </div>
         <div class="modal-footer">
+			<button type="button" class="btn btn-default" id="submitaddfriendlink">保存</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         </div>
           </div>
@@ -105,6 +106,8 @@
  
 <script>
 	(function($){
+        $.validity.setup({ outputMode:'boostrap' });
+		
 		$('.btn_delete').click(function(){
 			//event.preventDefault();
 			var r=confirm("你真的真的要删除吗？无法恢复！");
@@ -151,14 +154,16 @@
 		
 		$('#submitaddfriendlink').click(function(){
 			var url = "<?php echo site_url('admin/addfriendlink')?>";
-
-			$.post(url, $("#addfriendlinkform").serialize(),function(data){
-				if(data){
-					
-					$('#addfriendlink').modal('hide');
-					location.reload();
-				}
-			});
+			
+			if (validateMyAjaxInputs()) {
+				$.post(url, $("#addfriendlinkform").serialize(),function(data){
+					if(data){
+						
+						$('#addfriendlink').modal('hide');
+						location.reload();
+					}
+				});
+			}
 		});
 		
 		$('#addfriendlink').on('hide.bs.modal', function (e) {
@@ -170,6 +175,28 @@
 			$('#modal-title').text('新增友链');
 		})
 	})(jQuery);
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#name").require();
+			
+			$("#click_url").require();
+			// etc.
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
+	}
+
 </script>
 </body>
 </html>

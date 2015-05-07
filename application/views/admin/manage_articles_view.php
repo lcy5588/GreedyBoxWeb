@@ -180,6 +180,8 @@
 
 <script>
 	(function($){
+		$.validity.setup({ outputMode:'boostrap' });
+		
 		$('.btn_delete').click(function(){
 			//event.preventDefault();
 			var r=confirm("你真的真的要删除吗？无法恢复！");
@@ -246,13 +248,14 @@
 			if ($('#article_id').val() != ""){
 				url = "<?php echo site_url('admin/updataarticle/')?>";
 			}
-			
-			$.post(url, $("#articlemodelform").serialize(),function(data){
-				if(data){
-					location.reload();
-					hidediv();
-				}
-			});
+			if (validateMyAjaxInputs()) {
+				$.post(url, $("#articlemodelform").serialize(),function(data){
+					if(data){
+						location.reload();
+						hidediv();
+					}
+				});
+			}
 		});
 				
 		$('#articlemodelbtn').click(function(){
@@ -301,6 +304,31 @@
 		$('.label-cid').hide();
 		$('.label-cid-'+ cid).show();
 		$('#article_labelid').val('');
+	}
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#article_title").require();
+			$("#article_cid").require();
+			$("#article_levelid").require();
+			$("#article_authorid").require();
+			//$("#editor").require();
+			$("#article_imgurl").require();
+			$("#article_labelid").require();
+			// etc.
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
 	}
 </script>
 </body>

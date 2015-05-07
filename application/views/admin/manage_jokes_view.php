@@ -155,21 +155,24 @@
 <script src="<?php echo base_url()?>assets/js/jquery.gifplayer.js"></script>
 <script>
 	(function($){
+		$.validity.setup({ outputMode:'boostrap' });
+		
 		 $(".gifcontrol").each(function(){
 			 var img = $(this).find("img");
-			
-			  var src = img.attr('src');
-			
-			 if(src.search('.gif$') > 0){
+			 if(img.length > 0){
+				 var src = img.attr('src');
 				 
-				var startpos = src.indexOf('/',7);
-				var endpos = src.indexOf('/',startpos+1);
-				var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
-				
-				img.attr('src',staticsrc);
-				img.attr('data-gif',src);
-				img.attr('data-wait','true');
-				img.gifplayer();
+				 if(src.search('.gif$') > 0){
+					 
+					var startpos = src.indexOf('/',7);
+					var endpos = src.indexOf('/',startpos+1);
+					var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
+					
+					img.attr('src',staticsrc);
+					img.attr('data-gif',src);
+					img.attr('data-wait','true');
+					img.gifplayer();
+				}
 			}
 		});
 		
@@ -237,12 +240,14 @@
 				url = "<?php echo site_url('admin/updatajoke/')?>";
 			}
 			
-			$.post(url, $("#jokemodelform").serialize(),function(data){
-				if(data){
-					location.reload();
-					hidediv();
-				}
-			});
+			if (validateMyAjaxInputs()) {
+				$.post(url, $("#jokemodelform").serialize(),function(data){
+					if(data){
+						location.reload();
+						hidediv();
+					}
+				});
+		 }
 		});
 				
 		$('#jokemodelbtn').click(function(){
@@ -284,6 +289,28 @@
 		$('.label-cid').hide();
 		$('.label-cid-'+ cid).show();
 		$('#joke_labelid').val('');
+	}
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#joke_cid").require();
+			$("#joke_levelid").require();
+			$("#joke_authorid").require();
+			$("#joke_labelid").require();
+			
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
 	}
 </script>
 </body>

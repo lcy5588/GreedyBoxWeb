@@ -38,7 +38,7 @@
 					
 					 <label for="cid" class="col-sm-2 control-label">类型</label>
 				  <div class="col-sm-4">
-					  <?php if($lxquery && $lxquery->num_rows()>0){?>
+					  
 						<select class="form-control" id="cid" name="cid">
 						  
 						  <?php foreach($lxquery->result() as $lxarray):?>
@@ -47,7 +47,7 @@
 						  //结束类型
 						  endforeach;?>
 						</select>
-						<?php } ?>
+						
 					</div>
 					<label for="labelid" class="col-sm-2 control-label">标签</label>
 					<div class="col-sm-4">
@@ -175,6 +175,8 @@
 
 <script>
 	(function($){
+		$.validity.setup({ outputMode:'boostrap' });
+		
 		$('.btn_delete').click(function(){
 			//event.preventDefault();
 			var r=confirm("你真的真的要删除吗？无法恢复！");
@@ -234,22 +236,24 @@
 				url = "<?php echo site_url('admin/updataitem/')?>";
 			}
 			
-			$.post(url, $("#additemform").serialize(),function(data){
-				if(data){
-				
-					/* if($('#item_id').val() == ""){
-						
-						$('tbody').prepend('<tr><th>'+data+'</th><td><img src="'+$('#img_url').val()+'" class="thumbnail" alt="" title=""></td>'
-						+'<td>'+$('#title').val()+'</td><td>'+$('#click_url').val()+'</td><td>'+$('#sellernick').val()+'</td>'
-						+'<td><strong>'+$('#price').val()+'</strong></td><td>'+$('#cid').val()+'</td><td>0</td>'
-						+'<td><a href="#" title="修改此条" class="btn_update" data-itemid="'+data+'">修改</a>&nbsp;&nbsp;'
-						+'<a href="#" title="删除此条" class="btn_delete"  data-itemid="'+data+'">删除</a> </td></tr>').fadeIn();
-					} */
+			if (validateMyAjaxInputs()) {
+				$.post(url, $("#additemform").serialize(),function(data){
+					if(data){
 					
-					location.reload();
-					$('#additem').modal('hide');
-				}
-			});
+						/* if($('#item_id').val() == ""){
+							
+							$('tbody').prepend('<tr><th>'+data+'</th><td><img src="'+$('#img_url').val()+'" class="thumbnail" alt="" title=""></td>'
+							+'<td>'+$('#title').val()+'</td><td>'+$('#click_url').val()+'</td><td>'+$('#sellernick').val()+'</td>'
+							+'<td><strong>'+$('#price').val()+'</strong></td><td>'+$('#cid').val()+'</td><td>0</td>'
+							+'<td><a href="#" title="修改此条" class="btn_update" data-itemid="'+data+'">修改</a>&nbsp;&nbsp;'
+							+'<a href="#" title="删除此条" class="btn_delete"  data-itemid="'+data+'">删除</a> </td></tr>').fadeIn();
+						} */
+						
+						location.reload();
+						$('#additem').modal('hide');
+					}
+				});
+		  }
 		});
 		
 		$('#additem').on('hide.bs.modal', function (e){
@@ -295,6 +299,32 @@
 		$('.label-cid').hide();
 		$('.label-cid-'+ cid).show();
 		$('#labelid').val('');
+	}
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#title").require();
+			$("#cid").require();
+			$("#click_url").require();
+			$("#img_url").require();
+			$("#price").require();
+			$("#sellernick").require();
+			$("#oldprice").require();
+			$("#discount").require();
+			$("#labelid").require();
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
 	}
 </script>
 </body>

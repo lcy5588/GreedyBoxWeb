@@ -60,6 +60,8 @@ class Cat extends CI_Controller {
 		
 		$labelid = $this->M_label->get_labelid_by_slug($label_decode);
 		
+		$data['labelid'] = $labelid;
+		
 		if($identification == 'article'){
 			$config['total_rows'] = $this->M_article->count_articles($cat->id,$labelid);
 		}else if($identification == 'item'){

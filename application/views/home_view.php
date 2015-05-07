@@ -34,6 +34,22 @@
 
 
 <div class="col-md-3 hidden-print hidden-xs hidden-sm" id="sidepannel">
+	<div role="Info">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+			Basic panel example
+		  </div>
+		</div>
+	</div>
+	<div role="Advertisement">
+          <ul class="list-unstyled">
+			<li>
+					<a href="#">
+					  <img class="media-object" data-src="holder.js/263x180" alt="Generic placeholder image">
+					</a>
+			</li>
+          </ul>
+    </div>
 	<?php if($jokes->num_rows() > 0){?>
 	<div>
 		<ul class="list-unstyled">
@@ -47,15 +63,7 @@
          </ul>
 	</div>
 	<?php } ?>
-	<div role="Advertisement">
-          <ul class="list-unstyled">
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/250x64" alt="Generic placeholder image">
-					</a>
-			</li>
-          </ul>
-    </div>
+	
 </div>
 </div>
 </div>

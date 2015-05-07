@@ -12,17 +12,17 @@
           <form role="form" id="addlabelform" name="addlabelform" method="post" action="<?php echo site_url('admin/addlabel')?>">
 		  <input type="hidden" id="labelid" name="labelid" value=""/>
               <div class="form-group">
-                <label for="title">标题</label>
+                <label for="title" class="control-label">标题</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="标题">
               </div>
 			   <div class="form-group">
-                <label for="slug">标识</label>
+                <label for="slug" class="control-label">标识</label>
                 <input type="text" class="form-control" id="slug" name="slug" placeholder="标识">
               </div>
               
 			 			  
              <div class="form-group">
-              <label for="cid">类型</label>
+              <label for="cid" class="control-label">类型</label>
               <?php if($lxquery && $lxquery->num_rows()>0){?>
                 <select class="form-control" id="cid" name="cid">
                   
@@ -110,6 +110,8 @@
  
 <script>
 	(function($){
+        $.validity.setup({ outputMode:'boostrap' });
+         
 		$('.btn_delete').click(function(){
 			//event.preventDefault();
 			var r=confirm("你真的真的要删除吗？无法恢复！");
@@ -138,7 +140,7 @@
 						{
 							labelid: labelid
 						},function(data){
-
+								
 								if(data != null){
 									$('#labelid').val(data['id']);
 									$('#title').val(data['title']);
@@ -154,25 +156,64 @@
 			
 		});
 		
-		$('#submitaddlabel').click(function(){
-			var url = "<?php echo site_url('admin/addlabel')?>";
-
-			$.post(url, $("#addlabelform").serialize(),function(data){
-				if(data){					
-					$('#addlabel').modal('hide');
-					location.reload();
-				}
-			});
-		});
-		
 		$('#addlabel').on('hide.bs.modal', function (e) {
 			$('#labelid').val("");
 			$('#title').val("");
 			$('#cid').val("");
 			$('#slug').val("");
+			
+			$(".has-error").each(function(){
+				$(this).removeClass("has-error");
+			});
+			
 			$('#modal-title').text('新增标签');
-		})
+		});
+		
+		
+            
+		$('#submitaddlabel').click(function(){
+			var url = "<?php echo site_url('admin/addlabel')?>";
+			
+			
+			 if (validateMyAjaxInputs()) {
+    
+				// Do ajax:
+				$.post(url, $("#addlabelform").serialize(),function(data){
+					if(data){					
+						$('#addlabel').modal('hide');
+						location.reload();
+					}
+				});
+					
+			}
+			
+			
+		});
+		
+		
 	})(jQuery);
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#title").require();
+			$("#slug").require();
+			$("#cid").require();
+			// etc.
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
+		}
+
 </script>
 </body>
 </html>

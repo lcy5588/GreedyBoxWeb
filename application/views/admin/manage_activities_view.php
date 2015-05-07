@@ -228,29 +228,29 @@
           <form role="form" id="addbannerpicform" class="form-horizontal" name="addbannerpicform" method="post" action="<?php echo site_url('admin/addbannerpic')?>">
 		  <input type="hidden" id="bannerpicid" name="bannerpicid" value=""/>
               <div class="form-group">
-                <label for="name" class="col-sm-2">标题</label>
+                <label for="name" class="col-sm-2 control-label">标题</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="name" name="name" placeholder="标题">
 				</div>
 			  </div>
               <div class="form-group">
-                <label for="click_url" class="col-sm-2">点击地址</label>
+                <label for="click_url" class="col-sm-2 control-label">点击地址</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="click_url" name="click_url" placeholder="点击地址">
 				</div>
 			  </div>
               <div class="form-group">
-                <label for="img_url" class="col-sm-2">图片地址</label>
+                <label for="img_url" class="col-sm-2 control-label">图片地址</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="img_url" name="img_url" placeholder="图片地址">
 				</div>
 			  </div>
               <div class="form-group">
-                <label for="type" class="col-sm-2">类型</label>
+                <label for="type" class="col-sm-2 control-label">类型</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="type" name="type" placeholder="类型">
 				</div>
-                <label for="isDisable" class="col-sm-2">是否禁用</label>
+                <label for="isDisable" class="col-sm-2 control-label">是否禁用</label>
 				<div class="col-sm-4">
 					<select id="isDisable" name="isDisable">
 						<option value="0">否</option>
@@ -259,7 +259,7 @@
 				</div>
               </div>
 			  <div class="form-group">
-                <label  class="col-sm-2">开始时间</label>
+                <label  class="col-sm-2 control-label">开始时间</label>
 				<div class="col-sm-4">
 					
 					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="startdatetime" data-link-format="yyyy-mm-dd">
@@ -269,7 +269,7 @@
 						<input type="hidden" id="startdatetime" value="" />
 					</div>
 				</div>
-                <label class="col-sm-2">结束时间</label>
+                <label class="col-sm-2 control-label">结束时间</label>
 				<div class="col-sm-4">
 					
 					<div class="input-group date form_date" data-date="2011-2-2" data-date-format="yyyy-mm-dd" data-link-field="enddatetime" data-link-format="yyyy-mm-dd">
@@ -359,6 +359,8 @@
     </div>
 <script>
 	(function($){
+		$.validity.setup({ outputMode:'boostrap' });
+		
 		$('.btn_delete').click(function(){
 			//event.preventDefault();
 			var r=confirm("你真的真的要删除吗？无法恢复！");
@@ -481,12 +483,15 @@
 			
 			var url = "<?php echo site_url('admin/addbannerpic/')?>";
 			
+			if (validateMyAjaxInputs()) {
+			
 			$.post(url, $("#addbannerpicform").serialize(),function(data){
 				if(data){
 					$('#addbannerpic').modal('hide');
 					location.reload();
 				}
 			});
+		  }
 		});
 		
 		$('#submitaddbanner').click(function(){
@@ -563,8 +568,26 @@
 		forceParse: 0
     });
 	
-	function savebanner(){
-		
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#name").require();
+			$("#type").require();
+			$("#click_url").require();
+			$("#img_url").require();
+			$("#isDisable").require();
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
 	}
 </script>
 </body>

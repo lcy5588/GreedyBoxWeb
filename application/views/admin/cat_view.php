@@ -9,19 +9,19 @@
         <div class="modal-body">
           <form role="form" id="addcatform" name="addcatform" method="post" action="<?php echo site_url('admin/addcat')?>">
               <div class="form-group">
-                <label for="cat_id">淘宝类别ID</label>
+                <label for="cat_id" class="control-label">淘宝类别ID</label>
                 <input type="text" class="form-control" id="id" name="id" placeholder="淘宝类别ID">
               </div>
               <div class="form-group">
-                <label for="cat_name">分类名称</label>
+                <label for="cat_name" class="control-label">分类名称</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
               </div>  
 			  <div class="form-group">
-                <label for="cat_slug">英文缩写（slug）</label>
+                <label for="cat_slug" class="control-label">英文缩写（slug）</label>
                 <input type="text" class="form-control" id="slug" name="slug" placeholder="英文缩写（slug）">
               </div> 
 			  <div class="form-group">
-                <label for="cat_pagetype">页面类型</label>
+                <label for="cat_pagetype" class="control-label">页面类型</label>
                 <select class="form-control" id="pagetypeid" name="pagetypeid" value="">
                 <?php
                 foreach($pagetype->result() as $type){echo '<option value ="'.$type->id.'">';
@@ -97,15 +97,19 @@
  
 <script>
 	(function($){
+		$.validity.setup({ outputMode:'boostrap' });
+		
 		$('#submitaddcat').click(function () {
 			var url = "<?php echo site_url('admin/addcat')?>";
 			
-			$.post(url,$('#addcatform').serialize(),function(data){
-				if(data){
-					$('#addcat').modal('hide');
-					location.reload();
-				}
-			});
+			if (validateMyAjaxInputs()) {
+				$.post(url,$('#addcatform').serialize(),function(data){
+					if(data){
+						$('#addcat').modal('hide');
+						location.reload();
+					}
+				});
+			}
 		});
 		$('#btn-save').click(function(){
             var data = new Array();
@@ -157,11 +161,33 @@
 			$('#id').val("");
 			$('#name').val("");
 			$('#slug').val("");
-			
+			$("#pagetypeid").val("");
 
 			$('#modal-title').text('增加类型条目');
 		});
 	})(jQuery);
+	
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#id").require();
+			$("#name").require();
+			$("#slug").require();
+			$("#pagetypeid").require();
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
+	}
 </script>
 </body>
 <html>

@@ -9,24 +9,24 @@
         <div class="modal-body">
           <form role="form" id="addpagetypeform" name="addpagetypeform" method="post" action="<?php echo site_url('admin/addpagetype')?>">
               <div class="form-group">
-                <label >页面类型ID:</label>
+                <label class="control-label">页面类型ID:</label>
 				<input type="text" class="form-control" id="id" name="id" placeholder="级别名称">                
               </div>
 			  
 			  <div class="form-group">
-                <label for="identification">页面类型标识</label>
+                <label for="identification" class="control-label">页面类型标识</label>
                 <input type="text" class="form-control" id="identification" name="identification" placeholder="页面类型标识">
               </div>
               <div class="form-group">
-                <label for="name">页面类型名称</label>
+                <label for="name" class="control-label">页面类型名称</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="级别名称">
               </div>  
 				<div class="form-group">
-                <label for="color">对应浏览页面名</label>
+                <label for="color" class="control-label">对应浏览页面名</label>
                 <input type="text" class="form-control" id="contentview" name="contentview" placeholder="对应浏览页面名">
               </div> 			          			 
              <div class="form-group">
-                <label for="color">对应列表页面名</label>
+                <label for="color" class="control-label">对应列表页面名</label>
                 <input type="text" class="form-control" id="listview" name="listview" placeholder="对应列表页面名">
               </div> 
 		
@@ -89,15 +89,18 @@
  
 <script>
 	(function($){
+		$.validity.setup({ outputMode:'boostrap' });
+		
 		$('#submitaddpagetype').click(function () {
 			var url = "<?php echo site_url('admin/addpagetype')?>";
-			
-			$.post(url,$('#addpagetypeform').serialize(),function(data){
-				if(data){
-					$('#addpagetype').modal('hide');
-					location.reload();
-				}
-			});
+			if (validateMyAjaxInputs()) {
+				$.post(url,$('#addpagetypeform').serialize(),function(data){
+					if(data){
+						$('#addpagetype').modal('hide');
+						location.reload();
+					}
+				});
+			}
 		});
 		$('#btn-save').click(function(){
 			
@@ -121,7 +124,8 @@
 						}else{
 							alert('更新失败');
 						}
-					});						                  
+					});
+								                  
         });
         
         $('.btn_delete').click(function(){
@@ -150,7 +154,8 @@
 			$('#name').val("");
 			$('#listview').val("");
 			$('#contentview').val("");
-
+			$("#identification").val("");
+			
 			$('#modal-title').text('增加页面类型条目');
 		});
 	})(jQuery);
@@ -165,6 +170,29 @@
 								}
 							});
 				} 
+	}
+	
+	function validateMyAjaxInputs() {
+
+			// Start validation:
+			$.validity.start();
+			
+			// Validator methods go here:
+			
+			// For instance:
+			$("#id").require();
+			$("#name").require();
+			$("#listview").require();
+			$("#contentview").require();
+			$("#identification").require();
+			// etc.
+			
+			// All of the validator methods have been called:
+			// End the validation session:
+			var result = $.validity.end();
+			
+			// Return whether it's okay to proceed with the Ajax:
+			return result.valid;
 	}
 </script>
 </body>
