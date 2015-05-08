@@ -50,19 +50,23 @@
 			</li>
           </ul>
     </div>
-	<?php if($jokes->num_rows() > 0){?>
-	<div>
-		<ul class="list-unstyled">
-			<?php foreach($jokes->result() as $joke){?>
-			<li class="gifcontrol" style="max-width:50px;">
-					<a href="#" >
-					  <?php echo $joke->html;?>
-					</a>
-			</li>
-			<?php } ?>
-         </ul>
+	<div class="row">
+	<?php foreach($jokes->result() as $joke):?>
+
+	  <div class="col-md-12">
+		<div class="thumbnail">
+		  
+		  <div class="caption">
+			<p>
+			<div class="gifcontrol">
+				<?php echo $joke->html;?>
+			</div>
+			</p>
+		  </div>
+		</div>
+	  </div>
+	<?php endforeach;?>
 	</div>
-	<?php } ?>
 	
 </div>
 </div>
