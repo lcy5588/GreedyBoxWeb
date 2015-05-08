@@ -3,22 +3,23 @@
       <div class="row">
 		<div class="col-md-7 col-md-offset-1" role="main">
   
-
+<div class="row">
 <?php foreach($jokes->result() as $joke):?>
-<div class="media bs-callout-right bs-callout-info-right">
-      <div class="media-left">
-        <a href="#">
-			<img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
-        </a>
-      </div>
-      <div class="media-body gifcontrol">
-        <h4 class="media-heading"></h4>
-        <?php echo $joke->html;?>
-      </div>
-</div>
 
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      
+      <div class="caption">
+        <p>
+        <div class="gifcontrol">
+			<?php echo $joke->html;?>
+        </div>
+        </p>
+      </div>
+    </div>
+  </div>
 <?php endforeach;?>
-
+</div>
 <nav>
   <ul class="pagination">
     <?php echo $pagination;?>
@@ -41,7 +42,7 @@
 	<div role="Info">
          <div class="list-group">
 		  <?php foreach($labels->result() as $label){?>
-		  <a class="list-group-item list-group-item-info <?php if($labelid == $label->id){echo "active";}?>" href="<?php echo site_url('cat/'.$slug.'/'.$label->slug)?>"><?php echo $label->title?></a>
+		  <a class="list-group-item <?php if($labelid == $label->id){echo "active";}?>" href="<?php echo site_url('cat/'.$slug.'/'.$label->slug)?>"><?php echo $label->title?></a>
 		<?php }?>
 		</div>
     </div>
@@ -84,19 +85,20 @@
   $(function() {
 	   $(".gifcontrol").each(function(){
 			 var img = $(this).find("img");
-			
-			  var src = img.attr('src');
-			
-			 if(src.search('.gif$') > 0){
-				 
-				var startpos = src.indexOf('/',7);
-				var endpos = src.indexOf('/',startpos+1);
-				var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
-				
-				img.attr('src',staticsrc);
-				img.attr('data-gif',src);
-				img.attr('data-wait','true');
-				img.gifplayer();
+			 if(img.length > 0){
+				  var src = img.attr('src');
+
+				  if(src.search('.gif$') > 0){
+					 
+					var startpos = src.indexOf('/',7);
+					var endpos = src.indexOf('/',startpos+1);
+					var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
+					
+					img.attr('src',staticsrc);
+					img.attr('data-gif',src);
+					img.attr('data-wait','true');
+					img.gifplayer();
+				}
 			}
 		});
   });

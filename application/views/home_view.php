@@ -54,7 +54,7 @@
 	<div>
 		<ul class="list-unstyled">
 			<?php foreach($jokes->result() as $joke){?>
-			<li class="gifcontrol">
+			<li class="gifcontrol" style="max-width:50px;">
 					<a href="#" >
 					  <?php echo $joke->html;?>
 					</a>
@@ -88,19 +88,22 @@
   $(function() {
 	   $(".gifcontrol").each(function(){
 			 var img = $(this).find("img");
-			
-			  var src = img.attr('src');
-			
-			 if(src.search('.gif$') > 0){
+			 if(img.length > 0){
+				 var src = img.attr('src');
 				 
-				var startpos = src.indexOf('/',7);
-				var endpos = src.indexOf('/',startpos+1);
-				var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
-				
-				img.attr('src',staticsrc);
-				img.attr('data-gif',src);
-				img.attr('data-wait','true');
-				img.gifplayer();
+				 img.addClass('img-responsive');
+				 
+				 if(src.search('.gif$') > 0){
+					 
+					var startpos = src.indexOf('/',7);
+					var endpos = src.indexOf('/',startpos+1);
+					var staticsrc = src.substr(0,startpos+1) + "thumbnail" + src.substr(endpos);
+					
+					img.attr('src',staticsrc);
+					img.attr('data-gif',src);
+					img.attr('data-wait','true');
+					img.gifplayer();
+				}
 			}
 		});
   });

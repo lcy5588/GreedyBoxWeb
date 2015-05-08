@@ -26,8 +26,8 @@
 		wrap: function(){
 			this.previewElement.addClass('gifplayer-ready');
 			this.wrapper = this.previewElement.wrap("<div class='gifplayer-wrapper'></div>").parent();
-			this.wrapper.css('width', this.previewElement.width());
-			this.wrapper.css('height', this.previewElement.height());
+			this.wrapper.css('width', '100%');
+			this.wrapper.css('height', '100%');
 			this.previewElement.css('cursor','pointer');
 		},
 
@@ -162,7 +162,7 @@
 				gp.spinnerElement.hide();
 			}
 			this.gifElement.css('cursor','pointer');
-			this.gifElement.css('position','absolute');
+			//this.gifElement.css('position','absolute');
 			this.gifElement.css('top','0');
 			this.gifElement.css('left','0');
 			this.gifElement.attr('src', gifSrc);
