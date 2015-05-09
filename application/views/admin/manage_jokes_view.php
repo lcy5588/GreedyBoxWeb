@@ -104,51 +104,44 @@
 						<?php } ?>
 			</li>
 		</ul>
-		
-	<?php if($query->num_rows()>0){ ?>
-
-	<table class="table table-bordered table-striped" style="table-layout:fixed;word-break:break-all;overflow:hidden;" width="960px">
-    <thead>
-      <tr>
-        <th style="width:5%;">序号</th>
-        <th style="width:5%;">类别</th>       
-        <th style="width:10%;">标签</th>
-        <th style="width:5%;">级别</th>
-        <th style="width:25%;">内容</th>
-        <th style="width:10%;">添加时间</th>
-        <th style="width:10%;">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-	<?php
-	 foreach ($query->result() as $array):
-	//条目开始
-		?>
-	<tr>
-    	<th style="width:5%;"><?php echo $array->id ?></th>
-        <td style="width:5%;"><?php echo $lx_zd[$array->cid]?></td>        
-        <td style="width:10%;"><?php echo $label_zd[$array->labelid]; ?></td>        
-        <td style="width:5%;"><?php echo $level_zd[$array->levelid]; ?></td>
-        <td style="width:25%;" class="gifcontrol"><?php echo $array->html; ?></td>
-        <td style="width:10%;"><?php echo $array->adddatetime;?></td>
-        <td style="width:10%;">
-        	<a href="#" title="修改此条" class="btn_update" data-jokeid="<?php echo $array->id; ?>">修改</a>&nbsp;&nbsp;
-        	<a href="#" title="删除此条" class="btn_delete"  data-jokeid="<?php echo $array->id; ?>">删除</a>
-        </td>
-      </tr>
-	<?php
-    //条目结束 
-    endforeach;?>
-	</tbody>
-  </table>
 	
+	<div class="row" style="margin-top:10px;">
+	<?php foreach($query->result() as $array):?>
+
+	  <div class="col-sm-3 col-md-2 joke">
+		<div class="thumbnail">
+		  
+		  <div class="caption">
+			<p>
+			<div class="gifcontrol">
+				<?php echo $array->html;?>
+			</div>
+			</p>
+			<div style="border-top:2px solid #337AB7;">
+				<p>ID: <?php echo $array->id ?></p>
+				<p>类别:<?php echo $lx_zd[$array->cid]?></p>
+				<p>标签:<?php echo $label_zd[$array->labelid]; ?></p>
+				<p>级别:<?php echo $level_zd[$array->levelid]; ?></p>
+				<p>作者:<?php echo $array->authorid;?></p>
+				<p>时间:<?php echo $array->adddatetime;?></p>
+				<p>
+					<a href="#" title="修改此条" role="button" class="btn_update btn btn-primary" data-jokeid="<?php echo $array->id; ?>">修改</a>
+					<a href="#" title="删除此条" class="btn_delete btn btn-primary"  data-jokeid="<?php echo $array->id; ?>">删除</a>
+				</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	<?php endforeach;?>
+	</div>
+
 	<nav>
 	  <ul class="pagination">
 		<?php echo $pagination;?>
 	  </ul>
 	</nav>
 
-	<?php }?>
+	
 	
     </div>
  
@@ -190,7 +183,7 @@
 							joke_id: delete_joke_id
 						},function(data){
 								if(data){ //如果删除成功
-									that.parents('tr').fadeToggle();
+									that.parents('.joke').fadeToggle();
 								}
 							});
 				} else

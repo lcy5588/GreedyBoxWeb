@@ -122,54 +122,48 @@
 						<?php } ?>
 			</li>
 		</ul>
-		
-	<?php if($query->num_rows()>0){ ?>
+	
+	<div class="row" style="margin-top:10px;">
+	<?php foreach($query->result() as $array):?>
 
-	<table class="table table-bordered table-striped" style="table-layout:fixed;word-break:break-all;overflow:hidden;" width="960px">
-    <thead>
-      <tr>
-        <th style="width:5%;">序号</th>
-        <th style="width:10%;">图片</th>
-        <th style="width:20%;">名称</th>       
-        <th style="width:25%;">点击地址</th>
-        <th style="width:15%;">卖家</th>
-        <th style="width:5%;">价格</th>
-        <th style="width:5%;">类别</th>
-        <th style="width:5%;">点击次数</th>
-        <th style="width:10%;">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-	<?php
-	 foreach ($query->result() as $array):
-	//条目开始
-		?>
-	<tr>
-    	<th style="width:5%;"><?php echo $array->id ?></th>
-        <td style="width:10%;"><img src="<?php echo $array->img_url; ?>" class="thumbnail" alt="" title=""></td>
-        <td style="width:20%;"><?php echo $array->title ?></td>        
-        <td style="width:25%;"><?php echo $array->click_url; ?></td>        
-        <td style="width:15%;"><?php echo $array->sellernick; ?></td>
-        <td style="width:5%;"><strong><?php echo $array->price; ?></strong></td>
-        <td style="width:5%;"><?php echo $lx_zd[$array->cid] ?></td>
-        <td style="width:5%;"><?php echo $array->click_count;?></td>
-        <td style="width:10%;">
-        	<a href="#" title="修改此条" class="btn_update" data-itemid="<?php echo $array->id; ?>">修改</a>&nbsp;&nbsp;
-        	<a href="#" title="删除此条" class="btn_delete"  data-itemid="<?php echo $array->id; ?>">删除</a>
-        </td>
-      </tr>
-	<?php
-    //条目结束
-    endforeach;?>
-	</tbody>
-  </table>
+	  <div class="col-sm-3 col-md-2 item">
+		<div class="thumbnail">
+		  
+		  <div class="caption">
+			<p>
+			<div class="gifcontrol">
+				<img src="<?php echo $array->img_url; ?>" alt="" title="">
+			</div>
+			</p>
+			<div style="border-top:2px solid #337AB7;">
+				<p>ID: <?php echo $array->id ?></p>
+				<p>名称:<?php echo $array->title ?></p>
+				<p>类别:<?php echo $lx_zd[$array->cid]?></p>
+				<p>标签:<?php echo $label_zd[$array->labelid]; ?></p>
+				<p>卖家:<?php echo $array->sellernick; ?></p>
+				<p>价格:<?php echo $array->price; ?>&nbsp;旧价格:<?php echo $array->oldprice; ?></p>
+				<p>点击次数:<?php echo $array->click_count;?></p>
+				<p>点击地址:<a href="#" title="<?php echo $array->click_url; ?>">查看</a></p>
+				<p>
+					<a href="#" title="修改此条" class="btn_update btn btn-primary" data-itemid="<?php echo $array->id; ?>">修改</a>
+					<a href="#" title="删除此条" class="btn_delete btn btn-primary"  data-itemid="<?php echo $array->id; ?>">删除</a>
+				</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	<?php endforeach;?>
+	</div>
+	
+  
+  
   
 	<nav>
 	  <ul class="pagination">
 		<?php echo $pagination;?>
 	  </ul>
 	</nav>
-		<?php }?>
+		
     </div>
  
 
@@ -190,7 +184,7 @@
 							item_id: delete_item_id
 						},function(data){
 								if(data){ //如果删除成功
-									that.parents('tr').fadeToggle();
+									that.parents('.item').fadeToggle();
 								}
 							});
 				} else
