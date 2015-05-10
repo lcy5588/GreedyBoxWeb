@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php
+	 if(!empty($cat_name)){echo $cat_name.' | ';}
+	 else if(!empty($article)){echo $article->title.' | ';}
 	 echo $site_name;
 	 ?></title>
 	<meta name="keywords" content="<?php 

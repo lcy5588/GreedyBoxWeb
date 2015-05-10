@@ -118,12 +118,17 @@ class M_item extends CI_Model{
 	//获得所有条目
 	//$limit为每页书目，必填
 	//$offset为偏移，必填
-	function get_all_item_by_cid($limit='40',$offset='0',$cat=-1,$sort='adddatetime desc')
+	function get_all_item_by_cid($limit='40',$offset='0',$cat=-1,$labelid=-1,$sort='adddatetime desc')
 	{
 
 		//如果是分类页
 		if($cat >= 0){
 			$this->db->where('cid',$cat);
+			
+			if($labelid > 0){
+				$this->db->where('labelid',$labelid);
+			}
+			
 			$this->db->order_by($sort);
 			$query = $this->db->get($this->item_table,$limit,$offset);
 			}

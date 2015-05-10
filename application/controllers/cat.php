@@ -167,6 +167,7 @@ class Cat extends CI_Controller {
 					$item['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');
 					//$item['cat'] = $cat;
 					$item['label'] = $label;
+					$item['catid'] = $cat->id;
 					
 					$items[] = $item;
 				}

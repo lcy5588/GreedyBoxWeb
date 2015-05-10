@@ -5,7 +5,7 @@
 		<div id="wrapper">
 <?php foreach($items as $item){?>
 <div class="floor-content row" id="label_<?php echo $item['label']->slug;?>">
-<div class="floor-show  floor-<?php echo $item['label']->slug;?> col-md-12">
+<div class="floor-show col-md-12 col-xs-12 col-sm-12 floor-<?php echo $item['label']->slug;?>"   style="margin-bottom: 10px;">
 <div class="floor-show-left floor-title grid-row-90 col-md-3">
 </div>
 <div class="floor-show-middle floor-brand-slide col-md-4">
@@ -23,38 +23,43 @@
 
 <div class="floor-show-sort col-md-1">
 <ul>
-	<li class="new"><a href="javascript:void(0);" class="sortactive" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $item['label']->slug;?>','<?php echo $item['label']->id;?>','adddatetime')">最新</a></li>
-	<li class="hot"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $item['label']->slug;?>','<?php echo $item['label']->id;?>','click_count')">最热</a></li>
-	<li class="low"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','<?php echo $item['label']->slug;?>','<?php echo $item['label']->id;?>','price')">最低</a></li>
+	<li class="new"><a href="javascript:void(0);" class="sortactive" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','label--<?php echo $item['label']->slug;?>','<?php echo $item['catid'];?>','<?php echo $item['label']->id;?>','adddatetime')">最新</a></li>
+	<li class="hot"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','label--<?php echo $item['label']->slug;?>','<?php echo $item['catid'];?>','<?php echo $item['label']->id;?>','click_count')">最热</a></li>
+	<li class="low"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','label--<?php echo $item['label']->slug;?>','<?php echo $item['catid'];?>','<?php echo $item['label']->id;?>','price')">最低</a></li>
 </ul>
 </div>
 </div>
 
-<div class="floor-banner-container col-md-12" id="<?php echo $item['label']->slug;?>">
+<div id="label--<?php echo $item['label']->slug;?>">
+
 <?php $labelitem = $item['item'];if($labelitem->num_rows()>0){ ?>
 <?php foreach ($labelitem->result() as $array):?>
-
-<div class="col-md-4 grid-row-330 good-list">
-	<div class="grid-good">
-		<a class="grid-row-330 floor-banner" href="<?php echo site_url('home/redirect').'/'.$array->id ?>" target="_blank">
-		<img data-original="<?php echo $array->img_url ?>" class="lazy col-md-12" alt="<?php echo $array->title ?>">		
-		<div class="good-info">
-			<div class="good-title">
-				<?php echo $array->title ?>
+ <div class="col-xs-6 col-sm-4 col-md-3 item">
+		<div class="thumbnail">
+		  
+		  <div class="caption">
+			<p>
+			<div class="gifcontrol">
+				<a href="<?php echo site_url('home/redirect').'/'.$array->id ?>" target="_blank">
+					<img src="<?php echo $array->img_url; ?>" alt="" title="">
+				</a>
 			</div>
+			</p>
+			<div style="border-top:2px solid #337AB7;">
+				<p>名称:<?php echo $array->title ?></p>
+				<p>卖家:<?php echo $array->sellernick; ?></p>
+				<p>价格:￥<?php echo $array->price; ?>&nbsp;旧价格:￥<?php echo $array->oldprice; ?></p>
+				<p><?php echo $array->discount?>折</p>
+				<p>点击次数:<?php echo $array->click_count;?></p>
+			</div>
+		  </div>
 		</div>
-		</a>
-		<div class="good-info-price">
-			<span class="price">￥<?php echo $array->price ?></span>
-			<span class="oldprice">￥<?php echo $array->oldprice?></span>
-			<span class="discount"><?php echo $array->discount?>折</span>
-		</div>
+	  </div>
+	<?php endforeach;?>
+<?php }?>
 	</div>
 </div>
-<?php endforeach;}?>
-</div>
 	
-</div>
 <div class="middlebannerpic row">
 		<a href="<?php $bannerpic=$item['bannerpic'];if($bannerpic != null){ echo site_url('home/bannerpic/'.$bannerpic->id)?>" target="_blank">
 		<img class="lazy" data-original="<?php echo $bannerpic->imgurl;?>" alt="<?php echo $bannerpic->name;}?>">
@@ -65,21 +70,6 @@
 
 
 </div>
-<nav>
-  <ul class="pagination">
-    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-    <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
-     <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
 
 </div>
 

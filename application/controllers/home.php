@@ -295,6 +295,7 @@ class Home extends CI_Controller {
 	
 	public function getitemdataonlocal(){
 		$catid = $this->input->post('catid');
+		$labelid = $this->input->post('labelid');
 		$sort = $this->input->post('sort');
 		
 		if($sort =='click_count')
@@ -305,7 +306,7 @@ class Home extends CI_Controller {
 			$sort .= ' desc';
 		else echo false;
 		
-		$itemsinfo = $this->M_item->get_all_item_by_cid('24','0',$catid,$sort);
+		$itemsinfo = $this->M_item->get_all_item_by_cid('24','0',$catid,$labelid,$sort);
 		$itemsresult = array();
 		if(!empty($itemsinfo)){
 		if ($itemsinfo->num_rows >0){
@@ -320,7 +321,7 @@ class Home extends CI_Controller {
 			$item_info_array['img_url']=$iteminfo->img_url;
 			$item_info_array['price']=$iteminfo->price;
 			$item_info_array['sellernick']=$iteminfo->sellernick;
-			$item_info_array['num_iid']=$iteminfo->num_iid;
+			//$item_info_array['num_iid']=$iteminfo->num_iid;
 			$item_info_array['oldprice']=$iteminfo->oldprice;
 			$item_info_array['discount']=$iteminfo->discount;
 			
