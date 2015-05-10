@@ -318,12 +318,14 @@ class Home extends CI_Controller {
 			$item_info_array['title']=$iteminfo->title;
 			$item_info_array['cid']=$iteminfo->cid;
 			$item_info_array['click_url']=$iteminfo->click_url;
+			$item_info_array['redirect_url']= site_url('home/redirect').'/'.$iteminfo->id;
 			$item_info_array['img_url']=$iteminfo->img_url;
 			$item_info_array['price']=$iteminfo->price;
 			$item_info_array['sellernick']=$iteminfo->sellernick;
 			//$item_info_array['num_iid']=$iteminfo->num_iid;
 			$item_info_array['oldprice']=$iteminfo->oldprice;
 			$item_info_array['discount']=$iteminfo->discount;
+			$item_info_array['click_count']=$iteminfo->click_count;
 			
 			$itemsresult[] = $item_info_array;
 			}

@@ -92,6 +92,8 @@ class M_item extends CI_Model{
 
 		//如果是分类页
 		if(!empty($cat)){
+			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick');
+			
 			$where = "cid= cat.id AND slug='".$cat."'";
 			
 			if(!empty($labelid)){
