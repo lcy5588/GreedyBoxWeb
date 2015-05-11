@@ -73,6 +73,16 @@ class M_login extends CI_Model{
 		  'adddatetime' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '14',
+		  ),
+		  'good' => array(
+				 'type' => 'INT',
+				 'constraint' => '32',
+				 'default' => 0
+		  ),
+		  'unlike' => array(
+				  'type' => 'INT',
+				 'constraint' => '32',
+				 'default' => 0
 		  )
 		);
 

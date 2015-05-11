@@ -47,11 +47,14 @@
 			</p>
 			<div style="border-top:2px solid #337AB7;">
 				<p><h5><b><?php echo $array->title ?></b></h5></p>
-				<p>-------------<?php echo $array->comment ?></p>
+				<p>--<?php echo $array->comment ?></p>
 				<p>品牌:<?php echo $array->sellernick; ?></p>
 				<p>￥<?php echo $array->price; ?>&nbsp;<s>￥<?php echo $array->oldprice; ?></s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $array->discount?>折</p>
 				
-				<p style="text-align:left;"><?php echo $array->click_count;?></p>
+				<p style="text-align:left;">
+					<a href="javascript:void(0);" class="vote" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
+						<span class="glyphicon glyphicon-heart" aria-hidden="true">
+					</a><?php echo $array->good;?></p>
 			</div>
 		  </div>
 		</div>
@@ -114,7 +117,25 @@
 <script type="text/javascript" charset="utf-8">
   $(function() {
      $("img.lazy").lazyload();
+     
+     $(".vote").click(function(){
+		var id = $(this).data('itemid');
+		var value = $(this).data('votevalue');
+		
+		$.post('<?php echo site_url("home/vote/")?>',
+						{
+							identification: 'item',
+							id : id,
+							value : value
+						},function(data){
+								if(data){
+									
+								}
+			});
+		});
   });
+  
+   
   </script>
 </body>
 </html>

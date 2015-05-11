@@ -322,16 +322,45 @@ class Home extends CI_Controller {
 			$item_info_array['img_url']=$iteminfo->img_url;
 			$item_info_array['price']=$iteminfo->price;
 			$item_info_array['sellernick']=$iteminfo->sellernick;
-			//$item_info_array['num_iid']=$iteminfo->num_iid;
+			$item_info_array['comment']=$iteminfo->comment;
 			$item_info_array['oldprice']=$iteminfo->oldprice;
 			$item_info_array['discount']=$iteminfo->discount;
 			$item_info_array['click_count']=$iteminfo->click_count;
+			$item_info_array['good']=$iteminfo->good;
+			$item_info_array['unlike']=$iteminfo->unlike;
 			
 			$itemsresult[] = $item_info_array;
 			}
 		}}
 		
 		echo json_encode($itemsresult);
+	}
+	
+	public function vote(){
+		$identification = $this->input->post('identification');
+		$id = $this->input->post('id');
+		$value = $this->input->post('value');
+		
+		if($identification == 'article'){
+			if('good' == $value){
+				$this->M_article->vote_good($id);
+			}else if('unlike' == $value){
+				$this->M_article->vote_unlike($id);
+			}
+		}else if($identification == 'joke'){
+			if('good' == $value){
+				$this->M_joke->vote_good($id);
+			}else if('unlike' == $value){
+				$this->M_joke->vote_unlike($id);
+			}
+		}
+		 else if($identification == 'item'){
+			if('good' == $value){
+				$this->M_item->vote_good($id);
+			}else if('unlike' == $value){
+				$this->M_item->vote_unlike($id);
+			}
+		}
 	}
 }
 

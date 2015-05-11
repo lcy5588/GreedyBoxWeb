@@ -185,4 +185,24 @@ class M_joke extends CI_Model{
 			}
 		}
 	}
+	
+	function vote_good($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('good',"good + 1", FALSE);
+		
+		$this->db->update($this->joke_table);
+		
+		return $id;
+	}
+	
+	function vote_unlike($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('unlike',"unlike + 1", FALSE);
+		
+		$this->db->update($this->joke_table);
+		
+		return $id;
+	}
 }

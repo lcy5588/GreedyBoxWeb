@@ -94,7 +94,7 @@ class M_item extends CI_Model{
 
 		//如果是分类页
 		if(!empty($cat)){
-			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick,comment');
+			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick,comment,good,unlike');
 			
 			$where = "cid= cat.id AND slug='".$cat."'";
 			
@@ -269,6 +269,24 @@ class M_item extends CI_Model{
     //     }
     // }
 
-
+    function vote_good($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('good',"good + 1", FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+	}
+	
+	function vote_unlike($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('unlike',"unlike + 1", FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+	}
 
 }

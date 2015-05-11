@@ -222,4 +222,24 @@ class M_article extends CI_Model{
 		$query = $this->db->get($this->article_table,$limit,$offset);
 		return $query;
 	}
+	
+	function vote_good($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('good',"good + 1", FALSE);
+		
+		$this->db->update($this->article_table);
+		
+		return $id;
+	}
+	
+	function vote_unlike($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('unlike',"unlike + 1", FALSE);
+		
+		$this->db->update($this->article_table);
+		
+		return $id;
+	}
 }
