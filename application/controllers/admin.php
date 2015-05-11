@@ -410,6 +410,7 @@ class Admin extends CI_Controller {
 			$item_info_array['oldprice']=$iteminfo->oldprice;
 			$item_info_array['discount']=$iteminfo->discount;
 			$item_info_array['labelid']=$iteminfo->labelid;
+			$item_info_array['comment']=$iteminfo->comment;
 			
 			echo json_encode($item_info_array);
 		}else{

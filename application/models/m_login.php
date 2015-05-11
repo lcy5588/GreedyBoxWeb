@@ -53,6 +53,10 @@ class M_login extends CI_Model{
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
 		  ),
+		  'comment' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '200',
+		  ),
 			'price' => array(
 				 'type' => 'FLOAT'
 		  ),

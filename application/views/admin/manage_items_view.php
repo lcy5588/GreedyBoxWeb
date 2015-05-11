@@ -35,6 +35,12 @@
 				</div>
 			  </div>
 			  <div class="form-group">
+				<label for="comment" class="col-sm-2 control-label">点评</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="comment" name="comment" placeholder="点评">
+				</div>
+			  </div>
+			  <div class="form-group">
 					
 					 <label for="cid" class="col-sm-2 control-label">类型</label>
 				  <div class="col-sm-4">
@@ -138,6 +144,7 @@
 			<div style="border-top:2px solid #337AB7;">
 				<p>ID: <?php echo $array->id ?></p>
 				<p>名称:<?php echo $array->title ?></p>
+				<p>点评:<?php echo $array->comment ?></p>
 				<p>类别:<?php echo $lx_zd[$array->cid]?></p>
 				<p>标签:<?php echo $label_zd[$array->labelid]; ?></p>
 				<p>卖家:<?php echo $array->sellernick; ?></p>
@@ -210,6 +217,7 @@
 									$('#sellernick').val(data['sellernick']);
 									$('#oldprice').val(data['oldprice']);
 									$('#discount').val(data['discount']);
+									$('#comment').val(data['comment']);
 									
 									showlabel();
 									
@@ -261,6 +269,7 @@
 			$('#oldprice').val("");
 			$('#discount').val("");
 			$('#labelid').val("");
+			$('#comment').val("");
 			
 			$('#modal-title').text('增加商品条目');
 		});
@@ -312,7 +321,7 @@
 			$("#oldprice").require();
 			$("#discount").require();
 			$("#labelid").require();
-			
+			$("#comment").require();
 			// All of the validator methods have been called:
 			// End the validation session:
 			var result = $.validity.end();

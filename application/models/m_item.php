@@ -25,7 +25,8 @@ class M_item extends CI_Model{
 			   'oldprice' => $_POST['oldprice'],
 			   'discount' => $_POST['discount'],
 			   'adddatetime' => date('YmdHis',time()),
-			   'labelid' => $_POST['labelid']
+			   'labelid' => $_POST['labelid'],
+			   'comment' => $_POST['comment']
             );
 		
 		return $this->db->insert($this->item_table, $data);
@@ -49,7 +50,8 @@ class M_item extends CI_Model{
                'sellernick' => $_POST['sellernick'],
 			   'oldprice' => $_POST['oldprice'],
 			   'discount' => $_POST['discount'],
-			   'labelid' => $_POST['labelid']
+			   'labelid' => $_POST['labelid'],
+			   'comment' => $_POST['comment']
             );
 		
 		$this->db->where('id',$item_id);
@@ -92,7 +94,7 @@ class M_item extends CI_Model{
 
 		//如果是分类页
 		if(!empty($cat)){
-			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick');
+			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick,comment');
 			
 			$where = "cid= cat.id AND slug='".$cat."'";
 			

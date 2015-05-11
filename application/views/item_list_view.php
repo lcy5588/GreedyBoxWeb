@@ -34,7 +34,7 @@
 
 <?php $labelitem = $item['item'];if($labelitem->num_rows()>0){ ?>
 <?php foreach ($labelitem->result() as $array):?>
- <div class="col-xs-6 col-sm-4 col-md-3 item">
+ <div class="col-xs-6 col-sm-4 col-md-4 item">
 		<div class="thumbnail">
 		  
 		  <div class="caption">
@@ -46,11 +46,12 @@
 			</div>
 			</p>
 			<div style="border-top:2px solid #337AB7;">
-				<p>名称:<?php echo $array->title ?></p>
-				<p>卖家:<?php echo $array->sellernick; ?></p>
-				<p>价格:￥<?php echo $array->price; ?>&nbsp;旧价格:￥<?php echo $array->oldprice; ?></p>
-				<p><?php echo $array->discount?>折</p>
-				<p>点击次数:<?php echo $array->click_count;?></p>
+				<p><h5><b><?php echo $array->title ?></b></h5></p>
+				<p>-------------<?php echo $array->comment ?></p>
+				<p>品牌:<?php echo $array->sellernick; ?></p>
+				<p>￥<?php echo $array->price; ?>&nbsp;<s>￥<?php echo $array->oldprice; ?></s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $array->discount?>折</p>
+				
+				<p style="text-align:left;"><?php echo $array->click_count;?></p>
 			</div>
 		  </div>
 		</div>
