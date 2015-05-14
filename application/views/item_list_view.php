@@ -34,7 +34,7 @@
 
 <?php $labelitem = $item['item'];if($labelitem->num_rows()>0){ ?>
 <?php foreach ($labelitem->result() as $array):?>
- <div class="col-xs-6 col-sm-4 col-md-4 item">
+ <div class="col-xs-12 col-sm-4 col-md-4 item">
 		<div class="thumbnail">
 		  
 		  <div class="caption">

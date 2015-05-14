@@ -6,7 +6,7 @@
 <div class="row">
 <?php foreach($jokes->result() as $joke):?>
 
-  <div class="col-sm-6 col-md-4">
+  <div class="col-xs-12 col-sm-4 col-md-4">
     <div class="thumbnail">
       
       <div class="caption">
