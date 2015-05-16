@@ -3,10 +3,10 @@
       <div class="row">
 		<div class="col-md-7 col-md-offset-1" role="main">
   
-<div class="row">
+<div class="row" id="timeline" data-columns="3">
 <?php foreach($jokes->result() as $joke):?>
 
-  <div class="col-xs-12 col-sm-4 col-md-4">
+  <div class="item">
     <div class="thumbnail">
       
       <div class="caption">
@@ -81,6 +81,7 @@
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
 <script src="<?php echo base_url()?>assets/js/jquery.gifplayer.js"></script>
+<script src="<?php echo base_url()?>assets/js/salvattore.min.js"></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
 	   $(".gifcontrol").each(function(){

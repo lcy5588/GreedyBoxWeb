@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/blockshow.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/gifplayer.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/sideimg.css" />
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/salvattore.css" />
 </head>
 <body >
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
