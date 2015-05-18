@@ -520,6 +520,11 @@ class M_login extends CI_Model{
 				 'unsigned' => TRUE,
 				 'null' => TRUE
 		  ),
+			'img_url' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '500',
+				 'null' => TRUE
+		  ),
 			'html' => array(
 				 'type' => 'TEXT'
 		  ),

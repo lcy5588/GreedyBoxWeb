@@ -55,13 +55,17 @@
 
 	  <div class="col-md-12">
 		<div class="thumbnail">
-		  
+		  <?php if(!empty($joke->img_url)){?>
+		  <div class="gifcontrol">
+			<img src="<?php echo $joke->img_url?>">
+		  </div>
+		 <?php }?>
 		  <div class="caption">
-			<p>
+			
 			<div class="gifcontrol">
 				<?php echo $joke->html;?>
 			</div>
-			</p>
+			
 		  </div>
 		</div>
 	  </div>

@@ -8,13 +8,17 @@
 
   <div class="item">
     <div class="thumbnail">
-      
+      <?php if(!empty($joke->img_url)){?>
+		  <div class="gifcontrol">
+			<img src="<?php echo $joke->img_url?>">
+		  </div>
+	<?php }?>
       <div class="caption">
-        <p>
-        <div class="gifcontrol">
+        
+        <div>
 			<?php echo $joke->html;?>
         </div>
-        </p>
+        
       </div>
     </div>
   </div>

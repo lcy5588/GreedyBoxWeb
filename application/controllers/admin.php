@@ -1099,6 +1099,7 @@ class Admin extends CI_Controller {
                            'joke_cid' =>$_POST['joke_cid'],
                            'joke_labelid' =>$_POST['joke_labelid'],
                            'joke_html' =>$_POST['joke_html'],
+                           'joke_imgurl' => $_POST['joke_imgurl'],
                            'joke_authorid' =>$_POST['joke_authorid'],
                            'joke_levelid' => $_POST['joke_levelid']
                         );
@@ -1123,7 +1124,8 @@ class Admin extends CI_Controller {
 			$data = array(
 						 'id' => $joke -> id ,
                            'cid' => $joke -> cid ,
-                           'labelid' => $joke -> labelid ,
+                           'labelid' => $joke -> labelid,
+                           'imgurl' => $joke->img_url,
                            'html' =>$joke -> html,
                            'authorid' =>$joke -> authorid,
                            'levelid' => $joke -> levelid,
@@ -1138,6 +1140,7 @@ class Admin extends CI_Controller {
 							'joke_id' =>$_POST['joke_id'],
                            'joke_cid' =>$_POST['joke_cid'],
                            'joke_labelid' =>$_POST['joke_labelid'],
+                           'joke_imgurl' =>$_POST['joke_imgurl'],
                            'joke_html' =>$_POST['joke_html'],
                            'joke_authorid' =>$_POST['joke_authorid'],
                            'joke_levelid' => $_POST['joke_levelid'],

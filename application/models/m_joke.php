@@ -21,6 +21,7 @@ class M_joke extends CI_Model{
             $data = array(                     
                            'cid' => $joke -> joke_cid ,
                            'labelid' => $joke -> joke_labelid ,
+                           'img_url' => $joke-> joke_imgurl,
                            'html' =>$joke -> joke_html,
                            'authorid' =>$joke -> joke_authorid,
                            'levelid' => $joke -> joke_levelid,
@@ -37,6 +38,7 @@ class M_joke extends CI_Model{
                            'cid' =>$joke['joke_cid'],
                            'labelid' =>$joke['joke_labelid'],
                            'html' =>$joke['joke_html'],
+                           'img_url' => $joke['joke_imgurl'],
                            'authorid' =>$joke['joke_authorid'],
                            'levelid' => $joke['joke_levelid'],
 						   'adddatetime' => date('YmdHis',time())
@@ -86,6 +88,7 @@ class M_joke extends CI_Model{
                            'cid' => $joke -> joke_cid ,
                            'labelid' => $joke -> joke_labelid ,
                            'html' =>$joke -> joke_html,
+                           'img_url' => $joke-> joke_imgurl,
                            'authorid' =>$joke -> joke_authorid,
                            'levelid' => $joke -> joke_levelid,
             );
@@ -99,6 +102,7 @@ class M_joke extends CI_Model{
 		$data = array(
                            'cid' =>$joke['joke_cid'],
                            'labelid' =>$joke['joke_labelid'],
+                           'img_url' => $joke['joke_imgurl'],
                            'html' =>$joke['joke_html'],
                            'authorid' =>$joke['joke_authorid'],
                            'levelid' => $joke['joke_levelid']

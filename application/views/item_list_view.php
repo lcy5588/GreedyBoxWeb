@@ -36,15 +36,13 @@
 <?php foreach ($labelitem->result() as $array):?>
  <div class="col-xs-12 col-sm-4 col-md-4 item">
 		<div class="thumbnail">
-		  
-		  <div class="caption">
-			<p>
-			<div class="gifcontrol">
+		  <div class="gifcontrol">
 				<a href="<?php echo site_url('home/redirect').'/'.$array->id ?>" target="_blank">
 					<img src="<?php echo $array->img_url; ?>" alt="" title="">
 				</a>
 			</div>
-			</p>
+		  <div class="caption">
+			
 			<div style="border-top:2px solid #337AB7;">
 				<p><h5><b><?php echo $array->title ?></b></h5></p>
 				<p>--<?php echo $array->comment ?></p>

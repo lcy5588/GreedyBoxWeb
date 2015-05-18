@@ -4,6 +4,12 @@
 		<form role="form" class="form-horizontal" id="jokemodelform" name="jokemodelform" method="post" action="<?php echo site_url('admin/addorupdataitem')?>">
 		  
 		  <input type="hidden" id="joke_id" name="joke_id" value=""/>
+				 <div class="form-group">
+					<label for="joke_imgurl" class="col-sm-1 control-label">图片地址</label>
+					<div class="col-sm-11">
+						<input type="text" class="form-control" id="joke_imgurl" name="joke_imgurl" placeholder="图片地址">
+					</div>
+				 </div>
 				  <div class="form-group">
 					  <label for="joke_cid" class="col-sm-1 control-label">类型</label>
 				  <div class="col-sm-5">
@@ -110,12 +116,16 @@
 
 	  <div class="col-sm-3 col-md-2 joke">
 		<div class="thumbnail">
-		  
+		  <?php if(!empty($array->img_url)){?>
+		  <div class="gifcontrol">
+			<img src="<?php echo $array->img_url?>">
+		  </div>
+		  <?php }?>
 		  <div class="caption">
 			<p>
-			<div class="gifcontrol">
-				<?php echo $array->html;?>
-			</div>
+				<div>
+					<?php echo $array->html;?>
+				</div>
 			</p>
 			<div style="border-top:2px solid #337AB7;">
 				<p>ID: <?php echo $array->id ?></p>
@@ -212,6 +222,7 @@
 									$('#joke_levelid').val(data['levelid']);
 									$('#joke_authorid').val(data['authorid']);
 									$('#joke_labelid').val(data['labelid']);
+									$('#joke_imgurl').val(data['imgurl']);
 									
 									CKEDITOR.instances.editor.setData(data['html']);
 									
@@ -269,6 +280,7 @@
 		$('#joke_authorid').val("");
 		$('#joke_labelid').val("");
 		$('#joke_html').val("");
+		$('#joke_imgurl').val("");
 		
 		CKEDITOR.instances.editor.setData("");
 		
