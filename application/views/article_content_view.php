@@ -2,7 +2,7 @@
 
       <div class="row">
 		<div class="col-md-7 col-md-offset-1" role="main">
- <p><h1><?php echo $article->title?><h1></p>
+ <p><h1><?php echo $article->title?></h1></p>
 
 <?php echo $article->html;?>
 
