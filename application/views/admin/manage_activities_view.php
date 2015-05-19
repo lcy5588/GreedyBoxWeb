@@ -1,5 +1,5 @@
 	<div id="page-items">
-	
+	<div><h3>专题/活动管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="addbanner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" style="width:1000px;">

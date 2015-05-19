@@ -18,7 +18,9 @@
         <div>
 			<?php echo $joke->html;?>
         </div>
-        
+        <p><a href="javascript:void(0);" class="vote" data-itemid="<?php echo $joke->id; ?>" data-votevalue="good">
+						<span class="glyphicon glyphicon-heart" aria-hidden="true">
+					</a><?php echo $joke->good;?> <span class="glyphicon glyphicon-usd"><span class="glyphicon glyphicon-sunglasses"></p>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 	<div id="page-items">
-	
+		<div><h3>品牌管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="addbrand" tabindex="-1" role="dialog" aria-brandledby="myModalbrand" aria-hidden="true">
     <div class="modal-dialog">

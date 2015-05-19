@@ -23,6 +23,7 @@
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
 <div class="container">
 <div class="row">
+		
 		<div class="col-md-10 col-md-offset-1">
 		<div class="navbar-header">
 			 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">

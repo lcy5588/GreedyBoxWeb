@@ -114,6 +114,12 @@
 				}
 			}
 		});
+		
+		$("#myNav").affix({
+			offset: { 
+				top: 10
+				}
+		});
   });
   
   </script>

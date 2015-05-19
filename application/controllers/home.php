@@ -97,7 +97,7 @@ class Home extends CI_Controller {
 		
 		$data['pagetype_zd'] = $pagetype_zd;
 		
-		$jokes = $this->M_joke->get_all_jokes();
+		$jokes = $this->M_joke->get_all_jokes(5,0);
 		
 		$data['jokes'] = $jokes;
 		

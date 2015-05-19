@@ -1,5 +1,5 @@
 	<div id="page-items">
-	
+		<div><h3>笑点管理</h3></div>
         <div class="container" style="display:none;" id="addjokediv" name="addjokediv">
 		<form role="form" class="form-horizontal" id="jokemodelform" name="jokemodelform" method="post" action="<?php echo site_url('admin/addorupdataitem')?>">
 		  

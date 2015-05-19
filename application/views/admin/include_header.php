@@ -23,13 +23,32 @@
       <div class="container-fluid">          
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-				
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">商品<span class="caret"></span></a>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">基础设置<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-					 <li class="">
-					 <a href="<?php echo site_url('admin')?>">搜索添加商品</a>
+				  <li class="">
+					<a href="<?php echo site_url('admin/managepagetype')?>">1.页面类型管理</a>
 				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('admin/managelevel')?>">2.级别管理</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('admin/cat')?>">3.类别管理</a>
+				  </li>
+				   <li class="">
+					<a href="<?php echo site_url('admin/managelabel')?>">4.标签管理</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('admin/keyword')?>">搜索关键词管理</a>
+				  </li>
+				</ul>
+			</li>
+			 <li class="">
+                <a href="<?php echo site_url('admin/managearticle')?>">文章项管理</a>
+              </li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">商品项管理<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
 				  <li class="">
 					 <a href="<?php echo site_url('admin/manageitem')?>">商品管理</a>
 				  </li>
@@ -39,28 +58,14 @@
 				  <li class="">
 					<a href="<?php echo site_url('admin/managebrand')?>">品牌管理</a>
 				  </li>
+				  <li class="">
+					 <a href="<?php echo site_url('admin')?>">搜索添加商品</a>
+				  </li>
 				</ul>
 			</li>
+			  
 			   <li class="">
-                <a href="<?php echo site_url('admin/managearticle')?>">文章管理</a>
-              </li>
-			   <li class="">
-                <a href="<?php echo site_url('admin/managejoke')?>">笑点管理</a>
-              </li>
-			  <li class="">
-                <a href="<?php echo site_url('admin/managepagetype')?>">页面类型管理</a>
-              </li>
-              <li class="">
-                <a href="<?php echo site_url('admin/cat')?>">类别管理</a>
-              </li>
-			   <li class="">
-                <a href="<?php echo site_url('admin/managelevel')?>">级别管理</a>
-              </li>
-              <li class="">
-                <a href="<?php echo site_url('admin/keyword')?>">搜索关键词管理</a>
-              </li>
-			  <li class="">
-                <a href="<?php echo site_url('admin/managelabel')?>">标签管理</a>
+                <a href="<?php echo site_url('admin/managejoke')?>">笑点项管理</a>
               </li>
 			  <li class="">
                 <a href="<?php echo site_url('admin/managefriendlink')?>">友链管理</a>

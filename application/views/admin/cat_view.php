@@ -1,4 +1,5 @@
 <div class="container">
+	<div><h3>类别管理</h3></div>
 <div class="modal fade" id="addcat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     	<div class="modal-content">
