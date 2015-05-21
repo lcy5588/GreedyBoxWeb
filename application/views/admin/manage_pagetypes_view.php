@@ -1,5 +1,5 @@
 <div class="container">
-	<div><h3>页面类型管理</h3></div>
+	<div class="row"><h3>页面类型管理</h3></div>
 <div class="modal fade" id="addpagetype" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     	<div class="modal-content">
@@ -40,6 +40,7 @@
           </div>
           </div>
  </div><!--end <div class="modal fade" id="additem"-->   
+    <div class="row">
     <table class="table">
         <thead>
       <tr>
@@ -87,7 +88,8 @@
 	<button class="btn btn-primary" onclick="resetpagetypedefaultdata();" style="float:right;">重置默认值</button>
 
 </div>
- 
+    </div>
+    </div>
 <script>
 	(function($){
 		$.validity.setup({ outputMode:'boostrap' });

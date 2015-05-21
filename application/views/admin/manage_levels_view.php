@@ -1,5 +1,5 @@
 <div class="container">
-	<div><h3>级别管理</h3></div>
+	<div class="row"><h3>级别管理</h3></div>
 <div class="modal fade" id="addlevel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     	<div class="modal-content">
@@ -34,7 +34,7 @@
  </div><!--end <div class="modal fade" id="additem"-->   
  
     
-	
+	<div class="row">
     <table class="table">
         <thead>
       <tr>
@@ -78,7 +78,8 @@
 	</ul>
 	
 </div>
- 
+	</div>
+	</div>
 <script>
 	(function($){
 		$.validity.setup({ outputMode:'boostrap' });

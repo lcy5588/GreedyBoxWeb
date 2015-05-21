@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/index.css" />
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/gifplayer.css" />
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/jquery.validity.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url()?>assets/salvattoremax.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/sideimg.css" />
 	<script type='text/javascript' src='<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js'></script>
 	<script type='text/javascript' src='<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js'></script>
@@ -20,7 +21,7 @@
 <body style="padding-top:60px;">
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">          
+      <div class="container">          
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
 			<li class="dropdown">

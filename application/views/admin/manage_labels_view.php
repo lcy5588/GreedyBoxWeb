@@ -1,5 +1,5 @@
-	<div id="page-items">
-		<div><h3>标签管理</h3></div>
+	<div class="container">
+		<div class="row"><h3>标签管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="addlabel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -45,8 +45,8 @@
           </div>
           </div>
           </div><!--end <div class="modal fade" id="additem"-->
-         
-        <div class="pull-right">
+         <div class="row">
+        <div class="col-md-4  hidden-xs hidden-sm pull-right">
           <form class="form-inline" role="form" action="" method="get" id="search">
           	<div class="form-group">
             <select class="form-control" id="ssdyx">
@@ -61,12 +61,12 @@
           </form>
          </div>
 		 
-		<ul class="nav nav-pills">
+		<ul class="col-md-2 nav nav-pills">
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addlabel">添加</button></li>
 		</ul>
-		
+		</div>
 	<?php if($labels->num_rows()>0){ ?>
-
+  <div class="row">
 	<table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -100,14 +100,15 @@
     endforeach;?>
 	</tbody>
   </table>
-	<nav>
+	<nav class="col-md-12">
 	  <ul class="pagination">
 		<?php echo $pagination;?>
 	  </ul>
 	</nav>
+	</div>
 	<?php }?>
-    </div>
- 
+    
+ </div>
 <script>
 	(function($){
         $.validity.setup({ outputMode:'boostrap' });

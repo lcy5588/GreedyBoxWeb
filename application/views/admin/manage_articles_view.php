@@ -1,6 +1,6 @@
-	<div id="page-items">
-		<div><h3>文章管理</h3></div>
-        <div class="container" style="display:none;" id="addarticlediv" name="addarticlediv">
+	<div class="container">
+		<div class="row"><h3>文章管理</h3></div>
+        <div class="row" style="display:none;" id="addarticlediv" name="addarticlediv">
 		<form role="form" class="form-horizontal" id="articlemodelform" name="articlemodelform" method="post" action="<?php echo site_url('admin/addorupdataitem')?>">
 		  
 		  <input type="hidden" id="article_id" name="article_id" value=""/>
@@ -91,8 +91,8 @@
         </div>
           </div>
          
-         
-        <div class="pull-right">
+         <div class="row">
+        <div class="col-md-4  hidden-xs hidden-sm pull-right">
           <form class="form-inline" role="form" action="" method="get" id="search">
           	<div class="form-group">
             <select class="form-control" id="ssdyx">
@@ -107,7 +107,7 @@
           </form>
          </div>
 		 
-		<ul class="nav nav-pills">
+		<ul class="col-md-2 nav nav-pills">
 		  <li class=""><button class="btn btn-primary" id="articlemodelbtn">添加</button></li>
 		  <li><?php if($lxquery && $lxquery->num_rows()>0){?>
 						<select class="form-control" id="articlemodelcid" name="articlemodelcid">
@@ -121,9 +121,10 @@
 						<?php } ?>
 			</li>
 		</ul>
-		
+		</div>
+	<div class="row">
 	<?php if($query->num_rows()>0){ ?>
-
+	
 	<table class="table table-bordered table-striped" style="table-layout:fixed;word-break:break-all;overflow:hidden;" width="960px">
     <thead>
       <tr>
@@ -166,17 +167,17 @@
     endforeach;?>
 	</tbody>
   </table>
-	
-	<nav>
+	<nav class="col-md-12">
 	  <ul class="pagination">
 		<?php echo $pagination;?>
 	  </ul>
 	</nav>
+	
 
 	<?php }?>
 	
     </div>
- 
+   </div>
 
 <script>
 	(function($){

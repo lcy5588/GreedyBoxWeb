@@ -23,11 +23,11 @@
 	//条目开始
 		?>
 	<tr>
-        <th><?php echo $array->cat_name ?></th>
+        <th><?php echo $array->name ?></th>
         <th><?php echo $array->count ?></th>
         <td><?php echo $array->sum ?></td>
         <td><?php echo $array->sum/$array->count ?></td>
-		<td><a href="javascript:void(0);" onclick="clearcat('<?php echo $array->cat_id ?>')">清空</a></td>
+		<td><a href="javascript:void(0);" onclick="clearcat('<?php echo $array->id ?>')">清空</a></td>
       </tr>
 	<?php
     //条目结束

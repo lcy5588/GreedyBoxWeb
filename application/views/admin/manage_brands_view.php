@@ -1,5 +1,5 @@
-	<div id="page-items">
-		<div><h3>品牌管理</h3></div>
+	<div class="container">
+		<div class="row"><h3>品牌管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="addbrand" tabindex="-1" role="dialog" aria-brandledby="myModalbrand" aria-hidden="true">
     <div class="modal-dialog">
@@ -46,8 +46,8 @@
           </div>
           </div>
           </div><!--end <div class="modal fade" id="additem"-->
-         
-        <div class="pull-right">
+         <div class="row">
+        <div class="col-md-4  hidden-xs hidden-sm pull-right">
           <form class="form-inline" role="form" action="" method="get" id="search">
           	<div class="form-group">
             <select class="form-control" id="ssdyx">
@@ -55,20 +55,20 @@
               <option value="">店铺</option>
               <option value="">类型</option>
              </select>
-            <label for="inputkeyword" class="sr-only">关键词</brand>
+            <label for="inputkeyword" class="sr-only">关键词</label>
             <input type="text" class="form-control" id="inputkeyword">
           	</div>
           	<button type="submit" class="btn btn-default">搜索</button>
           </form>
          </div>
 		 
-		<ul class="nav nav-pills">
+		<ul class="col-md-2  nav nav-pills">
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addbrand">添加</button></li>
 		</ul>
-		
+	</div>
 	<?php if($brands->num_rows()>0){ ?>
-
-	<table class="table table-bordered table-striped">
+	<div class="row">
+	<table class="table table-bordered table-striped col-md-12">
     <thead>
       <tr>
         <th>序号</th>
@@ -103,10 +103,11 @@
 	</tbody>
   </table>
 	<nav>
-	  <ul class="pagination">
+	  <ul class="pagination col-md-12">
 		<?php echo $pagination;?>
 	  </ul>
 	</nav>
+	</div>
 	<?php }?>
 
 </div>

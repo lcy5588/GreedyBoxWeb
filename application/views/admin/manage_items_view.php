@@ -1,5 +1,5 @@
-	<div id="page-items">
-		<div><h3>商品管理</h3></div>
+	<div class="container">
+		<div class="row"><h3>商品管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="additem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -98,8 +98,8 @@
           </div>
           </div>
           </div><!--end <div class="modal fade" id="additem"-->
-         
-        <div class="pull-right">
+        <div class="row">
+        <div class="col-md-4  hidden-xs hidden-sm pull-right">
           <form class="form-inline" role="form" action="" method="get" id="search">
           	<div class="form-group">
             <select class="form-control" id="ssdyx">
@@ -114,7 +114,7 @@
           </form>
          </div>
 		 
-		<ul class="nav nav-pills">
+		<ul class="col-md-2 nav nav-pills">
 		  <li class=""><button class="btn btn-primary" id="additembtn">添加</button></li>
 		  <li><?php if($lxquery && $lxquery->num_rows()>0){?>
 						<select class="form-control" id="additemcid" name="additemcid">
@@ -128,11 +128,11 @@
 						<?php } ?>
 			</li>
 		</ul>
-	
+	   </div>
 	<div class="row" style="margin-top:10px;">
 	<?php foreach($query->result() as $array):?>
 
-	  <div class="col-sm-3 col-md-2 item">
+	  <div class="col-sm-3 col-md-3 item">
 		<div class="thumbnail">
 		  
 		  <div class="caption">
@@ -160,17 +160,12 @@
 		</div>
 	  </div>
 	<?php endforeach;?>
-	</div>
-	
-  
-  
-  
-	<nav>
+	<nav class="col-md-12">
 	  <ul class="pagination">
 		<?php echo $pagination;?>
 	  </ul>
 	</nav>
-		
+	</div>
     </div>
  
 

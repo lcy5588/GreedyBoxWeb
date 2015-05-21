@@ -3,7 +3,7 @@
       <div class="row">
 		<div class="col-md-7 col-md-offset-1" role="main">
   
-<div class="row" id="timeline" data-columns="3">
+<div class="row" id="timeline" data-columns>
 <?php foreach($jokes->result() as $joke):?>
 
   <div class="item">
@@ -18,7 +18,7 @@
         <div>
 			<?php echo $joke->html;?>
         </div>
-        <p><a href="javascript:void(0);" class="vote" data-itemid="<?php echo $joke->id; ?>" data-votevalue="good">
+        <p style="font-size: 18px;"><a href="javascript:void(0);" class="vote" data-itemid="<?php echo $joke->id; ?>" data-votevalue="good">
 						<span class="glyphicon glyphicon-heart" aria-hidden="true">
 					</a><?php echo $joke->good;?> <span class="glyphicon glyphicon-usd"><span class="glyphicon glyphicon-sunglasses"></p>
       </div>
