@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/sideimg.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/salvattore.css" />
 </head>
-<body >
+<body style="background: url('<?php echo base_url()?>assets/img/default-bg.png') repeat;">
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
 <div class="container">
 <div class="row">

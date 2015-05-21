@@ -5,7 +5,7 @@
   
 
 <?php foreach($articles->result() as $article):?>
-<div class="media bs-callout-right bs-callout-level-<?php echo $level_zd[$article->levelid]?>">
+<div style="background:white;" class="media bs-callout-right bs-callout-level-<?php echo $level_zd[$article->levelid]?>">
       <div class="media-left">
         <a href="<?php $clickurl = site_url('content/'.$pagetype_zd[$cat_zd[$article->cid]].'/'.$article->id);echo $clickurl;?>">
 			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
