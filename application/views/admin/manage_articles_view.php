@@ -149,7 +149,9 @@
     	<th style="width:5%;"><?php echo $array->id ?></th>
         <td style="width:15%;"><?php echo $array->title; ?></td>
 		<td style="width:10%;">
-			<img src="<?php echo $array->imgurl; ?>" class="thumbnail" alt="" title="">
+		  <div  class="thumbnail" >
+			<img src="<?php echo $array->imgurl; ?>" alt="" title="">
+		  </div>
 		</td>
         <td style="width:5%;"><?php echo $lx_zd[$array->cid]?></td>        
         <td style="width:10%;"><?php echo $label_zd[$array->labelid]; ?></td>        
