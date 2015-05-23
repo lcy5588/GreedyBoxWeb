@@ -41,7 +41,16 @@ class M_cat extends CI_Model{
     function get_cat_name($cat_slug = ''){
     	if(!empty($cat_slug)){
     		$result = $this->db->get_where($this->cat_table, array('slug'=>$cat_slug))->result();
-    		return $result[0]->cat_name;
+    		return $result[0]->name;
+    	}else {
+    		return '';
+    	}
+    }
+	
+	function get_cat_name_by_id($cid = ''){
+    	if(!empty($cid)){
+    		$result = $this->db->get_where($this->cat_table, array('id'=>$cid))->result();
+    		return $result[0]->name;
     	}else {
     		return '';
     	}
@@ -50,6 +59,15 @@ class M_cat extends CI_Model{
 	function get_cat_by_slug($cat_slug = ''){
     	if(!empty($cat_slug)){
     		$result = $this->db->get_where($this->cat_table, array('slug'=>$cat_slug))->result();
+    		return $result[0];
+    	}else {
+    		return null;
+    	}
+    }
+	
+	function get_cat_by_id($cid = ''){
+    	if(!empty($cid)){
+    		$result = $this->db->get_where($this->cat_table, array('id'=>$cid))->result();
     		return $result[0];
     	}else {
     		return null;

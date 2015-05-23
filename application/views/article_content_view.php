@@ -2,11 +2,25 @@
 
       <div class="row">
 		<div class="col-md-7 col-md-offset-1" role="main" style="background:white;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.075);">
- <div style="text-align:center;"><h1><?php echo $article->title?></h1></div>
-
-<?php echo $article->html;?>
-
-</div>
+		 <div style="text-align:center;">
+			<h1><?php echo $article->title?></h1>
+		 </div>
+		 <div style="text-align:center;">
+			<span><?php echo $article->adddatetime?></span>
+			<span style="margin-left:8px;"><?php echo $article->authorid?></span>
+			<span class="glyphicon glyphicon-tag"><?php if(!empty($cat)){echo $cat->name;}?></span>
+			<span class="glyphicon glyphicon-tag"><?php if(!empty($label)){echo $label->title;}?></span>
+			<span class="glyphicon glyphicon-eye-open">1000</span>
+		 </div>
+		<?php echo $article->html;?>
+		<div>
+			<div class="pull-right" style="margin-right:10px;">
+				<a href="javascript:void(0);">
+				<span class="glyphicon glyphicon-thumbs-up">1000</span>
+				</a>
+			</div>
+		</div>
+	</div>
 
 
 

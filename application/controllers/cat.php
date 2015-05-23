@@ -98,7 +98,7 @@ class Cat extends CI_Controller {
 		else $data['cat_name'] = '';
 		
 		$cats = $this->M_cat->get_all_cat();
-		$data['cat'] = $cats;
+		$data['cats'] = $cats;
 		$data['slug'] = $cat_slug_decode;
 
 		

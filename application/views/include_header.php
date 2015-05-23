@@ -37,7 +37,7 @@
 			<nav class="collapse navbar-collapse bs-navbar-collapse" id="bs-example-navbar-collapse-2">
 			  <ul class="nav navbar-nav">
 				  <?php
-					   foreach($cat->result() as $row){
+					   foreach($cats->result() as $row){
 							$is_current = '';
 							if(!empty($slug) && $row->slug == $slug){
 								$is_current = 'active';

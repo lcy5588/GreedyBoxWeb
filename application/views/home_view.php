@@ -14,13 +14,13 @@
 			
         </a>
       </div>
-      <div class="media-body" style="padding-top:10px;padding-bottom:10px;">
+      <div class="media-body" style="padding-top:10px;padding-bottom:10px;padding-right:10px;">
         <div style="height:90px;">
         <h4 class="media-heading"><a href="<?php echo $clickurl;?>"><?php echo $article->title;?></a></h4>
         <?php echo $article->content;?>
 		</div>
 		<div style="height:10px;">
-			<div class="pull-right" style="margin-right:10px;">
+			<div class="pull-right">
 				<span class="glyphicon glyphicon-eye-open">1000</span>
 				<span class="glyphicon glyphicon-thumbs-up">1000</span>
 			</div>

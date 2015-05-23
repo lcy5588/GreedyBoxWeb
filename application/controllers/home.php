@@ -55,7 +55,7 @@ class Home extends CI_Controller {
 
 		//类别
 		$cats = $this->M_cat->get_all_cat();
-		$data['cat'] = $cats;
+		$data['cats'] = $cats;
 		
 		$cat_zd = array();
 			
@@ -195,7 +195,7 @@ class Home extends CI_Controller {
 
 		//类别
 		$cats = $this->M_cat->get_all_cat();
-		$data['cat'] = $cats;
+		$data['cats'] = $cats;
 		
 		$cat_zd = array();
 			
@@ -258,7 +258,7 @@ class Home extends CI_Controller {
 	
 	public function friendlinks(){
 		$cats = $this->M_cat->get_all_cat();
-		$data['cat'] = $cats;
+		$data['cats'] = $cats;
 		
 		$this->load->model('M_friendlink');
 		
@@ -278,7 +278,7 @@ class Home extends CI_Controller {
 	
 	public function webmap(){
 		$cats = $this->M_cat->get_all_cat();
-		$data['cat'] = $cats;
+		$data['cats'] = $cats;
 		
 		
 		

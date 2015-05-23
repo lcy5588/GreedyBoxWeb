@@ -37,7 +37,7 @@ class Content extends CI_Controller {
 		//$this->output->cache(10);
 	   // todo 修改为页码数
 		
-		$data['cat']=$this->M_cat->get_all_cat();
+		$data['cats']=$this->M_cat->get_all_cat();
 		
 		$this->config->load('site_info');
 				
@@ -56,6 +56,10 @@ class Content extends CI_Controller {
 		if($identification == 'article'){
 			$article = $this->M_article->get_article_by_id($id);
 			$data['article'] = $article;
+			if(!empty($article)){
+				$data['cat'] = $this->M_cat->get_cat_by_id($article->cid);
+				$data['label'] = $this->M_label->get_label_by_id($article->labelid);
+			}
 		}else if($identification == 'item'){
 			// $itemcat = array();
 		
