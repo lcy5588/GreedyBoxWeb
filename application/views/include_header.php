@@ -50,7 +50,8 @@
 				<div class="form-group">
 				  <input type="text" class="form-control" placeholder="Search" id="keyword" name="keyword" value="">
 				</div>
-				<button type="submit" class="btn btn-default">搜索</button>
+				
+				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
 			  </form>
 			</nav>
 

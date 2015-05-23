@@ -1,8 +1,8 @@
 <div class="container bs-docs-container"  style="padding-top:80px;"  id="top" >
 
       <div class="row">
-		<div class="col-md-7 col-md-offset-1" role="main">
- <p><h1><?php echo $article->title?></h1></p>
+		<div class="col-md-7 col-md-offset-1" role="main" style="background:white;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.075);">
+ <div style="text-align:center;"><h1><?php echo $article->title?></h1></div>
 
 <?php echo $article->html;?>
 

@@ -48,7 +48,7 @@
 	<div role="Info">
          <div class="list-group">
 		  <?php foreach($labels->result() as $label){?>
-		  <a class="list-group-item <?php if($labelid == $label->id){echo "active";}?>" href="<?php echo site_url('cat/'.$slug.'/'.$label->slug)?>"><?php echo $label->title?></a>
+		  <a class="list-group-item <?php if($labelid == $label->id){echo "active";}?>" href="<?php echo site_url('cat/'.$slug.'/'.$label->slug)?>"><?php echo $label->title?><div class="pull-right"><span class="glyphicon glyphicon-tag"></span></div></a>
 		<?php }?>
 		</div>
     </div>

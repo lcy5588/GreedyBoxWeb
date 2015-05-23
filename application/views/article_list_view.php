@@ -5,15 +5,23 @@
   
 
 <?php foreach($articles->result() as $article):?>
-<div style="background:white;" class="media bs-callout-right bs-callout-level-<?php echo $level_zd[$article->levelid]?>">
+<div style="background:white;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.075);" class="media bs-callout-right bs-callout-level-<?php echo $level_zd[$article->levelid]?>">
       <div class="media-left">
         <a href="<?php $clickurl = site_url('content/'.$pagetype_zd[$cat_zd[$article->cid]].'/'.$article->id);echo $clickurl;?>">
-			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:150px;height:96px;" alt="Generic placeholder image">
+			<img class="media-object" src="<?php echo $article->imgurl?>" style="width:165px;height:130px;" alt="Generic placeholder image">
         </a>
       </div>
-      <div class="media-body">
+      <div class="media-body" style="padding-top:10px;padding-bottom:10px;">
+		<div style="height:90px;">
         <h4 class="media-heading"><a href="<?php echo $clickurl;?>"><?php echo $article->title;?></a></h4>
         <?php echo $article->content;?>
+		</div>
+		<div style="height:10px;">
+			<div class="pull-right" style="margin-right:10px;">
+				<span class="glyphicon glyphicon-eye-open">1000</span>
+				<span class="glyphicon glyphicon-thumbs-up">1000</span>
+			</div>
+		</div>
       </div>
 </div>
 
@@ -38,8 +46,9 @@
 	<div role="Info">
          <div class="list-group">
 		<?php foreach($labels->result() as $label){?>
-		  <a class="list-group-item <?php if($labelid == $label->id){echo "active";}?>" href="<?php echo site_url('cat/'.$slug.'/'.$label->slug)?>"><?php echo $label->title?></a>
+		  <a class="list-group-item <?php if($labelid == $label->id){echo "active";}?>" href="<?php echo site_url('cat/'.$slug.'/'.$label->slug)?>"><?php echo $label->title?><div class="pull-right"><span class="glyphicon glyphicon-tag"></span></div></a>
 		<?php }?>
+		
 		</div>
     </div>
 	
