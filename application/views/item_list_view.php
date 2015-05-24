@@ -46,13 +46,35 @@
 			<div style="border-top:2px solid #337AB7;">
 				<p><h5><b><?php echo $array->title ?></b></h5></p>
 				<p>--<?php echo $array->comment ?></p>
+				<!--
 				<p>品牌:<?php echo $array->sellernick; ?></p>
-				<p>￥<?php echo $array->price; ?>&nbsp;<s>￥<?php echo $array->oldprice; ?></s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $array->discount?>折</p>
+				<p>￥<?php echo $array->price; ?>&nbsp;<s>￥<?php echo $array->oldprice; ?></s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $array->discount?>折</p>-->
+				<p><span style="font-size:20px;">SS</span></p>
+				<p>刺激度:
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span>86</span></p>
+				<p>舒适度:
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span>96</span>
+				</p>
+				<p>性感度:
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span>56</span></p>
 				<p style="text-align:left;">
 					<a href="javascript:void(0);" class="vote" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
-						<span class="glyphicon glyphicon-heart" aria-hidden="true">
-					</a><?php echo $array->good;?></p>
+						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+					</a><?php echo $array->good;?>
+					<a href="javascript:void(0);" class="vote" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
+						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true">
+					</span></a><?php echo $array->good;?>
+				</p>
 			</div>
 		  </div>
 		</div>
