@@ -19,9 +19,9 @@
 			<?php echo $joke->html;?>
 			
 			<div class="" style="padding-top:5px;border-top:2px solid #337AB7;">
-			<a href="javascript:void(0);" class="vote" data-itemid="<?php echo $joke->id; ?>" data-votevalue="good">
+			<a href="javascript:void(0);" class="vote" data-jokeid="<?php echo $joke->id; ?>" data-votevalue="good">
 							<span style="font-size:16px;" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-						</a>1000<?php echo $joke->good;?>&nbsp;&nbsp;评论(20)
+						</a><?php echo $joke->good;?>&nbsp;&nbsp;评论(20)
 			</div>
 			
         </div>
@@ -113,7 +113,25 @@
 				}
 			}
 		});
+		
+		$(".vote").click(function(){
+		var id = $(this).data('jokeid');
+		var value = $(this).data('votevalue');
+		
+		$.post('<?php echo site_url("home/vote/")?>',
+						{
+							identification: 'joke',
+							id : id,
+							value : value
+						},function(data){
+								if(data){
+									
+								}
+			});
+		});
   });
+  
+  
   </script>
 </body>
 </html>

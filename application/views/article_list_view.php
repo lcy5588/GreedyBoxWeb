@@ -18,8 +18,8 @@
 		</div>
 		<div style="height:10px;">
 			<div class="pull-right" style="margin-right:10px;">
-				<span class="glyphicon glyphicon-eye-open">1000</span>
-				<span class="glyphicon glyphicon-thumbs-up">1000</span>
+				<span class="glyphicon glyphicon-eye-open"><?php echo $article->click_count;?></span>
+				<span class="glyphicon glyphicon-thumbs-up"><?php echo $article->good;?></span>
 			</div>
 		</div>
       </div>

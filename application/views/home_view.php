@@ -21,8 +21,8 @@
 		</div>
 		<div style="height:10px;">
 			<div class="pull-right">
-				<span class="glyphicon glyphicon-eye-open">1000</span>
-				<span class="glyphicon glyphicon-thumbs-up">1000</span>
+				<span class="glyphicon glyphicon-eye-open"><?php echo $article->click_count;?></span>
+				<span class="glyphicon glyphicon-thumbs-up"><?php echo $article->good;?></span>
 			</div>
 		</div>
       </div>
@@ -72,6 +72,11 @@
 			
 			<div class="gifcontrol">
 				<?php echo $joke->html;?>
+				<div class="" style="padding-top:5px;border-top:2px solid #337AB7;">
+				<a href="javascript:void(0);" class="vote" data-jokeid="<?php echo $joke->id; ?>" data-votevalue="good">
+								<span style="font-size:16px;" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+							</a><?php echo $joke->good;?>
+				</div>
 			</div>
 			
 		  </div>
@@ -127,6 +132,22 @@
 			offset: { 
 				top: 10
 				}
+		});
+		
+		$(".vote").click(function(){
+		var id = $(this).data('jokeid');
+		var value = $(this).data('votevalue');
+		
+		$.post('<?php echo site_url("home/vote/")?>',
+						{
+							identification: 'joke',
+							id : id,
+							value : value
+						},function(data){
+								if(data){
+									
+								}
+			});
 		});
   });
   

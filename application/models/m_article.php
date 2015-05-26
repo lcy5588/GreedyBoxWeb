@@ -52,7 +52,7 @@ class M_article extends CI_Model{
 	
 	function get_article_by_id($id = ''){
     	if(!empty($id)){
-			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime,imgurl');
+			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime,imgurl,good,unlike');
     		$result = $this->db->get_where($this->article_table, array('id'=>$id))->result();
 			
 			return $result[0];

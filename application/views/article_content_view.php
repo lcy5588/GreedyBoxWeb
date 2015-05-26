@@ -10,14 +10,14 @@
 			<span style="margin-left:8px;"><?php echo $article->authorid?></span>
 			<span class="glyphicon glyphicon-tag"><?php if(!empty($cat)){echo $cat->name;}?></span>
 			<span class="glyphicon glyphicon-tag"><?php if(!empty($label)){echo $label->title;}?></span>
-			<span class="glyphicon glyphicon-eye-open">1000</span>
+			<span class="glyphicon glyphicon-eye-open"><?php echo $article->click_count;?></span>
 		 </div>
 		<?php echo $article->html;?>
-		<div>
+		<div style="width:100%;height:25px;">
 			<div class="pull-right" style="margin-right:10px;">
-				<a href="javascript:void(0);">
-				<span class="glyphicon glyphicon-thumbs-up">1000</span>
-				</a>
+				<a href="javascript:void(0);" class="vote" data-articleid="<?php echo $article->id; ?>" data-votevalue="good">
+				<span class="glyphicon glyphicon-thumbs-up"></span>
+				</a><?php echo $article->good;?>
 			</div>
 		</div>
 	</div>
@@ -68,6 +68,24 @@
 <script src="<?php echo base_url()?>assets/js/jquery/jquery-1.11.1.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
-
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+		$(".vote").click(function(){
+		var id = $(this).data('articleid');
+		var value = $(this).data('votevalue');
+		
+		$.post('<?php echo site_url("home/vote/")?>',
+						{
+							identification: 'article',
+							id : id,
+							value : value
+						},function(data){
+								if(data){
+									
+								}
+			});
+		});
+  });
+</script>
 </body>
 </html>
