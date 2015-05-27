@@ -44,36 +44,34 @@
 		  <div class="caption">
 			
 			<div style="border-top:2px solid #337AB7;">
-				<p><h5><b><?php echo $array->title ?></b></h5></p>
-				<p>--<?php echo $array->comment ?></p>
-				<!--
-				<p>品牌:<?php echo $array->sellernick; ?></p>
-				<p>￥<?php echo $array->price; ?>&nbsp;<s>￥<?php echo $array->oldprice; ?></s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $array->discount?>折</p>-->
-				<p><span style="font-size:20px;">SS</span></p>
-				<p>刺激度:
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span>86</span></p>
+				<h5 style="margin-bottom: 5px;"><b><?php echo $array->title ?></b></h5>
+				<p style="margin-bottom: 5px;">--<?php echo $array->comment ?></p>
+				<p style="margin-bottom: 5px;"><span style="font-size:18px;">SS</span></p>
+				<p>刺激度:<input type="number" name="your_awesome_parameter" id="some_id" class="rating"  data-icon-lib="fa" data-active-icon="fa-heart" data-inactive-icon="fa-heart-o" data-clearable-icon="fa-trash-o"/>
+				<span>100</span></p>
 				<p>舒适度:
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span>96</span>
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<span>20</span>
 				</p>
 				<p>性感度:
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
 				<span>56</span></p>
-				<p style="text-align:left;">
+				<p style="text-align:left;margin-bottom: 0px;">
 					<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
 						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 					</button><span id="itemid<?php echo $array->id; ?>"><?php echo $array->good;?></span>
-					<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
-						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true">
-					</span></button><?php echo $array->good;?>
+					
+					<button href="javascript:void(0);" style="padding:0px;" class="btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
+						<span style="font-size:16px;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+					</button><span id="itemid<?php echo $array->id; ?>"><?php echo $array->good;?></span>
 				</p>
 			</div>
 		  </div>
@@ -134,6 +132,7 @@
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
 <script src="<?php echo base_url()?>assets/js/jquery.lazyload.min.js"></script>
 <script type='text/javascript' src='<?php echo base_url()?>assets/js/index.js'></script>
+<script type='text/javascript' src='<?php echo base_url()?>assets/js/bootstrap-rating-input.min.js'></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
      $("img.lazy").lazyload();

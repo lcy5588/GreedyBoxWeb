@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/gifplayer.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/sideimg.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/salvattore.css" />
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 </head>
 <body style="background: url('<?php echo base_url()?>assets/img/default-bg.png') repeat;">
 <header class="navbar navbar-default navbar-fixed-top" role="banner" >
