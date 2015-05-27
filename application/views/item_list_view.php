@@ -68,12 +68,12 @@
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				<span>56</span></p>
 				<p style="text-align:left;">
-					<a href="javascript:void(0);" class="vote" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
+					<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
 						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-					</a><?php echo $array->good;?>
-					<a href="javascript:void(0);" class="vote" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
+					</button><span id="itemid<?php echo $array->id; ?>"><?php echo $array->good;?></span>
+					<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
 						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true">
-					</span></a><?php echo $array->good;?>
+					</span></button><?php echo $array->good;?>
 				</p>
 			</div>
 		  </div>
@@ -141,7 +141,7 @@
      $(".vote").click(function(){
 		var id = $(this).data('itemid');
 		var value = $(this).data('votevalue');
-		
+		var button = $(this);
 		$.post('<?php echo site_url("home/vote/")?>',
 						{
 							identification: 'item',
@@ -149,7 +149,9 @@
 							value : value
 						},function(data){
 								if(data){
-									
+									button.attr("disabled","disabled");
+									var oldnum = $('span#itemid'+id).text();
+									$('span#itemid'+id).text(parseInt(oldnum)+1);
 								}
 			});
 		});

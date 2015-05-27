@@ -72,10 +72,11 @@
 			
 			<div class="gifcontrol">
 				<?php echo $joke->html;?>
-				<div class="" style="padding-top:5px;border-top:2px solid #337AB7;">
-				<a href="javascript:void(0);" class="vote" data-jokeid="<?php echo $joke->id; ?>" data-votevalue="good">
+				<div class="disabled" style="padding-top:5px;border-top:2px solid #337AB7;">
+				
+				<button  href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-jokeid="<?php echo $joke->id; ?>" data-votevalue="good">
 								<span style="font-size:16px;" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-							</a><?php echo $joke->good;?>
+							</button><span id="jokeid<?php echo $joke->id; ?>"><?php echo $joke->good;?></span>
 				</div>
 			</div>
 			
@@ -138,14 +139,19 @@
 		var id = $(this).data('jokeid');
 		var value = $(this).data('votevalue');
 		
+		var button = $(this);
+		
 		$.post('<?php echo site_url("home/vote/")?>',
 						{
 							identification: 'joke',
 							id : id,
 							value : value
 						},function(data){
+							
 								if(data){
-									
+									button.attr("disabled","disabled");
+									var oldnum = $('span#jokeid'+id).text();
+									$('span#jokeid'+id).text(parseInt(oldnum)+1);
 								}
 			});
 		});

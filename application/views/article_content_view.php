@@ -15,9 +15,9 @@
 		<?php echo $article->html;?>
 		<div style="width:100%;height:25px;">
 			<div class="pull-right" style="margin-right:10px;">
-				<a href="javascript:void(0);" class="vote" data-articleid="<?php echo $article->id; ?>" data-votevalue="good">
+				<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-articleid="<?php echo $article->id; ?>" data-votevalue="good">
 				<span class="glyphicon glyphicon-thumbs-up"></span>
-				</a><?php echo $article->good;?>
+				</button><span id="articleid<?php echo $article->id; ?>"><?php echo $article->good;?></span>
 			</div>
 		</div>
 	</div>
@@ -73,6 +73,7 @@
 		$(".vote").click(function(){
 		var id = $(this).data('articleid');
 		var value = $(this).data('votevalue');
+		var button = $(this);
 		
 		$.post('<?php echo site_url("home/vote/")?>',
 						{
@@ -81,7 +82,9 @@
 							value : value
 						},function(data){
 								if(data){
-									
+									button.attr("disabled","disabled");
+									var oldnum = $('span#articleid'+id).text();
+									$('span#articleid'+id).text(parseInt(oldnum)+1);
 								}
 			});
 		});

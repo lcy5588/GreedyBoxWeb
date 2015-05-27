@@ -343,22 +343,22 @@ class Home extends CI_Controller {
 		
 		if($identification == 'article'){
 			if('good' == $value){
-				$this->M_article->vote_good($id);
+				echo $this->M_article->vote_good($id);
 			}else if('unlike' == $value){
-				$this->M_article->vote_unlike($id);
+				echo $this->M_article->vote_unlike($id);
 			}
 		}else if($identification == 'joke'){
 			if('good' == $value){
-				$this->M_joke->vote_good($id);
+				echo $this->M_joke->vote_good($id);
 			}else if('unlike' == $value){
-				$this->M_joke->vote_unlike($id);
+				echo $this->M_joke->vote_unlike($id);
 			}
 		}
 		 else if($identification == 'item'){
 			if('good' == $value){
-				$this->M_item->vote_good($id);
+				echo $this->M_item->vote_good($id);
 			}else if('unlike' == $value){
-				$this->M_item->vote_unlike($id);
+				echo $this->M_item->vote_unlike($id);
 			}
 		}
 	}
