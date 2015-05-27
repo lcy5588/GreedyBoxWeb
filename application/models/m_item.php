@@ -26,7 +26,10 @@ class M_item extends CI_Model{
 			   'discount' => $_POST['discount'],
 			   'adddatetime' => date('YmdHis',time()),
 			   'labelid' => $_POST['labelid'],
-			   'comment' => $_POST['comment']
+			   'comment' => $_POST['comment'],
+			   'excitablelevel' => $_POST['excitablelevel'],
+			   'comfortablelevel' => $_POST['comfortablelevel'],
+			   'sexlevel' => $_POST['sexlevel']
             );
 		
 		return $this->db->insert($this->item_table, $data);
@@ -51,7 +54,10 @@ class M_item extends CI_Model{
 			   'oldprice' => $_POST['oldprice'],
 			   'discount' => $_POST['discount'],
 			   'labelid' => $_POST['labelid'],
-			   'comment' => $_POST['comment']
+			   'comment' => $_POST['comment'],
+			   'excitablelevel' => $_POST['excitablelevel'],
+			   'comfortablelevel' => $_POST['comfortablelevel'],
+			   'sexlevel' => $_POST['sexlevel']
             );
 		
 		$this->db->where('id',$item_id);
@@ -94,7 +100,7 @@ class M_item extends CI_Model{
 
 		//如果是分类页
 		if(!empty($cat)){
-			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick,comment,good,unlike');
+			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick,comment,good,unlike,excitablelevel,comfortablelevel,sexlevel');
 			
 			$where = "cid= cat.id AND slug='".$cat."'";
 			
@@ -288,5 +294,163 @@ class M_item extends CI_Model{
 		
 		return $id;
 	}
-
+	
+	function grade_excitablenum($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('excitablenum',"excitablenum + 1", FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+	}
+	
+	function grade_comfortablenum($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('comfortablenum',"comfortablenum + 1", FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+	}
+	
+	function grade_sexnum($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('sexnum',"sexnum + 1", FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+	}
+	
+	function get_excitablenum($id){
+		$this->db->select('excitablenum');
+		$this->db->where('id',$id);
+		
+		$query = $this->db->get_where($this->item_table);
+		
+		if($query->num_rows()>0){
+			foreach($query->result() as $array){
+				$excitablenum = $array->excitablenum;
+				return $excitablenum;
+			}
+		}else return 0;
+	}
+	
+	function get_comfortablenum($id){
+		$this->db->select('comfortablenum');
+		$this->db->where('id',$id);
+		
+		$query = $this->db->get_where($this->item_table);
+		
+		if($query->num_rows()>0){
+			foreach($query->result() as $array){
+				$comfortablenum = $array->comfortablenum;
+				return $comfortablenum;
+			}
+		}else return 0;
+	}
+	
+	function get_sexnum($id){
+		$this->db->select('sexnum');
+		$this->db->where('id',$id);
+		
+		$query = $this->db->get_where($this->item_table);
+		
+		if($query->num_rows()>0){
+			foreach($query->result() as $array){
+				$sexnum = $array->sexnum;
+				return $sexnum;
+			}
+		}else return 0;
+	}
+	
+	function get_excitablelevel($id){
+		$this->db->select('excitablelevel');
+		$this->db->where('id',$id);
+		
+		$query = $this->db->get_where($this->item_table);
+		
+		if($query->num_rows()>0){
+			foreach($query->result() as $array){
+				$excitablelevel = $array->excitablelevel;
+				return $excitablelevel;
+			}
+		}else return 0;
+	}
+	
+	function get_comfortablelevel($id){
+		$this->db->select('comfortablelevel');
+		$this->db->where('id',$id);
+		
+		$query = $this->db->get_where($this->item_table);
+		
+		if($query->num_rows()>0){
+			foreach($query->result() as $array){
+				$comfortablelevel = $array->comfortablelevel;
+				return $comfortablelevel;
+			}
+		}else return 0;
+	}
+	
+	function get_sexlevel($id){
+		$this->db->select('sexlevel');
+		$this->db->where('id',$id);
+		
+		$query = $this->db->get_where($this->item_table);
+		
+		if($query->num_rows()>0){
+			foreach($query->result() as $array){
+				$sexlevel = $array->sexlevel;
+				return $sexlevel;
+			}
+		}else return 0;
+	}
+	
+	function grade_excitablelevel($id,$score){
+		grade_excitablenum($id);
+		
+		$newnum = get_excitablenum($id);
+		
+		$this->db->where('id',$id);
+		
+		$this->db->set('excitablelevel',"(excitablelevel * (" +($newnum-1)+ ")+"+$score+")/"+$newnum, FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+		
+	}
+	
+	function grade_comfortablelevel($id,$score){
+		grade_comfortablenum($id);
+		
+		$newnum = get_comfortablenum($id);
+		
+		$this->db->where('id',$id);
+		
+		$this->db->set('comfortablelevel',"(comfortablelevel * (" +($newnum-1)+ ")+"+$score+")/"+$newnum, FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+	}
+	
+	function grade_sexlevel($id,$score){
+		grade_sexnum($id);
+		
+		$newnum = get_sexnum($id);
+		
+		$this->db->where('id',$id);
+		
+		$this->db->set('sexlevel',"(sexlevel * (" +($newnum-1)+ ")+"+$score+")/"+$newnum, FALSE);
+		
+		$this->db->update($this->item_table);
+		
+		return $id;
+	}
+	
+	
 }

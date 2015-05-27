@@ -82,7 +82,43 @@ class M_login extends CI_Model{
 		  'unlike' => array(
 				  'type' => 'INT',
 				 'constraint' => '32',
+				 'unsigned' => TRUE,
 				 'default' => 0
+		  ),
+		  'excitablelevel' => array(
+				  'type' => 'Float',
+				 'default' => 0,
+				 'comment' => '刺激度'
+		  ),
+		  'comfortablelevel' => array(
+				  'type' => 'Float',
+				 'default' => 0,
+				 'comment' => '舒适度'
+		  ),
+		  'sexlevel' => array(
+				  'type' => 'Float',
+				 'default' => 0,
+				 'comment' => '性感度'
+		  ),
+		  'excitablenum' => array(
+				  'type' => 'INT',
+				 'constraint' => '32',
+				 'default' => 0,
+				 'comment' => '刺激度评分人数'
+		  ),
+		  'comfortablenum' => array(
+				  'type' => 'INT',
+				 'constraint' => '32',
+				 'unsigned' => TRUE,
+				 'default' => 0,
+				 'comment' => '舒适度评分人数'
+		  ),
+		  'sexnum' => array(
+				  'type' => 'INT',
+				 'constraint' => '32',
+				 'unsigned' => TRUE,
+				 'default' => 0,
+				 'comment' => '性感度评分人数'
 		  )
 		);
 
