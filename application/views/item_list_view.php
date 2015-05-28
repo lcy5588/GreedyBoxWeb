@@ -47,22 +47,12 @@
 				<h5 style="margin-bottom: 5px;"><b><?php echo $array->title ?></b></h5>
 				<p style="margin-bottom: 5px;">--<?php echo $array->comment ?></p>
 				<p style="margin-bottom: 5px;"><span style="font-size:18px;">SS</span></p>
-				<p>刺激度:<input type="number" name="your_awesome_parameter" id="some_id" class="rating"  data-icon-lib="fa" data-active-icon="fa-heart" data-inactive-icon="fa-heart-o" data-clearable-icon="fa-trash-o"/>
+				<p>刺激度:<input type="number" name="excitablelevel" id="excitablelevel" class="rating"/>
 				<span>100</span></p>
-				<p>舒适度:
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<p>舒适度:<input type="number" name="comfortablelevel" id="comfortablelevel" class="rating"/>
 				<span>20</span>
 				</p>
-				<p>性感度:
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				<p>性感度:<input type="number" name="sexlevel" id="sexlevel" class="rating"/>
 				<span>56</span></p>
 				<p style="text-align:left;margin-bottom: 0px;">
 					<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
@@ -132,7 +122,7 @@
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
 <script src="<?php echo base_url()?>assets/js/jquery.lazyload.min.js"></script>
 <script type='text/javascript' src='<?php echo base_url()?>assets/js/index.js'></script>
-<script type='text/javascript' src='<?php echo base_url()?>assets/js/bootstrap-rating-input.min.js'></script>
+<script type='text/javascript' src='<?php echo base_url()?>assets/js/bootstrap-rating-input.js'></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
      $("img.lazy").lazyload();
