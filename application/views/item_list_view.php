@@ -46,14 +46,16 @@
 			<div style="border-top:2px solid #337AB7;">
 				<h5 style="margin-bottom: 5px;"><b><?php echo $array->title ?></b></h5>
 				<p style="margin-bottom: 5px;">--<?php echo $array->comment ?></p>
-				<p style="margin-bottom: 5px;"><span style="font-size:18px;">SS</span></p>
-				<p>刺激度:<input type="number" name="excitablelevel" id="excitablelevel" class="rating"/>
-				<span>100</span></p>
-				<p>舒适度:<input type="number" name="comfortablelevel" id="comfortablelevel" class="rating"/>
-				<span>20</span>
+				<p style="margin-bottom: 5px;">
+					<span style="font-size:18px;" id="level_item_<?php echo $array->id?>"><?php $avg_gradelevel = intval((floatval($array->excitablelevel) + floatval($array->excitablelevel) + floatval($array->comfortablelevel)) / 3); echo $levelscore_zd[intval($avg_gradelevel/10)]; ?><input disabled="disabled" type="number"  name="score" id="score" value="<?php echo intval($avg_gradelevel/20);?>" class="rating"/></span>
+					</p>
+				<p>刺激度:<input type="number" data-id="<?php echo $array->id?>" name="excitablelevel" id="excitablelevel_item_<?php echo $array->id?>" value="<?php echo intval($array->excitablelevel/20);?>" class="rating"/>
+				<span><?php echo sprintf("%.1f",$array->excitablelevel) ?></span></p>
+				<p>舒适度:<input type="number" data-id="<?php echo $array->id?>" name="comfortablelevel" id="comfortablelevel_item_<?php echo $array->id?>" value="<?php echo intval($array->comfortablelevel/20);?>" class="rating"/>
+				<span><?php echo sprintf("%.1f",$array->comfortablelevel); ?></span>
 				</p>
-				<p>性感度:<input type="number" name="sexlevel" id="sexlevel" class="rating"/>
-				<span>56</span></p>
+				<p>性感度:<input type="number" data-id="<?php echo $array->id?>" name="sexlevel" id="sexlevel_item_<?php echo $array->id?>" value="<?php echo intval($array->sexlevel/20);?>" class="rating"/>
+				<span><?php echo sprintf("%.1f",$array->sexlevel)?></span></p>
 				<p style="text-align:left;margin-bottom: 0px;">
 					<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
 						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
@@ -144,6 +146,27 @@
 								}
 			});
 		});
+		
+	$('input.rating').on('change', function(){
+		  var input = $(this);
+		  var id = input.data("id");
+		  var name = input.attr("name");
+		  var score = input.val() * 20;
+		  input.next("span").text(score);
+		  
+		  $.post('<?php echo site_url("home/rate/")?>',
+						{
+							name: name,
+							id : id,
+							score : score
+						},function(data){
+								
+								if(data){
+									input.prev('.rating-input').off();
+									input.attr('disabled','disabled');
+								}
+			});
+     });
   });
   
    

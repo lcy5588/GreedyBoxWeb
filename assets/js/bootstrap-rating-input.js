@@ -109,10 +109,15 @@
       var $input = $(this);
       var dataKey = 'rating';
       var rating = $input.data(dataKey);
+      
+      var disabled = 'disabled';
+      var isdisabled = $input.attr(disabled);
+      
       var options = typeof option === 'object' && option;
 
       if (!rating) {
         rating = new Rating($input, options);
+        if(!isdisabled){
         rating.$el
           .on('mouseenter', starSelector(), function () {
             rating.highlight($(this).data('value'), true);
@@ -126,6 +131,7 @@
           .on('click', clearSelector, function() {
             rating.clear();
           });
+	   }
         $input.data(dataKey, rating);
       } 
 

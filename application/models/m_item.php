@@ -410,13 +410,14 @@ class M_item extends CI_Model{
 	}
 	
 	function grade_excitablelevel($id,$score){
-		grade_excitablenum($id);
+		$this->grade_excitablenum($id);
 		
-		$newnum = get_excitablenum($id);
+		$newnum = $this->get_excitablenum($id);
 		
 		$this->db->where('id',$id);
+		$str = "(excitablelevel * ".strval($newnum-1)."+".strval($score).")/".strval($newnum);
 		
-		$this->db->set('excitablelevel',"(excitablelevel * (" +($newnum-1)+ ")+"+$score+")/"+$newnum, FALSE);
+		$this->db->set('excitablelevel',$str, FALSE);
 		
 		$this->db->update($this->item_table);
 		
@@ -425,13 +426,16 @@ class M_item extends CI_Model{
 	}
 	
 	function grade_comfortablelevel($id,$score){
-		grade_comfortablenum($id);
+		$this->grade_comfortablenum($id);
 		
-		$newnum = get_comfortablenum($id);
+		$newnum = $this->get_comfortablenum($id);
 		
 		$this->db->where('id',$id);
 		
-		$this->db->set('comfortablelevel',"(comfortablelevel * (" +($newnum-1)+ ")+"+$score+")/"+$newnum, FALSE);
+		$str = "(comfortablelevel * ".strval($newnum-1)."+".strval($score).")/".strval($newnum);
+		
+		$this->db->set('comfortablelevel',$str, FALSE);
+		
 		
 		$this->db->update($this->item_table);
 		
@@ -439,17 +443,27 @@ class M_item extends CI_Model{
 	}
 	
 	function grade_sexlevel($id,$score){
-		grade_sexnum($id);
+		$this->grade_sexnum($id);
 		
-		$newnum = get_sexnum($id);
+		$newnum = $this->get_sexnum($id);
 		
 		$this->db->where('id',$id);
 		
-		$this->db->set('sexlevel',"(sexlevel * (" +($newnum-1)+ ")+"+$score+")/"+$newnum, FALSE);
+		$str = "(sexlevel * ".strval($newnum-1)."+".strval($score).")/".strval($newnum);
+		
+		$this->db->set('sexlevel',$str, FALSE);
 		
 		$this->db->update($this->item_table);
 		
 		return $id;
+	}
+	
+	function avg_gradelevel($id){
+		$sexscore = $this->get_sexlevel($id);
+		$excitablelescore = $this->get_excitablelevel($id);
+		$comfortablescore = $this->get_comfortablelevel($id);
+		
+		return (floatval($sexscore) + floatval($excitablelescore) + floatval($comfortablelevel)) / 3;
 	}
 	
 	

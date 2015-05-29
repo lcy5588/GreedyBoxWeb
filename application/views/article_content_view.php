@@ -26,14 +26,12 @@
 
 
 <div class="col-md-3 hidden-print hidden-xs hidden-sm" >
-	<div>
-		<ul class="list-unstyled">
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/180x180" alt="Generic placeholder image">
-					</a>
-			</li>
-         </ul>
+	<div role="Info">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+			Basic panel example
+		  </div>
+		</div>
 	</div>
 	<div role="Advertisement">
           <ul class="list-unstyled">

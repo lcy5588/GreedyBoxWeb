@@ -362,6 +362,28 @@ class Home extends CI_Controller {
 			}
 		}
 	}
+	
+	public function rate(){
+	 $name = $this->input->post('name');
+	 $id = $this->input->post('id');
+	 $score = $this->input->post('score');
+	 
+	 if(empty($id) || empty($score) || $score < 0 || $score > 100){
+		echo 0;
+	 }
+	 
+	 if($name == 'excitablelevel'){
+		echo $this->M_item->grade_excitablelevel($id,$score);
+	 }else if($name == 'comfortablelevel'){
+		 echo $this->M_item->grade_comfortablelevel($id,$score);
+	 }else if($name == 'sexlevel'){
+		 echo $this->M_item->grade_sexlevel($id,$score);
+	 }else{
+		echo 0;
+	 }
+	 
+	 echo 1;
+	}
 }
 
 /* End of file welcome.php */
