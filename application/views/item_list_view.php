@@ -123,8 +123,8 @@
 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
 <script src="<?php echo base_url()?>assets/js/jquery.lazyload.min.js"></script>
-<script type='text/javascript' src='<?php echo base_url()?>assets/js/index.js'></script>
 <script type='text/javascript' src='<?php echo base_url()?>assets/js/bootstrap-rating-input.js'></script>
+<script type='text/javascript' src='<?php echo base_url()?>assets/js/index.js'></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
      $("img.lazy").lazyload();

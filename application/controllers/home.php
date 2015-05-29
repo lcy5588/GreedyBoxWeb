@@ -311,6 +311,19 @@ class Home extends CI_Controller {
 		if(!empty($itemsinfo)){
 		if ($itemsinfo->num_rows >0){
 			$result = $itemsinfo->result();
+			
+			$levelscore_zd = array();
+			$levelscore_zd['1'] = 'H';
+			$levelscore_zd['2'] = 'G';
+			$levelscore_zd['3'] = 'F';
+			$levelscore_zd['4'] = 'E';
+			$levelscore_zd['5'] = 'D';
+			$levelscore_zd['6'] = 'C';
+			$levelscore_zd['7'] = 'B';
+			$levelscore_zd['8'] = 'A';
+			$levelscore_zd['9'] = 'S';
+			$levelscore_zd['10'] = 'SS';
+			
 			foreach($result as $iteminfo){
 			$item_info_array = array();
 			
@@ -328,6 +341,13 @@ class Home extends CI_Controller {
 			$item_info_array['click_count']=$iteminfo->click_count;
 			$item_info_array['good']=$iteminfo->good;
 			$item_info_array['unlike']=$iteminfo->unlike;
+			$item_info_array['excitablelevel']=$iteminfo->excitablelevel;
+			$item_info_array['comfortablelevel']=$iteminfo->comfortablelevel;
+			$item_info_array['sexlevel']= $iteminfo->sexlevel;
+			
+			$avg_gradelevel = intval((floatval($array->excitablelevel) + floatval($array->excitablelevel) + floatval($array->comfortablelevel)) / 3);
+			 
+			$item_info_array['gradelevel']= $levelscore_zd[intval($avg_gradelevel/10)];
 			
 			$itemsresult[] = $item_info_array;
 			}
