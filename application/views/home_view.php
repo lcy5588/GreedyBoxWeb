@@ -3,7 +3,6 @@
 
       <div class="row">
 		<div class="col-md-7 col-md-offset-1" role="main">
-  
 
 <?php foreach($articles->result() as $article):?>
 <div  style="background:white;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.075);" class="media bs-callout-right bs-callout-level-<?php echo $level_zd[$article->levelid]?>">
@@ -17,7 +16,7 @@
       <div class="media-body" style="padding-top:10px;padding-bottom:10px;padding-right:10px;">
         <div style="height:90px;">
         <h4 class="media-heading"><a href="<?php echo $clickurl;?>"><?php echo $article->title;?></a></h4>
-        <?php echo $article->content;?>
+        <?php echo mb_substr($article->content,0,200,'utf-8');?>
 		</div>
 		<div style="height:10px;">
 			<div class="pull-right">

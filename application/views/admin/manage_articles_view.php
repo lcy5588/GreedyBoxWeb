@@ -156,7 +156,7 @@
         <td style="width:5%;"><?php echo $lx_zd[$array->cid]?></td>        
         <td style="width:10%;"><?php echo $label_zd[$array->labelid]; ?></td>        
         <td style="width:5%;"><?php echo $level_zd[$array->levelid]; ?></td>
-        <td style="width:25%;"><?php echo $array->content; ?></td>
+        <td style="width:25%;"><?php echo mb_substr($array->content,0,100,'utf-8');?></td>
         <td style="width:5%;"><?php echo $array->click_count ?></td>
         <td style="width:10%;"><?php echo $array->adddatetime;?></td>
         <td style="width:10%;">
