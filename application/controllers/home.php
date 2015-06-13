@@ -129,6 +129,21 @@ class Home extends CI_Controller {
 		exit;
 	}
 	
+	/**
+	 * 跳转函数，同时记录点击数量
+	 *
+	 * 点击记数要排除机器访问
+	 */
+	function countarticle($article_id){
+		
+        $this->load->library('user_agent');
+        if(!$this->agent->is_robot()){
+            $this->M_article->add_click_count($article_id);
+        }
+		
+		return true;
+	}
+	
 	function bannerpic($bannerpic_id){
 		
 		$this->load->library('user_agent');
@@ -300,8 +315,8 @@ class Home extends CI_Controller {
 		
 		if($sort =='click_count')
 			$sort .= ' desc';
-		else if($sort == 'price')
-			$sort .= ' asc';
+		else if($sort == 'score')
+			$sort = '(excitablelevel+sexlevel+comfortablelevel) desc';
 		else if($sort == 'adddatetime')
 			$sort .= ' desc';
 		else echo false;
@@ -345,7 +360,7 @@ class Home extends CI_Controller {
 			$item_info_array['comfortablelevel']=$iteminfo->comfortablelevel;
 			$item_info_array['sexlevel']= $iteminfo->sexlevel;
 			
-			$avg_gradelevel = intval((floatval($array->excitablelevel) + floatval($array->excitablelevel) + floatval($array->comfortablelevel)) / 3);
+			$avg_gradelevel = intval((floatval($iteminfo->excitablelevel) + floatval($iteminfo->sexlevel) + floatval($iteminfo->comfortablelevel)) / 3);
 			 
 			$item_info_array['gradelevel']= $levelscore_zd[intval($avg_gradelevel/10)];
 			

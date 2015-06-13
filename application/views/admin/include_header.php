@@ -72,7 +72,7 @@
                 <a href="<?php echo site_url('admin/managefriendlink')?>">友链管理</a>
               </li>
 			  <li class="">
-                 <a href="<?php echo site_url('admin/manageitem')?>">用户管理</a>
+                 <a href="<?php echo site_url('admin/manageuser')?>">用户管理</a>
               </li>
               <li class="">
                 <a href="<?php echo site_url('admin/status/items')?>">统计</a>

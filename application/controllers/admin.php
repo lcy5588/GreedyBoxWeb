@@ -22,6 +22,7 @@ class Admin extends CI_Controller {
 			$this->load->model('M_article');
 			$this->load->model('M_joke');
 			$this->load->model('M_level');
+			$this->load->model('M_user');
 			
 			$this->load->view('admin/include_login'); //检查cookie
 		}
@@ -141,10 +142,20 @@ class Admin extends CI_Controller {
 			
 			 for($i = 30; $i >= 0; $i -= 10){
 				
-				$result = $this->M_item->get_item_status($i);
+				if($i == 30){
+					$enddays = 1000;
+				}
+				else{
+					$enddays = 10;
+				}
+				
+				$result = $this->M_item->get_item_status($i,$i+$enddays);
+				
 				if($result != null){
 					$itemst = array();
+					
 					$itemst["overdays"] = $i; 
+					$itemst["enddays"] = $enddays;
 					$itemst["count"] = $result->count; 
 					$itemst["sum"] = $result->sum; 
 					
@@ -311,7 +322,16 @@ class Admin extends CI_Controller {
 	 *手动设置条目信息
 	 *
 	 */
-	 public function manageitem($page = 1){
+	 public function manageitem($page = 1,$cid="",$labelid="",$keyword=""){
+		
+			if(!empty($keyword)){
+					$keyword = urldecode($keyword);
+					$data['inputkeyword'] = $keyword;
+			}
+			
+			$data['searchlabelid'] = $labelid;
+			$data['searchcatid'] = $cid;
+			
 		    $limit = 20;
 			$offset = ($page-1)*$limit;
 			$this->load->library('pagination');
@@ -322,7 +342,7 @@ class Admin extends CI_Controller {
 	        $config['use_page_numbers'] = TRUE;
 	        $config['first_url'] = site_url('/admin/manageitem/');
 
-			$config['total_rows'] = $this->M_item->count_items();
+			$config['total_rows'] = $this->M_item->count_items($cid,$labelid,$keyword);
 			//这是模型里面的方法，获得总数。
 
 			$config['per_page'] = $limit;
@@ -340,7 +360,7 @@ class Admin extends CI_Controller {
 			//通过数组传递参数
 			//以上是重点
 
-			$data['query'] = $this->M_item->get_all_item($limit,$offset);
+			$data['query'] = $this->M_item->get_all_item($limit,$offset,$cid,$labelid,$keyword);
             
 			$typeid = $this->M_pagetype->get_pagetypeid_by_identification('item');
 			$lxquery = $this->M_cat->get_all_cat_by_typeid($typeid);
@@ -367,6 +387,21 @@ class Admin extends CI_Controller {
 					$label_zd[$lx->id] = $lx->title;
 				}
 			}
+			
+			$levelscore_zd = array();
+			$levelscore_zd['0'] = '-';
+			$levelscore_zd['1'] = 'H';
+			$levelscore_zd['2'] = 'G';
+			$levelscore_zd['3'] = 'F';
+			$levelscore_zd['4'] = 'E';
+			$levelscore_zd['5'] = 'D';
+			$levelscore_zd['6'] = 'C';
+			$levelscore_zd['7'] = 'B';
+			$levelscore_zd['8'] = 'A';
+			$levelscore_zd['9'] = 'S';
+			$levelscore_zd['10'] = 'SS';
+			
+			$data['levelscore_zd'] = $levelscore_zd;
 			
 			$data['label_zd'] = $label_zd;
 			
@@ -882,11 +917,19 @@ class Admin extends CI_Controller {
 	 *手动设置文章条目信息
 	 *
 	 */
-	 public function managearticle($page = 1){
+	 public function managearticle($page = 1,$cid="",$labelid="",$keyword=""){
+			if(!empty($keyword)){
+					$keyword = urldecode($keyword);
+					$data['inputkeyword'] = $keyword;
+			}
+			
+			$data['searchlabelid'] = $labelid;
+			$data['searchcatid'] = $cid;
+			
 		    $limit= 20;
 		    $offset = $limit * ($page - 1);
 			$config['base_url'] = base_url()."/admin/managearticle/";
-			$config['total_rows'] = $this->M_article->count_articles();
+			$config['total_rows'] = $this->M_article->count_articles($cid,$labelid,$keyword);
 			$config['per_page'] = $limit;
 			$config['first_link'] = '首页';
 			$config['last_link'] = '尾页';
@@ -900,7 +943,7 @@ class Admin extends CI_Controller {
 			//通过数组传递参数
 			//以上是重点
 
-			$data['query'] = $this->M_article->get_all_articles($limit,$offset);
+			$data['query'] = $this->M_article->get_all_articles($limit,$offset,$cid,$labelid,$keyword);
             $typeid = $this->M_pagetype->get_pagetypeid_by_identification('article');
 			$lxquery = $this->M_cat->get_all_cat_by_typeid($typeid);
 			$data['lxquery'] = $lxquery;
@@ -1014,7 +1057,16 @@ class Admin extends CI_Controller {
 	 *手动设置文章条目信息
 	 *
 	 */
-	 public function managejoke($page = 1){
+	 public function managejoke($page = 1,$cid="",$labelid="",$keyword=""){
+		 
+			if(!empty($keyword)){
+					$keyword = urldecode($keyword);
+					$data['inputkeyword'] = $keyword;
+			}
+			
+			$data['searchlabelid'] = $labelid;
+			$data['searchcatid'] = $cid;
+			
 		    $limit = 20;
 			$offset = ($page-1)*$limit;
 			$this->load->library('pagination');
@@ -1025,7 +1077,7 @@ class Admin extends CI_Controller {
 	        $config['use_page_numbers'] = TRUE;
 	        //$config['first_url'] = site_url('/admin/managearticle');
 
-			$config['total_rows'] = $this->M_joke->count_jokes();
+			$config['total_rows'] = $this->M_joke->count_jokes($cid,$labelid,$keyword);
 			//这是模型里面的方法，获得总数。
 
 			$config['per_page'] = $limit;
@@ -1043,7 +1095,7 @@ class Admin extends CI_Controller {
 			//通过数组传递参数
 			//以上是重点
 
-			$data['query'] = $this->M_joke->get_all_jokes($limit,$offset);
+			$data['query'] = $this->M_joke->get_all_jokes($limit,$offset,$cid,$labelid,$keyword);
             $typeid = $this->M_pagetype->get_pagetypeid_by_identification('joke');
 			$lxquery = $this->M_cat->get_all_cat_by_typeid($typeid);
 			$data['lxquery'] = $lxquery;
@@ -1182,6 +1234,121 @@ class Admin extends CI_Controller {
 		
 		
 		echo $this->M_level->update_level();
+	}
+	
+	/**
+	 * 设置用户
+	 *
+	 */
+	public function setuser(){
+		$data = array(                     
+                           'name' =>$_POST['name'],
+                           'email' =>$_POST['email'],
+                           'avatar_url' =>$_POST['avatar_url'],
+                           'open_id' =>$_POST['open_id'],
+                           'access_token' =>$_POST['access_token']
+                        );
+		
+		echo $this->M_user->add_user_by($data);
+	}
+	
+	public function deleteuser(){
+		
+		$id = $this->input->post('user_id');
+		
+		echo $this->M_user->delete_user($id);
+	}
+	
+	/**
+	 *手动设置用户
+	 *
+	 */
+	 public function manageuser($page = 1,$userid="",$keyword=""){
+			
+			if(!empty($userid)){
+				$data['inputkeyword'] = $userid;
+				$data['searchtype'] = '1'; 
+			}
+			
+			if(!empty($keyword)){
+					$keyword = urldecode($keyword);
+					$data['inputkeyword'] = $keyword;
+					$data['searchtype'] = '2'; 
+			}
+			
+			
+			
+		    $limit = 20;
+			$offset = ($page-1)*$limit;
+			$this->load->library('pagination');
+
+			$config['base_url'] = site_url('/admin/manageuser/');
+			//site_url可以防止换域名代码错误。
+
+	        $config['use_page_numbers'] = TRUE;
+	        $config['first_url'] = site_url('/admin/manageuser/');
+
+			$config['total_rows'] = $this->M_user->count_users($userid,$keyword);
+			//这是模型里面的方法，获得总数。
+
+			$config['per_page'] = $limit;
+			$config['first_link'] = '首页';
+			$config['last_link'] = '尾页';
+			$config['num_links']=10;
+			$config['uri_segment'] = 3;
+			$config['cur_page'] = $page;
+			//上面是自定义文字以及左右的连接数
+
+			$this->pagination->initialize($config);
+			//初始化配置
+
+			$data['pagination']=$this->pagination->create_links();
+			//通过数组传递参数
+			//以上是重点
+
+			$data['query'] = $this->M_user->get_all_users($limit,$offset,$userid,$keyword);
+            
+			$this->load->view('admin/include_header');
+			$this->load->view('admin/manage_users_view',$data);
+	}
+
+	/**
+	 *增加或修改用户
+	 *
+	 */
+	
+	public function updatauser(){
+		$id = $this->input->post('user_id');
+		
+		if (!empty($id)){
+			echo $this->M_user->update_user($id);
+		}else{
+			echo false;
+		}
+	}
+	
+	/**
+	*获取条目信息
+	*/
+	
+	public function getuserbyid(){
+		$id = $this->input->post('user_id');
+		$userinfo = $this->M_user->get_user_by_id($id);
+		
+		if ($userinfo != null){
+			$user_info_array = array();
+			
+			$user_info_array['id'] = $userinfo->id;
+			$user_info_array['name']=$userinfo->name;
+			$user_info_array['email']=$userinfo->email;
+			$user_info_array['avatar_url']=$userinfo->avatar_url;
+			$user_info_array['open_id']=$userinfo->open_id;
+			$user_info_array['access_token']=$userinfo->access_token;
+			
+			echo json_encode($user_info_array);
+		}else{
+			echo false;
+		}
 	}
 	
 	public function resetleveldefaultdata(){

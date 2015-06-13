@@ -59,18 +59,7 @@
     </div>
 	
 	<div role="Advertisement">
-          <ul class="list-unstyled">
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
-					</a>
-			</li>
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
-					</a>
-			</li>
-          </ul>
+         
     </div>
 </div>
 </div>

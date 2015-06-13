@@ -40,7 +40,7 @@
           </div>
           </div>
  </div><!--end <div class="modal fade" id="additem"-->   
-    <div class="row">
+    <div class="row" style="margin-top:10px;">
     <table class="table">
         <thead>
       <tr>

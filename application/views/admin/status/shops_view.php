@@ -7,7 +7,7 @@
     </ul>
 
 	<?php if($query->num_rows()>0){ ?>
-	<table class="table table-bordered table-striped">
+	<table class="table table-bordered table-striped"  style="margin-top:10px;">
     <thead>
       <tr>
         <th>店铺</th>

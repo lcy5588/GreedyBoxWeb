@@ -174,6 +174,7 @@ class Cat extends CI_Controller {
 			}
 			
 			$levelscore_zd = array();
+			$levelscore_zd['0'] = '-';
 			$levelscore_zd['1'] = 'H';
 			$levelscore_zd['2'] = 'G';
 			$levelscore_zd['3'] = 'F';

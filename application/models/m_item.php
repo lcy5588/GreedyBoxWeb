@@ -95,32 +95,28 @@ class M_item extends CI_Model{
 	//获得所有条目
 	//$limit为每页书目，必填
 	//$offset为偏移，必填
-	function get_all_item($limit='40',$offset='0',$cat='',$labelid='',$sort='adddatetime desc')
+	function get_all_item($limit='40',$offset='0',$cid='',$labelid='',$keyword='',$sort='adddatetime desc')
 	{
-
-		//如果是分类页
-		if(!empty($cat)){
-			$this->db->select('item.id id,img_url,click_count,price,oldprice,discount,cid,slug,item.title title,sellernick,comment,good,unlike,excitablelevel,comfortablelevel,sexlevel');
-			
-			$where = "cid= cat.id AND slug='".$cat."'";
-			
-			if(!empty($labelid)){
-				$where = $where." AND labelid=".$labelid;
-			}
-			
-			$this->db->join($this->cat_table,$where);
-			$this->db->order_by($sort);
-			$query = $this->db->get($this->item_table,$limit,$offset);
-			}
-		//如果是主页
-		else{
-			if(!empty($labelid)){
-				$this->db->where("labelid",$labelid);
-			}
-			
-			$this->db->order_by($sort);
-			$query = $this->db->get($this->item_table,$limit,$offset);
+		$where = '1=1';
+		
+		if(!empty($cid)){
+			$where = $where." AND cid= '".$cid."'";
 		}
+		
+		if(!empty($labelid)){
+			$where = $where." AND item.labelid = '".$labelid."'";
+			
+		}
+		
+		if(!empty($keyword)){
+			$where = $where." AND item.title like '%".$keyword."%'";
+		}
+		
+		$this->db->where($where,NULL,FALSE);
+		
+		$this->db->order_by($sort);
+		
+		$query = $this->db->get($this->item_table,$limit,$offset);
 
 		return $query;
 	}
@@ -154,23 +150,29 @@ class M_item extends CI_Model{
 	/**
 	 * 获得某类别条目总数
 	 *
-	 * @param string cat_slug 类别的slug
+	 * @param string cid 类别的cid
 	 * @return integer 类别的数目
 	 */
-	function count_items($cat_slug='',$labelid=""){
-		if(empty($cat_slug) && empty($labelid)){
-			return $this->db->count_all_results($this->item_table);
-		}else{
-
+	function count_items($cid='',$labelid="",$keyword=""){
+		
 			$this->db->select('COUNT(item.id) AS count');
-			$where = "cid= cat.id AND slug='".$cat_slug."'";
+			
+			$where = '1=1';
+			
+			if(!empty($cid)){
+				$where = $where." AND cid= '".$cid."'";
+			}
 			
 			if(!empty($labelid)){
 				$where = $where." AND item.labelid = ".$labelid;
 			}
 			
-			$this->db->join($this->cat_table,$where);
-			$this->db->order_by('item.id DESC');
+			if(!empty($keyword)){
+				$where = $where." AND item.title like '%".$keyword."%'";
+			}
+			
+			$this->db->where($where,NULL,FALSE);
+			
 			$query = $this->db->get($this->item_table);
 
 			if ($query->num_rows() > 0)
@@ -180,8 +182,7 @@ class M_item extends CI_Model{
 			}else{
 				return 0;
 			}
-		}
-
+		
 	}
 
     /**
@@ -225,11 +226,14 @@ class M_item extends CI_Model{
 		return $query;
 	}
 
-	function get_item_status($days){
-		$overday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $days, date("Y"));
+	function get_item_status($startdays,$enddays){
+		$startday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $startdays, date("Y"));
+		$endday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $enddays, date("Y"));
 		
 		$this->db->select("count(id) as count,sum(click_count) as sum");
-		$this->db->where("adddatetime <= ",date('y-m-d h:i:s',$overday));
+		
+		$this->db->where("adddatetime <= ",date('YmdHis',$startday));
+		$this->db->where("adddatetime > ",date('YmdHis',$endday));
 		
 		$query = $this->db->get($this->item_table);
 		
@@ -240,10 +244,12 @@ class M_item extends CI_Model{
 			return null;
 	}
 	
-	function delete_overdays($days){
-		$overday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $days, date("Y"));
+	function delete_overdays($startdays,$enddays){
+		$startday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $startdays, date("Y"));
+		$endday = mktime(date("h"), date("i"), date("s"), date("m"), date("d") - $enddays, date("Y"));
 		
-		$this->db->where("adddatetime <= ",date('y-m-d h:i:s',$overday));
+		$this->db->where("adddatetime <= ",date('YmdHis',$startday));
+		$this->db->where("adddatetime > ",date('YmdHis',$endday));
 		
 		$result = $this->db->delete($this->item_table);
 		

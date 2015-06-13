@@ -11,6 +11,8 @@ class M_article extends CI_Model{
 		parent::__construct();
                 $this->article_table = $this->db->dbprefix('article');
                 $this->cat_table = $this->db->dbprefix('cat');
+				
+		date_default_timezone_set('prc');
 	}
 
 
@@ -62,26 +64,31 @@ class M_article extends CI_Model{
     	}
     }
 	
-	function get_all_articles($limit='40',$offset='0',$cid='',$labelid='',$sort = "adddatetime desc")
+	function get_all_articles($limit='40',$offset='0',$cid='',$labelid='',$keyword='',$sort = "adddatetime desc")
 	{
-		//如果是分类页
+		
+		$where = '1=1';
+		
 		if(!empty($cid)){
-			$where = "cid = ".$cid;
+			$where = $where." AND cid = '".$cid."'";
 			
-			if(!empty($labelid)){
-				$where = $where." AND labelid=".$labelid;
-			}
-			
-			$this->db->where($where);
-			$this->db->order_by($sort);
-			$query = $this->db->get($this->article_table,$limit,$offset);
-			}
-		//如果是主页
-		else{
-			$this->db->order_by($sort);
-			$query = $this->db->get($this->article_table,$limit,$offset);
 		}
-
+		
+		if(!empty($labelid)){
+			$where = $where." AND labelid = '".$labelid."'";
+			
+		}
+		
+		if(!empty($keyword)){
+			$where = $where." AND title like '%".$keyword."%'";
+		}
+		
+		$this->db->where($where,NULL,FALSE);
+		
+		$this->db->order_by($sort);
+		
+		$query = $this->db->get($this->article_table,$limit,$offset);
+		
 		return $query;
 	}
 
@@ -174,31 +181,36 @@ class M_article extends CI_Model{
 		return $result;
 	}
 
-	function count_articles($cid="",$labelid=""){
-			if(empty($cid)&&empty($labelid)){
-			return $this->db->count_all_results($this->article_table);
-		}else{
-
-			$this->db->select('COUNT(id) AS count');
+	function count_articles($cid="",$labelid="",$keyword=""){
 			
-			if(!empty($cid)){
-				$this->db->where('cid',$cid);
-			}
-			
-			if(!empty($labelid)){
-				$this->db->where('labelid',$labelid);
-			}
-			
-			$query = $this->db->get($this->article_table);
-
-			if ($query->num_rows() > 0)
-			{
-			   $row = $query->row();
-			   return $row->count;
-			}else{
-				return 0;
-			}
+		$this->db->select('COUNT(id) AS count');
+		
+		$where = '1=1';
+		
+		if(!empty($cid)){
+			$where = $where." AND cid ='".$cid."'";
 		}
+		
+		if(!empty($labelid)){
+			$where = $where." AND labelid ='".$labelid."'";
+		}
+		
+		if(!empty($keyword)){
+			$where = $where." AND title like '%".$keyword."%'";
+		}
+		
+		$this->db->where($where,NULL,FALSE);
+		
+		$query = $this->db->get($this->article_table);
+
+		if ($query->num_rows() > 0)
+		{
+		   $row = $query->row();
+		   return $row->count;
+		}else{
+			return 0;
+		}
+		
 	}
 	
 	function count_articles_by_keyword($keyword){
@@ -237,6 +249,16 @@ class M_article extends CI_Model{
 		$this->db->where('id',$id);
 		
 		$this->db->set('unlike',"unlike + 1", FALSE);
+		
+		$this->db->update($this->article_table);
+		
+		return $id;
+	}
+	
+	function add_click_count($id){
+		$this->db->where('id',$id);
+		
+		$this->db->set('click_count',"click_count + 1", FALSE);
 		
 		$this->db->update($this->article_table);
 		

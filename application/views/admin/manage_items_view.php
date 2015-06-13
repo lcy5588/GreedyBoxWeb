@@ -1,5 +1,5 @@
 	<div class="container">
-		<div class="row"><h3>商品管理</h3></div>
+		<div class="row"><div class="col-md-12"><h3>商品管理</h3></div></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="additem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -99,22 +99,43 @@
           </div>
           </div><!--end <div class="modal fade" id="additem"-->
         <div class="row">
-        <div class="col-md-4  hidden-xs hidden-sm pull-right">
-          <form class="form-inline" role="form" action="" method="get" id="search">
+        <div class="col-md-6  hidden-xs hidden-sm pull-right">
+          <form class="form-inline" role="form" action="<?php echo site_url('admin/manageitem')?>" method="get" id="search">
+		  <div class="form-group">
+				<label for="cattype">类型</label>
+				<select class="form-control" id="searchcatid">
+				  <option value="0" <?php if(!empty($searchcatid) && $searchcatid=='0') echo 'selected';?>>全部</option>
+				   <?php if($lxquery && $lxquery->num_rows()>0){?>
+						  <?php foreach($lxquery->result() as $lxarray):?>
+						  <option value="<?php echo $lxarray->id;?>" <?php if(!empty($searchcatid) && $searchcatid==$lxarray->id) echo 'selected';?>><?php echo $lxarray->name;?></option>
+						  <?php 
+						  //结束类型
+						  endforeach;?>
+					<?php } ?>
+				 </select>
+			 </div>
+			 <div class="form-group">
+				<label for="cattype">标签</label>
+				<select class="form-control" id="searchlabelid">
+				  <option value="0" <?php if(!empty($searchlabelid) && $searchlabelid=='0') echo 'selected';?>>全部</option>
+				  <?php if($labelquery && $labelquery->num_rows()>0){?>
+						  <?php foreach($labelquery->result() as $labelarray):?>
+						  <option value="<?php echo $labelarray->id;?>"  <?php if(!empty($searchlabelid) && $searchlabelid==$labelarray->id) echo 'selected';?>><?php echo $labelarray->title;?></option>
+						  <?php 
+						  //结束类型
+						  endforeach;?>
+					<?php } ?>
+				 </select>
+			 </div>
           	<div class="form-group">
-            <select class="form-control" id="ssdyx">
-              <option value="">名称</option>
-              <option value="">店铺</option>
-              <option value="">类型</option>
-             </select>
-            <label for="inputkeyword" class="sr-only">关键词</label>
-            <input type="text" class="form-control" id="inputkeyword">
+            <label for="inputkeyword">关键词</label>
+            <input type="text" class="form-control" value="<?php if(!empty($inputkeyword)) echo $inputkeyword;?>" id="inputkeyword">
           	</div>
-          	<button type="submit" class="btn btn-default">搜索</button>
+          	<button type="button" onclick="search();" class="btn btn-default">搜索</button>
           </form>
          </div>
-		 
-		<ul class="col-md-2 nav nav-pills">
+		<div class="col-md-2">
+		<ul class="nav nav-pills">
 		  <li class=""><button class="btn btn-primary" id="additembtn">添加</button></li>
 		  <li><?php if($lxquery && $lxquery->num_rows()>0){?>
 						<select class="form-control" id="additemcid" name="additemcid">
@@ -128,19 +149,19 @@
 						<?php } ?>
 			</li>
 		</ul>
+		</div>
 	   </div>
 	<div class="row" style="margin-top:10px;">
 	<?php foreach($query->result() as $array):?>
 
 	  <div class="col-sm-3 col-md-3 item">
 		<div class="thumbnail">
-		  
-		  <div class="caption">
-			<p>
-			<div class="gifcontrol">
+		  <div class="gifcontrol">
+				
 				<img src="<?php echo $array->img_url; ?>" alt="" title="">
+				
 			</div>
-			</p>
+		  <div class="caption">
 			<div style="border-top:2px solid #337AB7;">
 				<p>ID: <?php echo $array->id ?></p>
 				<p>名称:<?php echo $array->title ?></p>
@@ -150,6 +171,16 @@
 				<p>卖家:<?php echo $array->sellernick; ?></p>
 				<p>价格:<?php echo $array->price; ?>&nbsp;旧价格:<?php echo $array->oldprice; ?></p>
 				<p>点击次数:<?php echo $array->click_count;?></p>
+				<p style="margin-bottom: 5px;">
+					<span style="font-size:18px;" id="level_item_<?php echo $array->id?>"><?php $avg_gradelevel = intval((floatval($array->excitablelevel) + floatval($array->excitablelevel) + floatval($array->comfortablelevel)) / 3); echo $levelscore_zd[intval($avg_gradelevel/10)]; ?><input disabled="disabled" type="number"  name="score" id="score" value="<?php echo intval($avg_gradelevel/20);?>" class="rating"/></span>
+					</p>
+				<p>刺激度:<input type="number" disabled="disabled" data-id="<?php echo $array->id?>" name="excitablelevel" id="excitablelevel_item_<?php echo $array->id?>" value="<?php echo intval($array->excitablelevel/20);?>" class="rating"/>
+				<span><?php echo sprintf("%.1f",$array->excitablelevel) ?></span></p>
+				<p>舒适度:<input type="number" disabled="disabled" data-id="<?php echo $array->id?>" name="comfortablelevel" id="comfortablelevel_item_<?php echo $array->id?>" value="<?php echo intval($array->comfortablelevel/20);?>" class="rating"/>
+				<span><?php echo sprintf("%.1f",$array->comfortablelevel); ?></span>
+				</p>
+				<p>性感度:<input type="number" disabled="disabled" data-id="<?php echo $array->id?>" name="sexlevel" id="sexlevel_item_<?php echo $array->id?>" value="<?php echo intval($array->sexlevel/20);?>" class="rating"/>
+				<span><?php echo sprintf("%.1f",$array->sexlevel)?></span></p>
 				<p>点击地址:<a href="#" title="<?php echo $array->click_url; ?>">查看</a></p>
 				<p>
 					<a href="#" title="修改此条" class="btn_update btn btn-primary" data-itemid="<?php echo $array->id; ?>">修改</a>
@@ -168,7 +199,7 @@
 	</div>
     </div>
  
-
+<script type='text/javascript' src='<?php echo base_url()?>assets/js/bootstrap-rating-input.js'></script>
 <script>
 	(function($){
 		$.validity.setup({ outputMode:'boostrap' });
@@ -236,16 +267,6 @@
 			if (validateMyAjaxInputs()) {
 				$.post(url, $("#additemform").serialize(),function(data){
 					if(data){
-					
-						/* if($('#item_id').val() == ""){
-							
-							$('tbody').prepend('<tr><th>'+data+'</th><td><img src="'+$('#img_url').val()+'" class="thumbnail" alt="" title=""></td>'
-							+'<td>'+$('#title').val()+'</td><td>'+$('#click_url').val()+'</td><td>'+$('#sellernick').val()+'</td>'
-							+'<td><strong>'+$('#price').val()+'</strong></td><td>'+$('#cid').val()+'</td><td>0</td>'
-							+'<td><a href="#" title="修改此条" class="btn_update" data-itemid="'+data+'">修改</a>&nbsp;&nbsp;'
-							+'<a href="#" title="删除此条" class="btn_delete"  data-itemid="'+data+'">删除</a> </td></tr>').fadeIn();
-						} */
-						
 						location.reload();
 						$('#additem').modal('hide');
 					}
@@ -323,6 +344,15 @@
 			
 			// Return whether it's okay to proceed with the Ajax:
 			return result.valid;
+	}
+	
+	function search(){
+		var keyword = $('#inputkeyword').val();
+		var catid = $('#searchcatid').val();
+		var labelid = $('#searchlabelid').val();
+		
+		var url = '<?php echo site_url('admin/manageitem/1')?>'+'/'+catid+'/'+labelid+'/'+ keyword;
+		location.href = url;
 	}
 </script>
 </body>

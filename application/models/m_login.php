@@ -372,7 +372,7 @@ class M_login extends CI_Model{
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE,
 			),
-			'nick' => array(
+			'name' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
 		  ),
@@ -390,6 +390,9 @@ class M_login extends CI_Model{
 			'access_token' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
+		  ),'adddatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
 		  ),
 		);
 

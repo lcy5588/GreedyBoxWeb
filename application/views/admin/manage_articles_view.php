@@ -92,18 +92,39 @@
           </div>
          
          <div class="row">
-        <div class="col-md-4  hidden-xs hidden-sm pull-right">
+        <div class="col-md-6  hidden-xs hidden-sm pull-right">
           <form class="form-inline" role="form" action="" method="get" id="search">
           	<div class="form-group">
-            <select class="form-control" id="ssdyx">
-              <option value="">名称</option>
-              <option value="">店铺</option>
-              <option value="">类型</option>
-             </select>
-            <label for="inputkeyword" class="sr-only">关键词</label>
-            <input type="text" class="form-control" id="inputkeyword">
+				<label for="cattype">类型</label>
+				<select class="form-control" id="searchcatid">
+				  <option value="0" <?php if(!empty($searchcatid) && $searchcatid=='0') echo 'selected';?>>全部</option>
+				   <?php if($lxquery && $lxquery->num_rows()>0){?>
+						  <?php foreach($lxquery->result() as $lxarray):?>
+						  <option value="<?php echo $lxarray->id;?>" <?php if(!empty($searchcatid) && $searchcatid==$lxarray->id) echo 'selected';?>><?php echo $lxarray->name;?></option>
+						  <?php 
+						  //结束类型
+						  endforeach;?>
+					<?php } ?>
+				 </select>
+			 </div>
+			 <div class="form-group">
+				<label for="cattype">标签</label>
+				<select class="form-control" id="searchlabelid">
+				  <option value="0" <?php if(!empty($searchlabelid) && $searchlabelid=='0') echo 'selected';?>>全部</option>
+				  <?php if($labelquery && $labelquery->num_rows()>0){?>
+						  <?php foreach($labelquery->result() as $labelarray):?>
+						  <option value="<?php echo $labelarray->id;?>"  <?php if(!empty($searchlabelid) && $searchlabelid==$labelarray->id) echo 'selected';?>><?php echo $labelarray->title;?></option>
+						  <?php 
+						  //结束类型
+						  endforeach;?>
+					<?php } ?>
+				 </select>
+			 </div>
+			<div class="form-group">
+				<label for="inputkeyword">关键词</label>
+				<input type="text" class="form-control" value="<?php if(!empty($inputkeyword)) echo $inputkeyword;?>" id="inputkeyword">
           	</div>
-          	<button type="submit" class="btn btn-default">搜索</button>
+          	<button type="button" onclick="search();" class="btn btn-default">搜索</button>
           </form>
          </div>
 		 
@@ -122,7 +143,7 @@
 			</li>
 		</ul>
 		</div>
-	<div class="row">
+	<div class="row" style="margin-top:10px;">
 	<?php if($query->num_rows()>0){ ?>
 	
 	<table class="table table-bordered table-striped" style="table-layout:fixed;word-break:break-all;overflow:hidden;" width="960px">
@@ -332,6 +353,15 @@
 			
 			// Return whether it's okay to proceed with the Ajax:
 			return result.valid;
+	}
+	
+	function search(){
+		var keyword = $('#inputkeyword').val();
+		var catid = $('#searchcatid').val();
+		var labelid = $('#searchlabelid').val();
+		
+		var url = '<?php echo site_url('admin/managearticle/1')?>'+'/'+catid+'/'+labelid+'/'+ keyword;
+		location.href = url;
 	}
 </script>
 </body>

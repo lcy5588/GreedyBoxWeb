@@ -64,7 +64,7 @@
 		</ul>
 		</div>
 	<?php if($friendlinks->num_rows()>0){ ?>
-    <div class="row">
+    <div class="row" style="margin-top:10px;">
 	<table class="table table-bordered table-striped">
     <thead>
       <tr>

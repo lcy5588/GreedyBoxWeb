@@ -25,7 +25,7 @@
 <ul>
 	<li class="new"><a href="javascript:void(0);" class="sortactive" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','label--<?php echo $item['label']->slug;?>','<?php echo $item['catid'];?>','<?php echo $item['label']->id;?>','adddatetime')">最新</a></li>
 	<li class="hot"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','label--<?php echo $item['label']->slug;?>','<?php echo $item['catid'];?>','<?php echo $item['label']->id;?>','click_count')">最热</a></li>
-	<li class="low"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','label--<?php echo $item['label']->slug;?>','<?php echo $item['catid'];?>','<?php echo $item['label']->id;?>','price')">最低</a></li>
+	<li class="low"><a href="javascript:void(0);" onclick="getitemdata(this,'<?php echo site_url('home/getitemdataonlocal/');?>','label--<?php echo $item['label']->slug;?>','<?php echo $item['catid'];?>','<?php echo $item['label']->id;?>','score')">最高</a></li>
 </ul>
 </div>
 </div>

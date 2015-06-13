@@ -22,6 +22,7 @@ class Content extends CI_Controller {
 		$this->load->model('M_pagetype');
 		$this->load->model('M_article');
 		$this->load->model('M_bannerpic');
+		$this->load->model('M_user');
 	}
 
 	/**
@@ -55,6 +56,17 @@ class Content extends CI_Controller {
 		
 		if($identification == 'article'){
 			$article = $this->M_article->get_article_by_id($id);
+			
+			if(!empty($article)){
+				$author = $this->M_user->get_user_by_id($article->authorid);
+				if(empty($author)){
+					$data['authorname'] = "万能的主";
+				}else{
+					$data['authorname'] = $author->name;
+					$data['author'] = $author;
+				}
+			}
+			
 			$data['article'] = $article;
 			if(!empty($article)){
 				$data['cat'] = $this->M_cat->get_cat_by_id($article->cid);

@@ -5,12 +5,12 @@
 		 <div style="text-align:center;">
 			<h1><?php echo $article->title?></h1>
 		 </div>
-		 <div style="text-align:center;">
+		 <div style="text-align:center;margin-bottom:20px;">
 			<span><?php echo $article->adddatetime?></span>
-			<span style="margin-left:8px;"><?php echo $article->authorid?></span>
+			<span style="margin-left:8px;"><?php echo $authorname;?></span>
 			<span class="glyphicon glyphicon-tag"><?php if(!empty($cat)){echo $cat->name;}?></span>
 			<span class="glyphicon glyphicon-tag"><?php if(!empty($label)){echo $label->title;}?></span>
-			<span class="glyphicon glyphicon-eye-open"><?php echo $article->click_count;?></span>
+			<span class="glyphicon glyphicon-eye-open"><?php echo $article->click_count+1;?></span>
 		 </div>
 		<?php echo $article->html;?>
 		<div style="width:100%;height:25px;">
@@ -34,18 +34,7 @@
 		</div>
 	</div>
 	<div role="Advertisement">
-          <ul class="list-unstyled">
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
-					</a>
-			</li>
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/64x64" alt="Generic placeholder image">
-					</a>
-			</li>
-          </ul>
+         
     </div>
 </div>
 </div>
@@ -68,6 +57,8 @@
 <script src="<?php echo base_url()?>assets/bootstrap/js/doc.js"></script>
 <script type="text/javascript" charset="utf-8">
   $(function() {
+		$.post('<?php echo site_url("home/countarticle/").'/'.$article->id?>');
+		
 		$(".vote").click(function(){
 		var id = $(this).data('articleid');
 		var value = $(this).data('votevalue');

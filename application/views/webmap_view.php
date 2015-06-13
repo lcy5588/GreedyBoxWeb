@@ -2,7 +2,7 @@
 <div class="container bs-docs-container"  style="padding-top:80px;"  id="top" >
 
 <div class="row">
-	<div class="col-md-7 col-md-offset-1" role="main">
+	<div class="col-md-7 col-md-offset-1" style="background:white;box-shadow:0px 1px 2px rgba(0, 0, 0, 0.075);" role="main">
   
 	<h4>分类</h4>
 		<table>
@@ -29,20 +29,16 @@
 	</div>
 	<div class="col-md-3 hidden-print hidden-xs hidden-sm" id="sidepannel">
 	
-	<div>
-		<ul class="list-unstyled">
-			
-         </ul>
+	<div role="Info">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+			Basic panel example
+		  </div>
+		</div>
 	</div>
 	
 	<div role="Advertisement">
-          <ul class="list-unstyled">
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/250x64" alt="Generic placeholder image">
-					</a>
-			</li>
-          </ul>
+          
     </div>
 </div>
 </div>

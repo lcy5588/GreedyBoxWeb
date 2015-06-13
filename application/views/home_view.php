@@ -16,7 +16,7 @@
       <div class="media-body" style="padding-top:10px;padding-bottom:10px;padding-right:10px;">
         <div style="height:90px;">
         <h4 class="media-heading"><a href="<?php echo $clickurl;?>"><?php echo $article->title;?></a></h4>
-        <?php echo mb_substr($article->content,0,200,'utf-8');?>
+        <?php echo mb_substr($article->content,0,100,'utf-8').'....';?>
 		</div>
 		<div style="height:10px;">
 			<div class="pull-right">
@@ -49,13 +49,7 @@
 		</div>
 	</div>
 	<div role="Advertisement">
-          <ul class="list-unstyled">
-			<li>
-					<a href="#">
-					  <img class="media-object" data-src="holder.js/263x180" alt="Generic placeholder image">
-					</a>
-			</li>
-          </ul>
+         
     </div>
 	<div class="row">
 	<?php foreach($jokes->result() as $joke):?>
@@ -126,12 +120,6 @@
 					img.gifplayer();
 				}
 			}
-		});
-		
-		$("#myNav").affix({
-			offset: { 
-				top: 10
-				}
 		});
 		
 		$(".vote").click(function(){

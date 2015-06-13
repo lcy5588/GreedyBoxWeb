@@ -175,7 +175,7 @@
 		</ul>
 		</div>
 	<?php if($banners->num_rows()>0){ ?>
-	<div class="row">
+	<div class="row" style="margin-top:10px;">
 	<table class="table table-bordered table-striped" >
     <thead>
       <tr>
@@ -311,7 +311,7 @@
 		</ul>
 		</div>
 	<?php if($bannerpics->num_rows()>0){ ?>
-<div class="row">
+<div class="row"  style="margin-top:10px;">
 	<table class="table table-bordered table-striped col-md-12" style="table-layout:fixed;word-break:break-all;overflow:hidden;">
     <thead>
       <tr>

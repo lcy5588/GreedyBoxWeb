@@ -49,7 +49,7 @@
 			  </ul>
 			  <form class="navbar-form navbar-right" role="search" action="<?php echo site_url('home/search')?>">
 				<div class="form-group">
-				  <input type="text" class="form-control" placeholder="Search" id="keyword" name="keyword" value="">
+				  <input type="text" class="form-control" placeholder="Search" id="keyword" name="keyword" value="<?php if(!empty($keyword)) echo $keyword;?>">
 				</div>
 				
 				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>

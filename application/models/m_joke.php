@@ -58,25 +58,28 @@ class M_joke extends CI_Model{
     	}
     }
 	
-	function get_all_jokes($limit='40',$offset='0',$cid='',$labelid='',$sort = "adddatetime desc")
+	function get_all_jokes($limit='40',$offset='0',$cid='',$labelid='',$keyword="",$sort = "adddatetime desc")
 	{
 		//如果是分类页
+		$where = '1=1';
+
 		if(!empty($cid)){
-			$this->db->where('cid',$cid);
-			
-			if(!empty($labelid)){
-				$this->db->where('labelid',$labelid);
-			}
-			
-			
-			$this->db->order_by($sort);
-			$query = $this->db->get($this->joke_table,$limit,$offset);
-			}
-		//如果是主页
-		else{
-			$this->db->order_by($sort);
-			$query = $this->db->get($this->joke_table,$limit,$offset);
+			$where = $where." AND cid=".$cid;
 		}
+		
+		if(!empty($labelid)){
+			$where = $where." AND labelid=".$labelid;
+		}
+		
+		if(!empty($keyword)){
+			$where = $where." AND html like '%".$keyword."%'";
+		}
+		
+		$this->db->where($where,NULL,FALSE);
+		
+		$this->db->order_by($sort);
+		$query = $this->db->get($this->joke_table,$limit,$offset);
+		
 
 		return $query;
 	}
@@ -166,17 +169,24 @@ class M_joke extends CI_Model{
 		return $result;
 	}
 
-	function count_jokes($cid="",$labelid=""){
-			if(empty($cid)&&empty($labelid)){
-			return $this->db->count_all_results($this->joke_table);
-		}else{
-
+	function count_jokes($cid="",$labelid="",$keyword=""){
+			
 			$this->db->select('COUNT(id) AS count');
-			$this->db->where('cid',$cid);
+			
+			$where = '1=1';
+			if(!empty($cid)){
+				$where = $where." AND cid ='".$cid."'";
+			}
 			
 			if(!empty($labelid)){
-				$this->db->where('labelid',$labelid);
+				$where = $where." AND labelid ='".$labelid."'";
 			}
+			
+			if(!empty($keyword)){
+				$where = $where." AND html like '%".$keyword."%'";
+			}
+			
+			$this->db->where($where,NULL,FALSE);
 			
 			$query = $this->db->get($this->joke_table);
 
@@ -187,7 +197,7 @@ class M_joke extends CI_Model{
 			}else{
 				return 0;
 			}
-		}
+		
 	}
 	
 	function vote_good($id){

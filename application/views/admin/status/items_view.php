@@ -25,7 +25,7 @@
 				//条目开始
 					?>
 				<tr>
-					<th><?php echo $itemstatus['overdays'] ?></th>
+					<th><?php echo $itemstatus['overdays'].'<= - <'.$itemstatus['enddays'] ?></th>
 					<th><?php echo $itemstatus['count'] ?></th>
 					<th><?php echo $itemstatus['sum'] ?></th>
 					<th><?php if($itemstatus['count'] != 0){ echo $itemstatus['sum']/$itemstatus['count'];} ?></th>
@@ -71,9 +71,11 @@
     endforeach;?>
 		</tbody>
   </table>
-	<div class="pagenav">
-		<?=$pagination;?>
-	</div>
+	<nav class="col-md-12">
+	  <ul class="pagination">
+		<?php echo $pagination;?>
+	  </ul>
+	</nav>
 	<?php } ?>
 </div>
 
