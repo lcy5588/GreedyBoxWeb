@@ -4,12 +4,18 @@ class M_item extends CI_Model{
 
         var $cat_table = '';
         var $item_table = '';
+		var $label_table = '';
+		var $pagetype_table = '';
 
 	function __construct()
 	{
 		parent::__construct();
         $this->cat_table = $this->db->dbprefix('cat');
         $this->item_table = $this->db->dbprefix('item');
+		$this->label_table = $this->db->dbprefix('label');
+		$this->pagetype_table = $this->db->dbprefix('pagetype');
+		
+		date_default_timezone_set('prc');
 	}
 
 
@@ -184,7 +190,32 @@ class M_item extends CI_Model{
 			}
 		
 	}
-
+	
+	/**
+	 * 获取某类别点击总数
+	 *
+	 * @param integer cid 类别的id
+	 * @return integer 类别点击总数
+	 */
+	function click_count_by_cid($cid=0){
+         $item_table = $this->item_table;
+		if($cid == 0){
+			$this->db->select('SUM(click_count) as sum');
+			$query = $this->db->get($item_table);
+			$row = $query->row();
+			  return $row->sum;
+		}else {
+			$this->db->where('cid='.$cid);
+			$this->db->select('SUM(click_count) as sum');
+			$query = $this->db->get($item_table);
+			if ($query->num_rows() > 0)
+			{
+				$row = $query->row();
+				  return $row->sum;
+			}
+		}
+	}
+	
     /**
      * 根据id查找条目
      *
@@ -213,7 +244,32 @@ class M_item extends CI_Model{
 		$query = $this->db->get($this->item_table);
 		return $query;
     }
-
+	
+	/**
+     * 查询每个类别对应的点击
+     *
+     * @return 查询结果
+     */
+	function query_items(){
+        
+		$this->db->select('cat.id,cat.name,labelid,label.title as title,COUNT(item.id) as count, SUM(item.click_count) as sum');
+		
+		$where = "cat.id=item.cid";
+		$this->db->join($this->cat_table,$where,'right');
+		
+		$where = "pagetype.id=cat.typeid and pagetype.identification='item'";
+		$this->db->join($this->pagetype_table,$where,'right');
+		
+		$where = "labelid=label.id";
+		$this->db->join($this->label_table,$where,'left');
+		
+		$this->db->order_by('item.cid DESC');
+		$this->db->group_by(array('item.cid','labelid'));
+		$query = $this->db->get($this->item_table);
+		
+		return $query;
+	}
+	
     /**
      * 查询每个店铺对应的点击
      *

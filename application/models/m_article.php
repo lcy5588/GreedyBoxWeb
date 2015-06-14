@@ -4,13 +4,16 @@ class M_article extends CI_Model{
 
         var $article_table = '';
         var $cat_table = '';
-
-
+		var $label_table = '';
+		var $pagetype_table = '';
+		
 	function __construct()
 	{
 		parent::__construct();
                 $this->article_table = $this->db->dbprefix('article');
                 $this->cat_table = $this->db->dbprefix('cat');
+				$this->label_table = $this->db->dbprefix('label');
+				$this->pagetype_table = $this->db->dbprefix('pagetype');
 				
 		date_default_timezone_set('prc');
 	}
@@ -138,12 +141,21 @@ class M_article extends CI_Model{
      */
 	function query_articles(){
         
-		$this->db->select('id,title,COUNT(id) as count, SUM(click_count) as sum');
-		$where = "catid=cid";
-		$this->db->join($this->cat_table,$where);
-		$this->db->order_by('count DESC');
-		$this->db->group_by('cid');
+		$this->db->select('cat.id,cat.name,labelid,label.title as title,COUNT(article.id) as count, SUM(article.click_count) as sum');
+		
+		$where = "cat.id=article.cid";
+		$this->db->join($this->cat_table,$where,'right');
+		
+		$where = "pagetype.id=cat.typeid and pagetype.identification='article'";
+		$this->db->join($this->pagetype_table,$where,'right');
+		
+		$where = "labelid=label.id";
+		$this->db->join($this->label_table,$where,'left');
+		
+		$this->db->order_by('article.cid DESC');
+		$this->db->group_by(array('article.cid','labelid'));
 		$query = $this->db->get($this->article_table);
+		
 		return $query;
 	}
 
@@ -163,7 +175,7 @@ class M_article extends CI_Model{
 		}else {
 			$this->db->where('cid='.$cid);
 			$this->db->select('SUM(click_count) as sum');
-			$query = $this->db->get($item_table);
+			$query = $this->db->get($article_table);
 			if ($query->num_rows() > 0)
 			{
 				$row = $query->row();

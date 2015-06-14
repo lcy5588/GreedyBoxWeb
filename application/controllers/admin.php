@@ -33,10 +33,28 @@ class Admin extends CI_Controller {
 	 */
 	public function index()
 	{
+		$data['articlequery'] = $this->M_article->query_articles();
+		$data['article_click_count_sum'] = $this->M_article->click_count_by_cid();
+		$data['article_item_count_sum'] = $this->M_article->count_articles();
+		
+		$data['itemquery'] = $this->M_item->query_items();
+		$data['item_click_count_sum'] = $this->M_item->click_count_by_cid();
+		$data['item_item_count_sum'] = $this->M_item->count_items();
+		
+		$data['jokequery'] = $this->M_joke->query_jokes();
+		$data['joke_click_count_sum'] = '0';
+		$data['joke_item_count_sum'] = $this->M_joke->count_jokes();
+		
+		$data['usercount'] = $this->M_user->count_users();
+		
+		$this->load->view('admin/include_header');
+		$this->load->view('admin/status/dash_board_view',$data);
+	}
+
+	public function searchitaobaoitem(){
 		$this->load->view('admin/include_header');
 		$this->load->view('admin/index_view');
 	}
-
 	/**
 	 * 登出
 	 *

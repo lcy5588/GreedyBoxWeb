@@ -28,9 +28,6 @@ function getitemdata(obj,url,id,catid,labelid,sort){
 							+"<p style='text-align:left;margin-bottom: 0px;'><button href='javascript:void(0);' style='padding:0px;' class='vote btn btn-link' data-itemid='"+ val.id +"' data-votevalue='good'>"
 							+"<span style='font-size:16px;' class='glyphicon glyphicon-heart' aria-hidden='true'></span>"
 							+"</button><span id='itemid"+val.id +"'>"+ val.good +"</span>"
-							+"<button href='javascript:void(0);' style='padding:0px;' class='btn btn-link' data-itemid='"+ val.id +"' data-votevalue='good'>"
-							+"<span style='font-size:16px;' class='glyphicon glyphicon-star' aria-hidden='true'></span>"
-							+"</button><span id='itemid"+val.id +"'>"+ val.good +"</span>"
 							+"</p></div></div></div></div>");
 			}
 			

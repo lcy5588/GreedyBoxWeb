@@ -24,6 +24,9 @@
       <div class="container">          
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+			<li class="">
+                <a href="<?php echo site_url('admin')?>">仪表盘</a>
+              </li>
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">基础设置<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
@@ -60,7 +63,7 @@
 					<a href="<?php echo site_url('admin/managebrand')?>">品牌管理</a>
 				  </li>
 				  <li class="">
-					 <a href="<?php echo site_url('admin')?>">搜索添加商品</a>
+					 <a href="<?php echo site_url('admin/searchitaobaoitem')?>">搜索添加商品</a>
 				  </li>
 				</ul>
 			</li>

@@ -60,10 +60,6 @@
 					<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
 						<span style="font-size:16px;" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 					</button><span id="itemid<?php echo $array->id; ?>"><?php echo $array->good;?></span>
-					
-					<button href="javascript:void(0);" style="padding:0px;" class="btn btn-link" data-itemid="<?php echo $array->id; ?>" data-votevalue="good">
-						<span style="font-size:16px;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
-					</button><span id="itemid<?php echo $array->id; ?>"><?php echo $array->good;?></span>
 				</p>
 			</div>
 		  </div>

@@ -21,7 +21,7 @@
 			<div class="" style="padding-top:5px;border-top:2px solid #337AB7;">
 			<button href="javascript:void(0);" style="padding:0px;" class="vote btn btn-link" data-jokeid="<?php echo $joke->id; ?>" data-votevalue="good">
 							<span style="font-size:16px;" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-						</button><span id="jokeid<?php echo $joke->id; ?>"><?php echo $joke->good;?></span>&nbsp;&nbsp;评论(20)
+						</button><span id="jokeid<?php echo $joke->id; ?>"><?php echo $joke->good;?></span>
 			</div>
 			
         </div>

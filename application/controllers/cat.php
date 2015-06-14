@@ -161,7 +161,7 @@ class Cat extends CI_Controller {
 				$item = array();
 			
 				if(!empty($label)){
-					$item['item'] = $this->M_item->get_all_item($limit,($page-1)*$limit,$cat_slug_decode,$label->id);
+					$item['item'] = $this->M_item->get_all_item($limit,($page-1)*$limit,$cat->id,$label->id);
 					//$item['brand'] = $this->M_brand->get_all_brand(10,0,$cat_slug_decode);
 					//$itemcat['label'] = $this->M_label->get_all_label(8,0,$cat_slug_decode);
 					$item['bannerpic'] = $this->M_bannerpic->get_bannerpic_loop_by_type(1,'4');

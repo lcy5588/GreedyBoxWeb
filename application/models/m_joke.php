@@ -11,6 +11,10 @@ class M_joke extends CI_Model{
 		parent::__construct();
                 $this->joke_table = $this->db->dbprefix('joke');
                 $this->cat_table = $this->db->dbprefix('cat');
+				$this->label_table = $this->db->dbprefix('label');
+		$this->pagetype_table = $this->db->dbprefix('pagetype');
+		
+		date_default_timezone_set('prc');
 	}
 
 
@@ -126,12 +130,21 @@ class M_joke extends CI_Model{
      */
 	function query_jokes(){
         
-		$this->db->select('id,COUNT(id) as count, SUM(click_count) as sum');
-		$where = "catid=cid";
-		$this->db->join($this->cat_table,$where);
-		$this->db->order_by('count DESC');
-		$this->db->group_by('cid');
+		$this->db->select('cat.id,cat.name,labelid,label.title as title,COUNT(joke.id) as count, 0 as sum',FALSE);
+		
+		$where = "cat.id=joke.cid";
+		$this->db->join($this->cat_table,$where,'right');
+		
+		$where = "pagetype.id=cat.typeid and pagetype.identification='joke'";
+		$this->db->join($this->pagetype_table,$where,'right');
+		
+		$where = "labelid=label.id";
+		$this->db->join($this->label_table,$where,'left');
+		
+		$this->db->order_by('joke.cid DESC');
+		$this->db->group_by(array('joke.cid','labelid'));
 		$query = $this->db->get($this->joke_table);
+		
 		return $query;
 	}
 
@@ -151,7 +164,7 @@ class M_joke extends CI_Model{
 		}else {
 			$this->db->where('cid='.$cid);
 			$this->db->select('SUM(click_count) as sum');
-			$query = $this->db->get($item_table);
+			$query = $this->db->get($joke_table);
 			if ($query->num_rows() > 0)
 			{
 				$row = $query->row();
