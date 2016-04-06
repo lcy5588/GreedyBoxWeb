@@ -34,7 +34,7 @@
 			<th></th>
             <th><?php echo $article_item_count_sum; ?></th>
             <th><?php echo $article_click_count_sum; ?></th>
-            <td><?php echo $article_click_count_sum/$article_item_count_sum; ?></td>
+            <td><?php if($article_item_count_sum != 0) echo $article_click_count_sum/$article_item_count_sum; ?></td>
 			
           </tr>
 		</tbody>
@@ -77,7 +77,7 @@
 			<th></th>
             <th><?php echo $item_item_count_sum; ?></th>
             <th><?php echo $item_click_count_sum; ?></th>
-            <td><?php echo $item_click_count_sum/$item_item_count_sum; ?></td>
+            <td><?php if($article_item_count_sum != 0) echo $item_click_count_sum/$item_item_count_sum; ?></td>
 			
           </tr>
 		</tbody>
@@ -120,7 +120,7 @@
 			<th></th>
             <th><?php echo $joke_item_count_sum; ?></th>
             <th><?php echo $joke_click_count_sum; ?></th>
-            <td><?php echo $joke_click_count_sum/$joke_item_count_sum; ?></td>
+            <td><?php  if($article_item_count_sum != 0) echo $joke_click_count_sum/$joke_item_count_sum; ?></td>
           </tr>
 		</tbody>
   </table>

@@ -667,6 +667,356 @@ class M_login extends CI_Model{
 		   
 	   }
 	   
+	   //财务
+	   ////////////////////////////////////////////////////////
+	   
+	   //创建accountbooks
+		$fields_accountbooks = array(
+			'bookid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),			
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		  )
+		);
+
+		$this->dbforge->add_field($fields_accountbooks);
+		$this->dbforge->add_key('bookid');
+
+		//创建表accountbooks，如果不存在
+	   if($this->dbforge->create_table('accountbooks', TRUE))
+	   {
+		   $data['text'] .=  '<p>表accountbooks创建成功!</p>';
+		   
+	   }
+	   
+	   //创建accounts
+		$fields_accounts = array(
+			'accountid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),	
+			'bookid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+			),				
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		    )
+		    'typeid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+			),
+			'initmoney' => array(
+				'type' => 'DOUBLE',
+				'default' => '0',
+			),
+			'remark' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+				 'null' => true
+		    ),
+			'color' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+		    )
+		);
+
+		$this->dbforge->add_field($fields_accounts);
+		$this->dbforge->add_key('accountid');
+
+		//创建表accounts，如果不存在
+	   if($this->dbforge->create_table('accounts', TRUE))
+	   {
+		   $data['text'] .=  '<p>表accounts创建成功!</p>';
+		   
+	   }
+	   
+	   //创建incomes
+		$fields_incomes = array(
+			'incomeid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),	
+			'accountid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+			),
+			'money' => array(
+				'type' => 'DOUBLE',
+			),	
+		    'typeid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+			),
+			'person' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+				 'null' => true
+		    ),
+			'remark' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+				 'null' => true
+		    ),
+			'datetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+		    )
+		);
+
+		$this->dbforge->add_field($fields_incomes);
+		$this->dbforge->add_key('incomeid');
+
+		//创建表incomes，如果不存在
+	   if($this->dbforge->create_table('incomes', TRUE))
+	   {
+		   $data['text'] .=  '<p>表incomes创建成功!</p>';
+		   
+	   }
+	   
+		//创建expenditures
+		$fields_expenditures = array(
+			'expenditureid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),	
+			'accountid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+			),
+			'money' => array(
+				'type' => 'DOUBLE',
+			),	
+		    'typeid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+			),
+			'person' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+				 'null' => true
+		    ),
+			'remark' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+				 'null' => true
+		    ),
+			'datetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+		    )
+		);
+
+		$this->dbforge->add_field($fields_expenditures);
+		$this->dbforge->add_key('expenditureid');
+
+		//创建表expenditures，如果不存在
+	   if($this->dbforge->create_table('expenditures', TRUE))
+	   {
+		   $data['text'] .=  '<p>表expenditures创建成功!</p>';
+		   
+	   }
+	   
+	   //创建accounttype
+		$fields_accounttype = array(
+			'typeid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),			
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		  )
+		);
+
+		$this->dbforge->add_field($fields_accounttype);
+		$this->dbforge->add_key('typeid');
+
+		//创建表accounttype，如果不存在
+	   if($this->dbforge->create_table('accounttype', TRUE))
+	   {
+		   $data['text'] .=  '<p>表accounttype创建成功!</p>';
+		   
+	   }
+	   
+	    //创建incometype
+		$fields_incometype = array(
+			'typeid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),			
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		  ),			
+			'icon' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+		  )
+		);
+
+		$this->dbforge->add_field($fields_incometype);
+		$this->dbforge->add_key('typeid');
+
+		//创建表incometype，如果不存在
+	   if($this->dbforge->create_table('incometype', TRUE))
+	   {
+		   $data['text'] .=  '<p>表incometype创建成功!</p>';
+		   
+	   }
+	   
+	   //创建expendituretype
+		$fields_expendituretype = array(
+			'typeid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),			
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '128',
+		  ),			
+			'icon' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+		  )
+		);
+
+		$this->dbforge->add_field($fields_expendituretype);
+		$this->dbforge->add_key('typeid');
+
+		//创建表expendituretype，如果不存在
+	   if($this->dbforge->create_table('expendituretype', TRUE))
+	   {
+		   $data['text'] .=  '<p>表expendituretype创建成功!</p>';
+		   
+	   }
+	   
+	   //创建liabilities
+		$fields_liabilities = array(
+			'liabilitieid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),	
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+		    ),
+			'totalcost' => array(
+				'type' => 'DOUBLE',
+			),	
+			'unitexpenditure' => array(
+				'type' => 'DOUBLE',
+			),	
+			'adddatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+		    ),	
+			'deldatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+				 'null' => true
+		    ),	
+			'caldatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+				 'null' => true
+		    ),	
+			'isauto' => array(
+				 'type' => 'Bool',
+				 'null' => true
+		    )
+		);
+
+		$this->dbforge->add_field($fields_liabilities);
+		$this->dbforge->add_key('liabilitieid');
+
+		//创建表liabilities，如果不存在
+	   if($this->dbforge->create_table('liabilities', TRUE))
+	   {
+		   $data['text'] .=  '<p>表liabilities创建成功!</p>';
+		   
+	   }
+	   
+	   //创建assets
+		$fields_assets = array(
+			'assetid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE,
+			),	
+			'name' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+		    ),
+			'totalnum' => array(
+				'type' => 'INT',
+				'constraint' => '10',
+				'unsigned' => TRUE,
+			),	
+			'unitprice' => array(
+				'type' => 'DOUBLE',
+			),	
+			'income' => array(
+				'type' => 'DOUBLE',
+			),	
+			'adddatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+		    ),	
+			'deldatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+				 'null' => true
+		    ),	
+			'caldatetime' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '14',
+				 'null' => true
+		    ),	
+			'isauto' => array(
+				 'type' => 'Bool',
+				 'null' => true
+		    )
+		);
+
+		$this->dbforge->add_field($fields_assets);
+		$this->dbforge->add_key('assetid');
+
+		//创建表assets，如果不存在
+	   if($this->dbforge->create_table('assetid', TRUE))
+	   {
+		   $data['text'] .=  '<p>表assets创建成功!</p>';
+		   
+	   }
+	   
+	   ////////////////////////////////////////////////////////
 	   $fields_admin = array(
 			'user_email' => array(
 				 'type' => 'VARCHAR',
