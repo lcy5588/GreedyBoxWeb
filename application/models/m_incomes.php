@@ -2,63 +2,51 @@
 
 class M_incomes extends CI_Model{
 
-        var $article_table = '';
-        var $cat_table = '';
-		var $label_table = '';
-		var $pagetype_table = '';
-		
+        var $incomes_table = '';
+
 	function __construct()
 	{
 		parent::__construct();
-                $this->article_table = $this->db->dbprefix('article');
-                $this->cat_table = $this->db->dbprefix('cat');
-				$this->label_table = $this->db->dbprefix('label');
-				$this->pagetype_table = $this->db->dbprefix('pagetype');
-				
+                $this->incomes_table = $this->db->dbprefix('incomes');
+              
 		date_default_timezone_set('prc');
 	}
 
 
-	function add_article()
+	function add_income()
 	{
         $data_decode = json_decode($_POST['data']);
-        foreach($data_decode as $article){
+        foreach($data_decode as $income){
             $data = array(                     
-                           'cid' => $article -> article_cid ,
-                           'labelid' => $article -> article_labelid ,
-                           'title' =>$article -> article_title,
-                           'content' =>$article -> article_content,
-                           'html' =>$article -> article_html,
-                           'authorid' =>$article -> article_authorid,
-                           'levelid' => $article -> article_levelid,
-						   'imgurl' => $article -> imgurl,
-                           'adddatetime' => date('YmdHis',time())
+                           'accountid' => $income -> income_accountid,
+                           'money' => $income -> income_money,
+                           'typeid' =>$income -> income_typeid,
+                           'person' =>$income -> income_person,
+                           'datetime' =>$income -> income_datetime,
+                           'remark' =>$income -> income_remark
                         );
-            $this->db->insert($this->article_table, $data);
+            $this->db->insert($this->incomes_table, $data);
         }
     }
 	
-	function add_article_by($article)
+	function add_income_by($income)
 	{
             $data = array(
-                           'cid' =>$article['article_cid'],
-                           'labelid' =>$article['article_labelid'],
-                           'title' =>$article['article_title'],
-                           'content' =>$article['article_content'],
-                           'html' =>$article['article_html'],
-                           'authorid' =>$article['article_authorid'],
-                           'levelid' => $article['article_levelid'],
-						   'imgurl' => $article['imgurl'],
-						   'adddatetime' => date('YmdHis',time())
+                           'accountid' =>$income['income_accountid'],
+                           'money' =>$income['income_money'],
+                           'typeid' =>$income['income_typeid'],
+                           'person' =>$income['income_person'],
+                           'datetime' =>$income['income_datetime'],
+                           'remark' =>$income['income_remark']
                         );
-            return $this->db->insert($this->article_table, $data);
+            return $this->db->insert($this->incomes_table, $data);
     }
 
 	
-	function get_article_by_id($id = ''){
+	function get_income_by_id($id = ''){
     	if(!empty($id)){
-			$this->db->select('id,cid,labelid,title,html,authorid,levelid,adddatetime,click_count,imgurl,good,unlike');
-    		$result = $this->db->get_where($this->article_table, array('id'=>$id))->result();
+			$this->db->select('incomeid,accountid,money,typeid,person,datetime,remark');
+    		$result = $this->db->get_where($this->incomes_table, array('incomeid'=>$id))->result();
 			
 			return $result[0];
 			
@@ -67,71 +55,63 @@ class M_incomes extends CI_Model{
     	}
     }
 	
-	function get_all_articles($limit='40',$offset='0',$cid='',$labelid='',$keyword='',$sort = "adddatetime desc")
+	function get_all_incomes($limit='40',$offset='0',$accountid='',$typeid='',$sort = "datetime desc")
 	{
 		
 		$where = '1=1';
 		
-		if(!empty($cid)){
-			$where = $where." AND cid = '".$cid."'";
+		if(!empty($accountid)){
+			$where = $where." AND accountid = '".$accountid."'";
 			
 		}
 		
-		if(!empty($labelid)){
-			$where = $where." AND labelid = '".$labelid."'";
+		if(!empty($typeid)){
+			$where = $where." AND typeid = '".$typeid."'";
 			
-		}
-		
-		if(!empty($keyword)){
-			$where = $where." AND title like '%".$keyword."%'";
 		}
 		
 		$this->db->where($where,NULL,FALSE);
 		
 		$this->db->order_by($sort);
 		
-		$query = $this->db->get($this->article_table,$limit,$offset);
+		$query = $this->db->get($this->incomes_table,$limit,$offset);
 		
 		return $query;
 	}
 
-	function update_article(){
+	function update_income(){
 		 $data_decode = json_decode($_POST['data']);
-		foreach($data_decode as $article){
-			$data = array(
-                           'cid' => $article -> article_cid ,
-                           'labelid' => $article -> article_labelid ,
-                           'title' =>$article -> article_title,
-                           'content' =>$article -> article_content,
-                           'html' =>$article -> article_html,
-                           'authorid' =>$article -> article_authorid,
-                           'levelid' => $article -> article_levelid,
-						   'imgurl' => $article -> article_imgurl
-            );
+		foreach($data_decode as $income){
+			 $data = array(                     
+                           'accountid' => $income -> income_accountid,
+                           'money' => $income -> income_money,
+                           'typeid' =>$income -> income_typeid,
+                           'person' =>$income -> income_person,
+                           'datetime' =>$income -> income_datetime,
+                           'remark' =>$income -> income_remark
+                        );
 
-			$this->db->where('id', $article -> article_id);
-			$this->db->update($this->article_table, $data);
+			$this->db->where('incomeid', $income -> income_id);
+			$this->db->update($this->incomes_table, $data);
         }
 	}
 
-	function update_article_by($article){
+	function update_income_by($income){
 		$data = array(
-                           'cid' =>$article['article_cid'],
-                           'labelid' =>$article['article_labelid'],
-                           'title' =>$article['article_title'],
-                           'content' =>$article['article_content'],
-                           'html' =>$article['article_html'],
-                           'authorid' =>$article['article_authorid'],
-                           'levelid' => $article['article_levelid'],
-						   'imgurl' => $article['article_imgurl']
-            );
+					   'accountid' =>$income['income_accountid'],
+					   'money' =>$income['income_money'],
+					   'typeid' =>$income['income_typeid'],
+					   'person' =>$income['income_person'],
+					   'datetime' =>$income['income_datetime'],
+					   'remark' =>$income['income_remark']
+                        );
             
-        $this->db->where('id', $article['article_id']);
-		return $this->db->update($this->article_table, $data);
+        $this->db->where('incomeid', $income['income_id']);
+		return $this->db->update($this->incomes_table, $data);
 	}
 	
-	function delete_article($article_id){
-		return $this->db->delete($this->article_table,array('id'=>$article_id));
+	function delete_income($income_id){
+		return $this->db->delete($this->incomes_table,array('incomeid'=>$income_id));
 	}
 
     /**
@@ -139,81 +119,43 @@ class M_incomes extends CI_Model{
      *
      * @return 查询结果
      */
-	function query_articles(){
+	function query_incomes(){
         
-		$this->db->select('cat.id,cat.name,labelid,label.title as title,COUNT(article.id) as count, SUM(article.click_count) as sum');
+		$this->db->select('cat.id,cat.name,labelid,label.title as title,COUNT(income.id) as count, SUM(income.click_count) as sum');
 		
-		$where = "cat.id=article.cid";
+		$where = "cat.id=income.cid";
 		$this->db->join($this->cat_table,$where,'right');
 		
-		$where = "pagetype.id=cat.typeid and pagetype.identification='article'";
+		$where = "pagetype.id=cat.typeid and pagetype.identification='income'";
 		$this->db->join($this->pagetype_table,$where,'right');
 		
 		$where = "labelid=label.id";
 		$this->db->join($this->label_table,$where,'left');
 		
-		$this->db->order_by('article.cid DESC');
-		$this->db->group_by(array('article.cid','labelid'));
-		$query = $this->db->get($this->article_table);
+		$this->db->order_by('income.cid DESC');
+		$this->db->group_by(array('income.cid','labelid'));
+		$query = $this->db->get($this->income_table);
 		
 		return $query;
 	}
 
-	/**
-	 * 获取某类别点击总数
-	 *
-	 * @param integer cid 类别的id
-	 * @return integer 类别点击总数
-	 */
-	function click_count_by_cid($cid=0){
-                $article_table = $this->article_table;
-		if($cid == 0){
-			$this->db->select('SUM(click_count) as sum');
-			$query = $this->db->get($article_table);
-			$row = $query->row();
-			  return $row->sum;
-		}else {
-			$this->db->where('cid='.$cid);
-			$this->db->select('SUM(click_count) as sum');
-			$query = $this->db->get($article_table);
-			if ($query->num_rows() > 0)
-			{
-				$row = $query->row();
-				  return $row->sum;
-			}
-		}
-	}
-	
-	function clear_article_by_cid($cid){
-		
-		$this->db->where("cid",$cid);
-		
-		$result = $this->db->delete($this->article_table);
-		
-		return $result;
-	}
-
-	function count_articles($cid="",$labelid="",$keyword=""){
+	function count_incomes($accountid="",$typeid=""){
 			
 		$this->db->select('COUNT(id) AS count');
 		
 		$where = '1=1';
 		
-		if(!empty($cid)){
-			$where = $where." AND cid ='".$cid."'";
+		if(!empty($accountid)){
+			$where = $where." AND accountid ='".$accountid."'";
 		}
 		
-		if(!empty($labelid)){
-			$where = $where." AND labelid ='".$labelid."'";
-		}
-		
-		if(!empty($keyword)){
-			$where = $where." AND title like '%".$keyword."%'";
+		if(!empty($typeid)){
+			$where = $where." AND typeid ='".$typeid."'";
 		}
 		
 		$this->db->where($where,NULL,FALSE);
 		
-		$query = $this->db->get($this->article_table);
+		$query = $this->db->get($this->incomes_table);
 
 		if ($query->num_rows() > 0)
 		{
@@ -223,57 +165,5 @@ class M_incomes extends CI_Model{
 			return 0;
 		}
 		
-	}
-	
-	function count_articles_by_keyword($keyword){
-		
-		$this->db->select('COUNT(id) AS count');
-		$this->db->like('title',$keyword);
-		$query = $this->db->get($this->article_table);
-
-		if ($query->num_rows() > 0)
-		{
-		   $row = $query->row();
-		   return $row->count;
-		}else{
-			return 0;
-		}
-	}
-	
-	function get_articles_by_keyword($keyword,$limit=40,$offset=0)
-	{
-		$this->db->like('title',$keyword);
-		$query = $this->db->get($this->article_table,$limit,$offset);
-		return $query;
-	}
-	
-	function vote_good($id){
-		$this->db->where('id',$id);
-		
-		$this->db->set('good',"good + 1", FALSE);
-		
-		$this->db->update($this->article_table);
-		
-		return $id;
-	}
-	
-	function vote_unlike($id){
-		$this->db->where('id',$id);
-		
-		$this->db->set('unlike',"unlike + 1", FALSE);
-		
-		$this->db->update($this->article_table);
-		
-		return $id;
-	}
-	
-	function add_click_count($id){
-		$this->db->where('id',$id);
-		
-		$this->db->set('click_count',"click_count + 1", FALSE);
-		
-		$this->db->update($this->article_table);
-		
-		return $id;
 	}
 }

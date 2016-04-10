@@ -47,6 +47,29 @@
 				  </li>
 				</ul>
 			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">财务管理<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+				  <li class="">
+					<a href="<?php echo site_url('finance/accountbook')?>">账簿</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('finance/expenditure')?>">支出</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('finance/income')?>">收入</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('finance/asset')?>">资产</a>
+				  </li>
+				   <li class="">
+					<a href="<?php echo site_url('finance/liabilities')?>">负债</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('finance/status')?>">统计</a>
+				  </li>
+				</ul>
+			</li>
 			 <li class="">
                 <a href="<?php echo site_url('admin/managearticle')?>">文章项管理</a>
               </li>
