@@ -701,16 +701,11 @@ class M_login extends CI_Model{
 				'constraint' => '128',
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE,
-			),	
-			'bookid' => array(
-				'type' => 'INT',
-				'constraint' => '128',
-				'unsigned' => TRUE,
 			),				
 			'name' => array(
 				 'type' => 'VARCHAR',
 				 'constraint' => '128',
-		    )
+		    ),
 		    'typeid' => array(
 				'type' => 'INT',
 				'constraint' => '128',
@@ -748,6 +743,11 @@ class M_login extends CI_Model{
 				'constraint' => '128',
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE,
+			),	
+			'bookid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
 			),	
 			'accountid' => array(
 				'type' => 'INT',
@@ -795,6 +795,11 @@ class M_login extends CI_Model{
 				'constraint' => '128',
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE,
+			),	
+			'bookid' => array(
+				'type' => 'INT',
+				'constraint' => '128',
+				'unsigned' => TRUE,
 			),	
 			'accountid' => array(
 				'type' => 'INT',
@@ -932,6 +937,11 @@ class M_login extends CI_Model{
 			),	
 			'unitexpenditure' => array(
 				'type' => 'DOUBLE',
+			),
+			'remark' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+				 'null' => true
 			),	
 			'adddatetime' => array(
 				 'type' => 'VARCHAR',
@@ -985,6 +995,11 @@ class M_login extends CI_Model{
 			),	
 			'income' => array(
 				'type' => 'DOUBLE',
+			),
+			'remark' => array(
+				 'type' => 'VARCHAR',
+				 'constraint' => '255',
+				 'null' => true
 			),	
 			'adddatetime' => array(
 				 'type' => 'VARCHAR',

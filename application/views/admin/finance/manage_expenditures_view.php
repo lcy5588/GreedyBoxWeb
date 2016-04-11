@@ -1,5 +1,5 @@
 	<div class="container">
-		<div class="row"><h3>账户管理</h3></div>
+		<div class="row"><h3>支出管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="addlabel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -63,33 +63,39 @@
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addlabel">添加</button></li>
 		</ul>
 		</div>
-	<?php if($accounts->num_rows()>0){ ?>
+	<?php if($expenditures->num_rows()>0){ ?>
   <div class="row" style="margin-top:10px;">
 	<table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>序号</th>
-        <th>名称</th>
+        <th>账簿</th>
+		<th>账户</th>
 		<th>类型</th>
-		<th>初始金钱</th>
+		<th>收入</th>
+		<th>人员</th>
 		<th>备注</th>
+		<th>时间</th>
         <th>操作</th>
       </tr>
     </thead>
     <tbody>
 	<?php
-	 foreach ($accounts->result() as $account):
+	 foreach ($expenditures->result() as $expenditure):
 	//条目开始
 		?>
 	<tr>
-    	<td><?php echo $account->accountid ?></td>
-        <td><?php echo $account->name ?></td>
-		<td><?php echo $account->typeid ?></td>
-		<td><?php echo $account->initmoney ?></td>
-		<td><?php echo $account->remark ?></td>
+    	<td><?php echo $expenditure->expenditureid ?></td>
+        <td><?php echo $expenditure->bookid ?></td>
+		<td><?php echo $expenditure->accountid ?></td>
+		<td><?php echo $expenditure->typeid ?></td>
+		<td><?php echo $expenditure->money ?></td>
+		<td><?php echo $expenditure->person ?></td>
+		<td><?php echo $expenditure->remark ?></td>
+		<td><?php echo $expenditure->datetime ?></td>
         <td>
-        	<a href="#" title="修改此条" class="btn_update" data-accountid="<?php echo $account->accountid; ?>">修改</a>&nbsp;&nbsp;
-        	<a href="#" title="删除此条" class="btn_delete"  data-accountid="<?php echo $account->accountid; ?>">删除</a>
+        	<a href="#" title="修改此条" class="btn_update" data-expenditureid="<?php echo $expenditure->expenditureid; ?>">修改</a>&nbsp;&nbsp;
+        	<a href="#" title="删除此条" class="btn_delete"  data-expenditureid="<?php echo $expenditure->expenditureid; ?>">删除</a>
         </td>
       </tr>
 	<?php

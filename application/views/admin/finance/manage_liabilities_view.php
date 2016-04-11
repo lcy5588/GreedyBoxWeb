@@ -1,5 +1,5 @@
 	<div class="container">
-		<div class="row"><h3>账户管理</h3></div>
+		<div class="row"><h3>负债管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="addlabel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -63,33 +63,41 @@
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addlabel">添加</button></li>
 		</ul>
 		</div>
-	<?php if($accounts->num_rows()>0){ ?>
+	<?php if($liabilities->num_rows()>0){ ?>
   <div class="row" style="margin-top:10px;">
 	<table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>序号</th>
         <th>名称</th>
-		<th>类型</th>
-		<th>初始金钱</th>
+		<th>每月支出</th>
+		<th>负债</th>
 		<th>备注</th>
+		<th>添加时间</th>
+		<th>删除时间</th>
+		<th>计算时间</th>
+		<th>自动计算</th>
         <th>操作</th>
       </tr>
     </thead>
     <tbody>
 	<?php
-	 foreach ($accounts->result() as $account):
+	 foreach ($liabilities->result() as $liabilitie):
 	//条目开始
 		?>
 	<tr>
-    	<td><?php echo $account->accountid ?></td>
-        <td><?php echo $account->name ?></td>
-		<td><?php echo $account->typeid ?></td>
-		<td><?php echo $account->initmoney ?></td>
-		<td><?php echo $account->remark ?></td>
+    	<td><?php echo $liabilitie->liabilitieid ?></td>
+        <td><?php echo $liabilitie->name ?></td>
+		<td><?php echo $liabilitie->unitexpenditure ?></td>
+		<td><?php echo $liabilitie->totalcost ?></td>
+		<td><?php echo $liabilitie->remark ?></td>
+		<td><?php echo $liabilitie->adddatetime ?></td>
+		<td><?php echo $liabilitie->deldatetime ?></td>
+		<td><?php echo $liabilitie->caldatetime ?></td>
+		<td><?php echo $liabilitie->isauto ?></td>
         <td>
-        	<a href="#" title="修改此条" class="btn_update" data-accountid="<?php echo $account->accountid; ?>">修改</a>&nbsp;&nbsp;
-        	<a href="#" title="删除此条" class="btn_delete"  data-accountid="<?php echo $account->accountid; ?>">删除</a>
+        	<a href="#" title="修改此条" class="btn_update" data-liabilitieid="<?php echo $liabilitie->liabilitieid; ?>">修改</a>&nbsp;&nbsp;
+        	<a href="#" title="删除此条" class="btn_delete"  data-liabilitieid="<?php echo $liabilitie->liabilitieid; ?>">删除</a>
         </td>
       </tr>
 	<?php

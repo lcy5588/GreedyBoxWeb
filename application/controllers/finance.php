@@ -139,6 +139,57 @@ class Finance extends CI_Controller {
 		$this->load->view('admin/finance/manage_liabilities_view');
 	}
 	
+	public function accounttype()
+	{
+		$data['accounttype']=$this->M_accounttype->get_all_accounttype();
+		
+		$this->config->load('site_info');
+				
+		//站点信息
+		$data['site_name'] = $this->config->item('site_name');
+
+		//keysords和description
+		$data['site_keyword'] = $this->config->item('site_keyword');
+		$data['site_description'] = $this->config->item('site_description');
+		
+		$this->load->view('admin/include_header',$data);
+		$this->load->view('admin/finance/manage_accounttype_view');
+	}
+	
+	public function incometype()
+	{
+		$data['incometype']=$this->M_incometype->get_all_incometype();
+		
+		$this->config->load('site_info');
+				
+		//站点信息
+		$data['site_name'] = $this->config->item('site_name');
+
+		//keysords和description
+		$data['site_keyword'] = $this->config->item('site_keyword');
+		$data['site_description'] = $this->config->item('site_description');
+		
+		$this->load->view('admin/include_header',$data);
+		$this->load->view('admin/finance/manage_incometype_view');
+	}
+	
+	public function expendituretype()
+	{
+		$data['expendituretype']=$this->M_expendituretype->get_all_expendituretype();
+		
+		$this->config->load('site_info');
+				
+		//站点信息
+		$data['site_name'] = $this->config->item('site_name');
+
+		//keysords和description
+		$data['site_keyword'] = $this->config->item('site_keyword');
+		$data['site_description'] = $this->config->item('site_description');
+		
+		$this->load->view('admin/include_header',$data);
+		$this->load->view('admin/finance/manage_expendituretype_view');
+	}
+	
 	public function status()
 	{
 		

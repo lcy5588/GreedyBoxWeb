@@ -1,12 +1,12 @@
 	<div class="container">
-		<div class="row"><h3>账户管理</h3></div>
+		<div class="row"><h3>账户类型管理</h3></div>
          <!--增加修改modal--> 
           <div class="modal fade" id="addlabel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     	<div class="modal-content">
     		<div class="modal-header">
       			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      			<h4 class="modal-title" id="addlabel_modal-title">新增账户</h4>
+      			<h4 class="modal-title" id="addlabel_modal-title">新增标签</h4>
     		</div>
         <div class="modal-body">
           <form role="form" id="addlabelform" name="addlabelform" method="post" action="<?php echo site_url('admin/addlabel')?>">
@@ -63,33 +63,27 @@
 		  <li class=""><button class="btn btn-primary" data-toggle="modal" data-target="#addlabel">添加</button></li>
 		</ul>
 		</div>
-	<?php if($accounts->num_rows()>0){ ?>
+	<?php if($accounttype->num_rows()>0){ ?>
   <div class="row" style="margin-top:10px;">
 	<table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>序号</th>
         <th>名称</th>
-		<th>类型</th>
-		<th>初始金钱</th>
-		<th>备注</th>
         <th>操作</th>
       </tr>
     </thead>
     <tbody>
 	<?php
-	 foreach ($accounts->result() as $account):
+	 foreach ($accounttype->result() as $type):
 	//条目开始
 		?>
 	<tr>
-    	<td><?php echo $account->accountid ?></td>
-        <td><?php echo $account->name ?></td>
-		<td><?php echo $account->typeid ?></td>
-		<td><?php echo $account->initmoney ?></td>
-		<td><?php echo $account->remark ?></td>
+    	<td><?php echo $type->typeid ?></td>
+        <td><?php echo $type->name ?></td>
         <td>
-        	<a href="#" title="修改此条" class="btn_update" data-accountid="<?php echo $account->accountid; ?>">修改</a>&nbsp;&nbsp;
-        	<a href="#" title="删除此条" class="btn_delete"  data-accountid="<?php echo $account->accountid; ?>">删除</a>
+        	<a href="#" title="修改此条" class="btn_update" data-typeid="<?php echo $type->typeid; ?>">修改</a>&nbsp;&nbsp;
+        	<a href="#" title="删除此条" class="btn_delete"  data-typeid="<?php echo $type->typeid; ?>">删除</a>
         </td>
       </tr>
 	<?php

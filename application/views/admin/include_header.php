@@ -23,7 +23,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">          
           <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav nav-stacked">
 			<li class="">
                 <a href="<?php echo site_url('admin')?>">仪表盘</a>
               </li>
@@ -54,10 +54,22 @@
 					<a href="<?php echo site_url('finance/accountbook')?>">账簿</a>
 				  </li>
 				  <li class="">
+					<a href="<?php echo site_url('finance/account')?>">账户</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('finance/accounttype')?>">账户类型</a>
+				  </li>
+				  <li class="">
 					<a href="<?php echo site_url('finance/expenditure')?>">支出</a>
 				  </li>
 				  <li class="">
+					<a href="<?php echo site_url('finance/expendituretype')?>">支出类型</a>
+				  </li>
+				  <li class="">
 					<a href="<?php echo site_url('finance/income')?>">收入</a>
+				  </li>
+				  <li class="">
+					<a href="<?php echo site_url('finance/incometype')?>">收入类型</a>
 				  </li>
 				  <li class="">
 					<a href="<?php echo site_url('finance/asset')?>">资产</a>
