@@ -1025,7 +1025,7 @@ class M_login extends CI_Model{
 		$this->dbforge->add_key('assetid');
 
 		//创建表assets，如果不存在
-	   if($this->dbforge->create_table('assetid', TRUE))
+	   if($this->dbforge->create_table('assets', TRUE))
 	   {
 		   $data['text'] .=  '<p>表assets创建成功!</p>';
 		   
